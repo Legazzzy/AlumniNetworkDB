@@ -2,7 +2,6 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
-import com.example.alumninetworkcase.models.EventDTO.UserDTO;
 import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.topic.TopicService;
@@ -32,14 +31,14 @@ public abstract class PostMapper {
     TopicService topicService;
 
     //Uses a PostDTO object to attain a Post object
-    @Mapping(target = "user", source="user", qualifiedByName = "usersToIds")
+    @Mapping(target = "users", source="users", qualifiedByName = "usersToIds")
     @Mapping(target = "group", source="group", qualifiedByName = "groupsToIds")
     @Mapping(target = "event", source="event", qualifiedByName = "eventsToIds")
     @Mapping(target = "topic", source="topic", qualifiedByName = "topicsToIds")
     public abstract PostDTO postToPostDTO(Post post);
 
     //Uses a Post object to attain a PostDTO object
-    @Mapping(target="user", source="user", qualifiedByName = "userIdToUser")
+    @Mapping(target="users", source="users", qualifiedByName = "userIdToUser")
     @Mapping(target="group", source="group", qualifiedByName = "groupIdToGroup")
     @Mapping(target="event", source="event", qualifiedByName = "eventIdToEvent")
     @Mapping(target="topic", source="topic", qualifiedByName = "topicIdToTopic")

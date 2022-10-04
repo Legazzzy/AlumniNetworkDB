@@ -2,7 +2,6 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.Event;
 import com.example.alumninetworkcase.models.EventDTO.GroupDTO;
-import com.example.alumninetworkcase.models.EventDTO.PostDTO;
 import com.example.alumninetworkcase.models.Group;
 import com.example.alumninetworkcase.models.Post;
 import com.example.alumninetworkcase.models.User;
@@ -31,13 +30,13 @@ public abstract class GroupMapper {
     PostService postService;
 
     //Uses a GroupDTO object to attain a Group object
-    @Mapping(target = "user", source="user", qualifiedByName = "usersToIds")
+    @Mapping(target = "users", source="users", qualifiedByName = "usersToIds")
     @Mapping(target = "event", source="event", qualifiedByName = "eventsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
     public abstract GroupDTO groupToGroupDTO(Group group);
 
     //Uses a Group object to attain a GroupDTO object
-    @Mapping(target="user", source="user", qualifiedByName = "userIdToUser")
+    @Mapping(target="users", source="users", qualifiedByName = "userIdToUser")
     @Mapping(target="event", source="event", qualifiedByName = "eventIdToEvent")
     @Mapping(target="posts", source="posts", qualifiedByName = "postIdToPost")
     public abstract Group GroupDTOToGroup (GroupDTO groupDTO);

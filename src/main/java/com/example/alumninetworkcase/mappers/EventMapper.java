@@ -2,9 +2,6 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.EventDTO;
-import com.example.alumninetworkcase.models.EventDTO.GroupDTO;
-import com.example.alumninetworkcase.models.EventDTO.TopicDTO;
-import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.topic.TopicService;
@@ -21,26 +18,26 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public abstract class EventMapper {
     @Autowired
-    UserService userService;
+    protected UserService userService;
 
     @Autowired
-    GroupService groupService;
+    protected GroupService groupService;
 
     @Autowired
-    TopicService topicService;
+    protected TopicService topicService;
 
     @Autowired
-    PostService postService;
+    protected PostService postService;
 
     //Uses a EventDTO object to attain a Event object
-    @Mapping(target = "user", source="user", qualifiedByName = "usersToIds")
+    @Mapping(target = "users", source="users", qualifiedByName = "usersToIds")
     @Mapping(target = "group", source="group", qualifiedByName = "groupsToIds")
     @Mapping(target = "topic", source="topic", qualifiedByName = "topicsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
     public abstract EventDTO eventToEventDTO(Event event);
 
     //Uses a Event object to attain a EventDTO object
-    @Mapping(target = "user", source = "user", qualifiedByName = "userIdToUser")
+    @Mapping(target = "users", source = "users", qualifiedByName = "userIdToUser")
     @Mapping(target = "group", source = "group", qualifiedByName = "groupIdToGroup")
     @Mapping(target = "topic", source = "topic", qualifiedByName = "topicIdToTopic")
     @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
@@ -48,7 +45,6 @@ public abstract class EventMapper {
 
     //Collection of Events into a collection of EventDTOs
     public abstract Collection<EventDTO> eventToEventDTO(Collection<Event> event);
-
 
     //Custom mappings
     //Maps id to user
