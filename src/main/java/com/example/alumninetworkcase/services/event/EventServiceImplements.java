@@ -1,5 +1,6 @@
 package com.example.alumninetworkcase.services.event;
 
+import com.example.alumninetworkcase.exceptions.EventNotFoundException;
 import com.example.alumninetworkcase.models.Event;
 import com.example.alumninetworkcase.repositories.EventRepo;
 import org.springframework.stereotype.Service;
@@ -17,36 +18,37 @@ public class EventServiceImplements implements EventService{
 
     @Override
     public Event findById(Integer id) {
-        return null;
+        return eventRepo.findById(id)
+                .orElseThrow(() -> new EventNotFoundException(id));
     }
 
     @Override
     public Collection<Event> findAll() {
-        return null;
+        return eventRepo.findAll();
     }
 
     @Override
     public Event add(Event entity) {
-        return null;
+        return eventRepo.save(entity);
     }
 
     @Override
     public Event update(Event entity) {
-        return null;
+        return eventRepo.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        eventRepo.deleteById(id);
     }
 
     @Override
     public void delete(Event entity) {
-
+        eventRepo.delete(entity);
     }
 
     @Override
     public boolean exists(Integer id) {
-        return false;
+        return eventRepo.existsById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.alumninetworkcase.services.post;
 
+import com.example.alumninetworkcase.exceptions.PostNotFoundException;
 import com.example.alumninetworkcase.models.Post;
 import com.example.alumninetworkcase.repositories.PostRepo;
 import org.springframework.stereotype.Service;
@@ -18,36 +19,37 @@ public class PostServiceImplements implements PostService{
 
     @Override
     public Post findById(Integer id) {
-        return null;
+        return postRepo.findById(id)
+                .orElseThrow(() -> new PostNotFoundException(id));
     }
 
     @Override
     public Collection<Post> findAll() {
-        return null;
+        return postRepo.findAll();
     }
 
     @Override
     public Post add(Post entity) {
-        return null;
+        return postRepo.save(entity);
     }
 
     @Override
     public Post update(Post entity) {
-        return null;
+        return postRepo.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        postRepo.deleteById(id);
     }
 
     @Override
     public void delete(Post entity) {
-
+        postRepo.delete(entity);
     }
 
     @Override
     public boolean exists(Integer id) {
-        return false;
+        return postRepo.existsById(id);
     }
 }
