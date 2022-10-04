@@ -25,31 +25,31 @@ public class UserServiceImplements implements UserService{
 
     @Override
     public Collection<User> findAll() {
-        return null;
+        return userRepo.findAll();
     }
 
     @Override
     public User add(User entity) {
-        return null;
+        return userRepo.save(entity);
     }
 
     @Override
     public User update(User entity) {
-        return null;
+        return userRepo.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        userRepo.deleteById(id);
     }
 
     @Override
     public void delete(User entity) {
-
+        userRepo.delete(entity);
     }
 
     @Override
     public boolean exists(Integer id) {
-        return false;
+        return userRepo.existsById(id);
     }
 }
