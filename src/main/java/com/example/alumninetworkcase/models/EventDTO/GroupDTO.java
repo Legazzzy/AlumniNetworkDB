@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class GroupDTO {
-    private int group_id; //PK
+    private int id; //PK
     private String name;
     private String description;
     private boolean isPrivate;

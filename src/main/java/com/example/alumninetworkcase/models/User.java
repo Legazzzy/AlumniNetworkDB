@@ -47,7 +47,7 @@ public class User {
     private Set<Topic> topics;
 
     //User to Post (One to Many)
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "target_user")
     private Set<Post> posts;
 
 }

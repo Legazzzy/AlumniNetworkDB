@@ -18,14 +18,14 @@ public class Topic {
     }
 
     //Variable used to store a Set of all the users that are a part of the topic
-    @ManyToMany (mappedBy = "users")
+    @ManyToMany (mappedBy = "topics")
     private Set<User> users;
 
     //Variable used to store a Set of all the events that are a part of the topic
-    @ManyToMany (mappedBy = "events")
+    @ManyToMany (mappedBy = "topics")
     private Set<Event> events;
 
     //User to Post (One to Many)
-    @OneToMany(mappedBy = "topics")
+    @OneToMany(mappedBy = "target_topic")
     private Set<Post> posts;
 }
