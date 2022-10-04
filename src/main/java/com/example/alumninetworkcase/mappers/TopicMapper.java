@@ -2,7 +2,6 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.Event;
 import com.example.alumninetworkcase.models.EventDTO.TopicDTO;
-import com.example.alumninetworkcase.models.EventDTO.UserDTO;
 import com.example.alumninetworkcase.models.Post;
 import com.example.alumninetworkcase.models.Topic;
 import com.example.alumninetworkcase.models.User;
@@ -31,13 +30,13 @@ public abstract class TopicMapper {
     PostService postService;
 
     //Many to many?
-    @Mapping(target = "user", source="user", qualifiedByName = "usersToIds")
+    @Mapping(target = "users", source="users", qualifiedByName = "usersToIds")
     @Mapping(target = "event", source="event", qualifiedByName = "eventsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
     public abstract TopicDTO topicToTopicDTO(Topic topic);
 
 
-    @Mapping(target = "user", source = "user", qualifiedByName = "userIdToUser")
+    @Mapping(target = "users", source = "users", qualifiedByName = "userIdToUser")
     @Mapping(target= "event", source = "event", qualifiedByName = "eventIdToEvent")
     @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
     public abstract Topic topicDTOToTopic(TopicDTO topic);
