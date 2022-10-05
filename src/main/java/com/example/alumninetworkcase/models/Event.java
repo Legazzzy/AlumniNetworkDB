@@ -8,7 +8,7 @@ import java.util.Set;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int event_id; //PK
+    private int id; //PK
 
     @Column(length = 50)
     private Timestamp last_updated;
@@ -54,10 +54,10 @@ public class Event {
     private Set<Post> posts;
 
     public int getId() {
-        return event_id;
+        return id;
     }
 
     public void setId(int id) {
-        this.event_id = id;
+        this.id = id;
     }
 }
