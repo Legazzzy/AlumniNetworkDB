@@ -30,15 +30,15 @@ public abstract class GroupMapper {
     PostService postService;
 
     //Uses a GroupDTO object to attain a Group object
-    @Mapping(target = "users", source="users", qualifiedByName = "usersToIds")
-    @Mapping(target = "event", source="event", qualifiedByName = "eventsToIds")
-    @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
+    @Mapping(target = "users", source= "users", qualifiedByName = "usersToIds")
+    @Mapping(target = "events", source= "events", qualifiedByName = "eventsToIds")
+    @Mapping(target = "posts", source= "posts", qualifiedByName = "postsToIds")
     public abstract GroupDTO groupToGroupDTO(Group group);
 
     //Uses a Group object to attain a GroupDTO object
-    @Mapping(target="users", source="users", qualifiedByName = "userIdToUser")
-    @Mapping(target="event", source="event", qualifiedByName = "eventIdToEvent")
-    @Mapping(target="posts", source="posts", qualifiedByName = "postIdToPost")
+    @Mapping(target="users", source= "users", qualifiedByName = "userIdToUser")
+    @Mapping(target="events", source= "events", qualifiedByName = "eventIdToEvent")
+    @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
     public abstract Group GroupDTOToGroup (GroupDTO groupDTO);
 
     //Collection of Groups into a collection of GroupDTOs

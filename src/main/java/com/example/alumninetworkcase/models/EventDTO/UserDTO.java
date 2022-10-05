@@ -2,6 +2,8 @@ package com.example.alumninetworkcase.models.EventDTO;
 
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 public class UserDTO {
     private int id;
@@ -10,4 +12,8 @@ public class UserDTO {
     private String status;
     private String bio;
     private String fun_fact;
+    private Set<Integer> groups;
+    private Set<Integer> events;
+    private Set<Integer> topics;
+    private Set<Integer> posts;
 }

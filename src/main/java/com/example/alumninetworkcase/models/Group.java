@@ -18,11 +18,11 @@ public class Group {
     @Column()
     private boolean isPrivate;
 
-    @OneToMany(mappedBy = "group")
-    private Set<Event> events;
-
     @ManyToMany (mappedBy = "groups")
     private Set<User> users;
+
+    @OneToMany(mappedBy = "group")
+    private Set<Event> events;
 
     @OneToMany(mappedBy = "target_group")
     private Set<Post> posts;

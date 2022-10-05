@@ -41,7 +41,7 @@ public class Event {
     @ManyToMany
     @JoinTable(
             name = "event_topic",
-            joinColumns = {@JoinColumn(name = "topic_id")},
+            joinColumns = {@JoinColumn(name = "event_id")},
             inverseJoinColumns = {@JoinColumn(name = "topic_id")}
     )
     private Set<Topic> topics;

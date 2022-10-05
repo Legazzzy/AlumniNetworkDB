@@ -23,7 +23,7 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "user_group",
-            joinColumns = {@JoinColumn(name = "group_id")},
+            joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "group_id")}
     )
     private Set<Group> groups;
@@ -32,7 +32,7 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "user_event",
-            joinColumns = {@JoinColumn(name = "event_id")},
+            joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "event_id")}
     )
     private Set<Event> events;
@@ -41,7 +41,7 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "user_topic",
-            joinColumns = {@JoinColumn(name = "topic_id")},
+            joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "topic_id")}
     )
     private Set<Topic> topics;

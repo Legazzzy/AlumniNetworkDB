@@ -21,23 +21,23 @@ import java.util.stream.Collectors;
 public abstract class TopicMapper {
 
     @Autowired
-    UserService userService;
+    protected UserService userService;
 
     @Autowired
-    EventService eventService;
+    protected EventService eventService;
 
     @Autowired
-    PostService postService;
+    protected PostService postService;
 
     //Many to many?
     @Mapping(target = "users", source="users", qualifiedByName = "usersToIds")
-    @Mapping(target = "event", source="event", qualifiedByName = "eventsToIds")
+    @Mapping(target = "events", source="events", qualifiedByName = "eventsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
     public abstract TopicDTO topicToTopicDTO(Topic topic);
 
 
     @Mapping(target = "users", source = "users", qualifiedByName = "userIdToUser")
-    @Mapping(target= "event", source = "event", qualifiedByName = "eventIdToEvent")
+    @Mapping(target = "events", source = "events", qualifiedByName = "eventIdToEvent")
     @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
     public abstract Topic topicDTOToTopic(TopicDTO topic);
 

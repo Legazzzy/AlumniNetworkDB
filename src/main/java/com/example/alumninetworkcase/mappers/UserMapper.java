@@ -20,30 +20,30 @@ import java.util.stream.Collectors;
 public abstract class UserMapper {
 
     @Autowired
-    GroupService groupService;
+    protected GroupService groupService;
 
     @Autowired
-    EventService eventService;
+    protected EventService eventService;
 
     @Autowired
-    TopicService topicService;
+    protected TopicService topicService;
 
     @Autowired
-    PostService postService;
+    protected PostService postService;
 
     //Uses a UserDTO object to attain a User object
     //MIGHT NEED TO REWRITE FOR MANY TO MANY INTERACTIONS
-    @Mapping(target = "group", source="group", qualifiedByName = "groupsToIds")
-    @Mapping(target = "event", source="event", qualifiedByName = "eventsToIds")
-    @Mapping(target = "topic", source="topic", qualifiedByName = "topicsToIds")
-    @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
-    public abstract UserDTO userToUserDTO(User user);
+    @Mapping(target = "groups", source= "groups", qualifiedByName = "groupsToIds")
+    @Mapping(target = "events", source= "events", qualifiedByName = "eventsToIds")
+    @Mapping(target = "topics", source= "topics", qualifiedByName = "topicsToIds")
+    @Mapping(target = "posts", source= "posts", qualifiedByName = "postsToIds")
+    public abstract UserDTO  userToUserDTO(User user);
 
     //Uses a User object to attain a UserDTO object
-    @Mapping(target="group", source="group", qualifiedByName = "groupIdToGroup")
-    @Mapping(target="event", source="event", qualifiedByName = "eventIdToEvent")
-    @Mapping(target="topic", source="topic", qualifiedByName = "topicIdToTopic")
-    @Mapping(target="posts", source="posts", qualifiedByName = "postIdToPost")
+    @Mapping(target="groups", source= "groups", qualifiedByName = "groupIdToGroup")
+    @Mapping(target="events", source= "events", qualifiedByName = "eventIdToEvent")
+    @Mapping(target="topics", source= "topics", qualifiedByName = "topicIdToTopic")
+    @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
     public abstract User userDTOToUser (UserDTO userDTO);
 
     //Collection of Users into a collection of UserDTOs
