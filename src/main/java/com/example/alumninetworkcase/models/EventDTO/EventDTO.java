@@ -17,5 +17,5 @@ public class EventDTO {
     private Timestamp end_time;
     private Timestamp last_updated;
 
-    private Set<Integer> Users;
+    private Set<Integer> students;
 }

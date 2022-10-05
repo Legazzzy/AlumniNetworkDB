@@ -19,7 +19,7 @@ public class Group {
     private boolean isPrivate;
 
     @ManyToMany (mappedBy = "groups")
-    private Set<User> users;
+    private Set<Student> students;
 
     @OneToMany(mappedBy = "group")
     private Set<Event> events;

@@ -14,8 +14,8 @@ public class Event {
     private Timestamp last_updated;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User created_by; //FK
+    @JoinColumn(name = "student_id")
+    private Student created_by; //FK
 
     @Column(length = 50)
     private String name;
@@ -36,7 +36,7 @@ public class Event {
     private Timestamp end_time;
 
     @ManyToMany(mappedBy = "events")
-    private Set<User> users;
+    private Set<Student> students;
 
     @ManyToMany
     @JoinTable(

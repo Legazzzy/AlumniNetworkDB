@@ -19,7 +19,7 @@ public class Topic {
 
     //Variable used to store a Set of all the users that are a part of the topic
     @ManyToMany (mappedBy = "topics")
-    private Set<User> users;
+    private Set<Student> students;
 
     //Variable used to store a Set of all the events that are a part of the topic
     @ManyToMany (mappedBy = "topics")

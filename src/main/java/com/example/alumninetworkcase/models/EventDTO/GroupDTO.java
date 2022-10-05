@@ -11,7 +11,7 @@ public class GroupDTO {
     private String description;
     private boolean isPrivate;
 
-    private Set<Integer> users;
+    private Set<Integer> students;
     private Set<Integer> events;
     private Set<Integer> posts;
 }

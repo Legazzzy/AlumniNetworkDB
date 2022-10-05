@@ -4,6 +4,7 @@ import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.EventDTO;
 import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.post.PostService;
+import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import com.example.alumninetworkcase.services.user.UserService;
 import org.mapstruct.Mapper;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public abstract class EventMapper {
     @Autowired
-    protected UserService userService;
+    protected StudentService studentService;
 
     @Autowired
     protected GroupService groupService;
@@ -30,14 +31,14 @@ public abstract class EventMapper {
     protected PostService postService;
 
     //Uses a EventDTO object to attain a Event object
-    @Mapping(target = "users", source="users", qualifiedByName = "usersToIds")
+    @Mapping(target = "students", source="students", qualifiedByName = "studentsToIds")
     @Mapping(target = "group", source="group", qualifiedByName = "groupsToIds")
     @Mapping(target = "topic", source="topic", qualifiedByName = "topicsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
     public abstract EventDTO eventToEventDTO(Event event);
 
     //Uses a Event object to attain a EventDTO object
-    @Mapping(target = "users", source = "users", qualifiedByName = "userIdToUser")
+    @Mapping(target = "students", source = "students", qualifiedByName = "studentIdToStudent")
     @Mapping(target = "group", source = "group", qualifiedByName = "groupIdToGroup")
     @Mapping(target = "topic", source = "topic", qualifiedByName = "topicIdToTopic")
     @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
@@ -48,8 +49,8 @@ public abstract class EventMapper {
 
     //Custom mappings
     //Maps id to user
-    @Named("userIdToUser")
-    User mapIdToUser(int id) { return userService.findById(id);}
+    @Named("studentIdToStudent")
+    Student mapIdTOStudent(int id) { return studentService.findById(id);}
 
     //Maps id to group
     @Named("groupIdToGroup")
@@ -64,8 +65,8 @@ public abstract class EventMapper {
     Post mapIdToPost(int id) { return postService.findById(id);}
 
     //Map users to ids
-    @Named("usersToIds")
-    Set<Integer> mapUsersToIds(Set<User> source) {
+    @Named("studentsToIds")
+    Set<Integer> mapStudentsToIds(Set<Student> source) {
         if(source == null)
             return null;
         return source.stream()

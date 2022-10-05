@@ -15,7 +15,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;  //FK
+    private Student student_id;  //FK
 
     @OneToMany(mappedBy = "post")
     private Set<Post> replies;  //FK
@@ -25,8 +25,8 @@ public class Post {
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User target_user;  //FK
+    @JoinColumn(name = "student_id")
+    private User target_student;  //FK
 
     @ManyToOne
     @JoinColumn(name = "group_id")
