@@ -60,4 +60,100 @@ public class Event {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Timestamp getLast_updated() {
+        return last_updated;
+    }
+
+    public void setLast_updated(Timestamp last_updated) {
+        this.last_updated = last_updated;
+    }
+
+    public Student getCreated_by() {
+        return created_by;
+    }
+
+    public void setCreated_by(Student created_by) {
+        this.created_by = created_by;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isAllow_guests() {
+        return allow_guests;
+    }
+
+    public void setAllow_guests(boolean allow_guests) {
+        this.allow_guests = allow_guests;
+    }
+
+    public String getBanner_img() {
+        return banner_img;
+    }
+
+    public void setBanner_img(String banner_img) {
+        this.banner_img = banner_img;
+    }
+
+    public Timestamp getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Timestamp start_time) {
+        this.start_time = start_time;
+    }
+
+    public Timestamp getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(Timestamp end_time) {
+        this.end_time = end_time;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
 }
