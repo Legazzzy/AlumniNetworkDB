@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class UserDTO {
+public class StudentDTO {
     private int id; //PK
     private String name;
     private String picture;
