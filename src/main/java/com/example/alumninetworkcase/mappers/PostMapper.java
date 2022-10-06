@@ -4,6 +4,7 @@ import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
 import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.group.GroupService;
+import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import com.example.alumninetworkcase.services.user.UserService;
@@ -30,6 +31,9 @@ public abstract class PostMapper {
 
     @Autowired
     TopicService topicService;
+
+    @Autowired
+    PostService postService;
 
     //Uses a PostDTO object to attain a Post object
     @Mapping(target = "target_student", source="target_student.id")
@@ -65,6 +69,11 @@ public abstract class PostMapper {
     @Named("topicIdToTopic")
     Topic mapIdToTopic(int id) { return topicService.findById(id);}
 
+    //Maps id to post
+    @Named("mapIdToPost")
+    Post mapIdToPost(int id) { return postService.findById(id);}
+
+
     //Maps users to ids
     @Named("studentsToIds")
     Set<Integer> mapStudentsToIds(Set<Student> source) {
@@ -92,6 +101,14 @@ public abstract class PostMapper {
     //Maps topics to ids
     @Named("topicToIds")
     Set<Integer> mapTopicsToIds(Set<Topic> source) {
+        if (source == null)
+            return null;
+        return source.stream().map(s -> s.getId()).collect(Collectors.toSet());
+    }
+
+    //Maps posts to ids
+    @Named("postsToIds")
+    Set<Integer> mapPostsToIds(Set<Post> source) {
         if (source == null)
             return null;
         return source.stream().map(s -> s.getId()).collect(Collectors.toSet());
