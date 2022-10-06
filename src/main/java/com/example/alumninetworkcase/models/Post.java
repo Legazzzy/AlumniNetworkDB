@@ -14,18 +14,18 @@ public class Post {
     private Timestamp timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "sender_student_id")
+    @JoinColumn(name = "student_id")
     private Student sender_student;  //FK
 
-    @OneToMany(mappedBy = "post")
+    /*@OneToMany(mappedBy = "post")
     private Set<Post> replies;  //FK
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Post reply_post;
+    private Post reply_post; //FK*/
 
     @ManyToOne
-    @JoinColumn(name = "target_student_id")
+    @JoinColumn(name = "student_id")
     private Student target_student;  //FK
 
     @ManyToOne
@@ -64,20 +64,6 @@ public class Post {
         this.sender_student = student;
     }
 
-    public Set<Post> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(Set<Post> replies) {
-        this.replies = replies;
-    }
-
-    public Post getReply_post() {
-        return reply_post;
-    }
-
-    public void setReply_post(Post reply_post) {this.reply_post = reply_post;}
-
     public Student getTarget_student() {
         return target_student;
     }
@@ -109,4 +95,18 @@ public class Post {
     public void setTarget_event(Event target_event) {
         this.target_event = target_event;
     }
+/*
+    public Set<Post> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(Set<Post> replies) {
+        this.replies = replies;
+    }
+
+    public Post getReply_post() {
+        return reply_post;
+    }
+
+    public void setReply_post(Post reply_post) {this.reply_post = reply_post;}*/
 }

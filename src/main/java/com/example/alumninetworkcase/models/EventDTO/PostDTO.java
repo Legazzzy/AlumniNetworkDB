@@ -12,10 +12,11 @@ import java.util.Set;
 public class PostDTO {
     private Timestamp timestamp;
     private int sender_student;  //FK
-    private int reply_post;  //FK
     private int target_student;  //FK
     private int target_event; //FK
     private int target_group; //FK
     private int target_topic; //FK
-    private Set<Integer> replies; //FK
+
+    //private int reply_post;  //FK
+    //private Set<Integer> replies; //FK
 }
