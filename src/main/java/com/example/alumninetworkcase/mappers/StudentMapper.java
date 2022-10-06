@@ -36,6 +36,7 @@ public abstract class StudentMapper {
     //MIGHT NEED TO REWRITE FOR MANY TO MANY INTERACTIONS
     @Mapping(target = "groups", source= "groups", qualifiedByName = "groupsToIds")
     @Mapping(target = "events", source= "events", qualifiedByName = "eventsToIds")
+    @Mapping(target = "createdEvents", source= "createdEvents", qualifiedByName = "eventsToIds")
     @Mapping(target = "topics", source= "topics", qualifiedByName = "topicsToIds")
     @Mapping(target = "posts", source= "posts", qualifiedByName = "postsToIds")
     public abstract StudentDTO studentToStudentDTO(Student student);
@@ -43,6 +44,7 @@ public abstract class StudentMapper {
     //Uses a User object to attain a UserDTO object
     @Mapping(target="groups", source= "groups", qualifiedByName = "groupIdToGroup")
     @Mapping(target="events", source= "events", qualifiedByName = "eventIdToEvent")
+    @Mapping(target = "createdEvents", source= "createdEvents", qualifiedByName = "eventIdToEvent")
     @Mapping(target="topics", source= "topics", qualifiedByName = "topicIdToTopic")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
     public abstract Student studentDTOToStudent (StudentDTO student);

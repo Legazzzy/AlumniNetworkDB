@@ -8,7 +8,7 @@ import java.util.Set;
 @Data
 public class EventDTO {
     private int id; //PK
-    private int created_by; //FK
+    private int creator_student; //FK
     private String name;
     private String description;
     private boolean allow_guests;
@@ -17,5 +17,8 @@ public class EventDTO {
     private Timestamp end_time;
     private Timestamp last_updated;
 
+    private int group;
+    private Set<Integer> topics;
     private Set<Integer> students;
+    private Set<Integer> posts;
 }

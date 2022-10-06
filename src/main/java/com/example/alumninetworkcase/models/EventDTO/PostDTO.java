@@ -13,6 +13,7 @@ public class PostDTO {
     private int sender_student;  //FK
     private int reply_parent_id;  //FK
     private int target_student;  //FK
+    private int target_event; //FK
     private int target_group; //FK
     private int target_topic; //FK
 }

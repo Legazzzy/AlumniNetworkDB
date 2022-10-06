@@ -31,15 +31,18 @@ public abstract class EventMapper {
     protected PostService postService;
 
     //Uses a EventDTO object to attain a Event object
+
+    @Mapping(target = "creator_student", source="creator_student.id")
+    @Mapping(target = "group", source="group.id")
     @Mapping(target = "students", source="students", qualifiedByName = "studentsToIds")
-    @Mapping(target = "groups", source="groups", qualifiedByName = "groupsToIds")
     @Mapping(target = "topics", source="topics", qualifiedByName = "topicsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
     public abstract EventDTO eventToEventDTO(Event event);
 
     //Uses a Event object to attain a EventDTO object
+    @Mapping(target = "creator_student", source="creator_student", qualifiedByName = "studentIdToStudent")
     @Mapping(target = "students", source = "students", qualifiedByName = "studentIdToStudent")
-    @Mapping(target = "groups", source = "groups", qualifiedByName = "groupIdToGroup")
+    @Mapping(target = "group", source = "group", qualifiedByName = "groupIdToGroup")
     @Mapping(target = "topics", source = "topics", qualifiedByName = "topicIdToTopic")
     @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
     public abstract Event eventDTOToEvent(EventDTO eventDTO);
@@ -82,7 +85,7 @@ public abstract class EventMapper {
     }
 
     //Maps topics to ids
-    @Named("topicToIds")
+    @Named("topicsToIds")
     Set<Integer> mapTopicsToIds(Set<Topic> source) {
         if (source == null)
             return null;

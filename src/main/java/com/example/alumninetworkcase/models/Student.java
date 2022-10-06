@@ -37,6 +37,9 @@ public class Student {
     )
     private Set<Event> events;
 
+    @OneToMany(mappedBy = "creator_student")
+    private Set<Event> createdEvents;
+
     //User to Topic (Many to Many)
     @ManyToMany
     @JoinTable(
@@ -80,5 +83,13 @@ public class Student {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<Event> getCreatedEvents() {
+        return createdEvents;
+    }
+
+    public void setCreatedEvents(Set<Event> createdEvents) {
+        this.createdEvents = createdEvents;
     }
 }

@@ -15,7 +15,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-    private Student created_by; //FK
+    private Student creator_student; //FK
 
     @Column(length = 50)
     private String name;
@@ -69,12 +69,12 @@ public class Event {
         this.last_updated = last_updated;
     }
 
-    public Student getCreated_by() {
-        return created_by;
+    public Student getCreator_student() {
+        return creator_student;
     }
 
-    public void setCreated_by(Student created_by) {
-        this.created_by = created_by;
+    public void setCreator_student(Student creator_student) {
+        this.creator_student = creator_student;
     }
 
     public String getName() {
