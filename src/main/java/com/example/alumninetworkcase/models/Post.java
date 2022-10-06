@@ -22,7 +22,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Post post;
+    private Post reply_post;
 
     @ManyToOne
     @JoinColumn(name = "target_student_id")
@@ -56,11 +56,11 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public Student getStudent() {
+    public Student getSender_student() {
         return sender_student;
     }
 
-    public void setStudent(Student student) {
+    public void setSender_student(Student student) {
         this.sender_student = student;
     }
 
@@ -72,13 +72,11 @@ public class Post {
         this.replies = replies;
     }
 
-    public Post getPost() {
-        return post;
+    public Post getReply_post() {
+        return reply_post;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
-    }
+    public void setReply_post(Post reply_post) {this.reply_post = reply_post;}
 
     public Student getTarget_student() {
         return target_student;

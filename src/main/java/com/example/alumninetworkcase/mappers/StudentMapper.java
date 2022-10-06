@@ -3,7 +3,6 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
-import com.example.alumninetworkcase.models.EventDTO.UserDTO;
 import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.post.PostService;

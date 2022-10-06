@@ -7,7 +7,6 @@ import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
-import com.example.alumninetworkcase.services.user.UserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -36,17 +35,23 @@ public abstract class PostMapper {
     PostService postService;
 
     //Uses a PostDTO object to attain a Post object
+    @Mapping(target = "sender_student", source = "sender_student.id")
     @Mapping(target = "target_student", source="target_student.id")
     @Mapping(target = "target_group", source="target_group.id")
     @Mapping(target = "target_event", source="target_event.id")
     @Mapping(target = "target_topic", source="target_topic.id")
+    @Mapping(target = "reply_post", source="reply_post.id")
+    @Mapping(target = "replies", source="replies", qualifiedByName = "postsToIds")
     public abstract PostDTO postToPostDTO(Post post);
 
     //Uses a Post object to attain a PostDTO object
+    @Mapping(target="sender_student", source="sender_student", qualifiedByName = "studentIdToStudent")
     @Mapping(target="target_student", source="target_student", qualifiedByName = "studentIdToStudent")
     @Mapping(target="target_group", source="target_group", qualifiedByName = "groupIdToGroup")
     @Mapping(target="target_event", source="target_event", qualifiedByName = "eventIdToEvent")
     @Mapping(target="target_topic", source="target_topic", qualifiedByName = "topicIdToTopic")
+    @Mapping(target="reply_post", source="reply_post", qualifiedByName = "postIdToPost")
+    @Mapping(target="replies", source="replies", qualifiedByName = "postIdToPost")
     public abstract Post PostDTOToPost (PostDTO postDTO);
 
     //Collection of Posts into a collection of PostDTOs
@@ -70,7 +75,7 @@ public abstract class PostMapper {
     Topic mapIdToTopic(int id) { return topicService.findById(id);}
 
     //Maps id to post
-    @Named("mapIdToPost")
+    @Named("postIdToPost")
     Post mapIdToPost(int id) { return postService.findById(id);}
 
 

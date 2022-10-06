@@ -6,7 +6,6 @@ import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
-import com.example.alumninetworkcase.services.user.UserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
