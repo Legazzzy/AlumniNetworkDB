@@ -48,7 +48,7 @@ public abstract class StudentMapper {
     public abstract Student studentDTOToStudent (StudentDTO student);
 
     //Collection of Users into a collection of UserDTOs
-    public abstract Collection<UserDTO> userToUserDTO(Collection<User> user);
+    public abstract Collection<StudentDTO> studentToStudentDTO(Collection<Student> student);
 
     //Custom mappings
     //Maps id to group

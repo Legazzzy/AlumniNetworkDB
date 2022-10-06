@@ -14,8 +14,8 @@ public class Post {
     private Timestamp timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Student student_id;  //FK
+    @JoinColumn(name = "student_id")
+    private Student sender_student;  //FK
 
     @OneToMany(mappedBy = "post")
     private Set<Post> replies;  //FK
@@ -26,7 +26,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-    private User target_student;  //FK
+    private Student target_student;  //FK
 
     @ManyToOne
     @JoinColumn(name = "group_id")
@@ -56,12 +56,12 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public Student getStudent_id() {
-        return student_id;
+    public Student getStudent() {
+        return sender_student;
     }
 
-    public void setStudent_id(Student student_id) {
-        this.student_id = student_id;
+    public void setStudent(Student student) {
+        this.sender_student = student;
     }
 
     public Set<Post> getReplies() {
@@ -80,11 +80,11 @@ public class Post {
         this.post = post;
     }
 
-    public User getTarget_student() {
+    public Student getTarget_student() {
         return target_student;
     }
 
-    public void setTarget_student(User target_student) {
+    public void setTarget_student(Student target_student) {
         this.target_student = target_student;
     }
 

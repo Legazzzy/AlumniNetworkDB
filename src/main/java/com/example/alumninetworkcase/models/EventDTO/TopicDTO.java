@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Data
 public class TopicDTO {
-    private int id;
+    private int id; //PK
     private String name;
     private String description;
 

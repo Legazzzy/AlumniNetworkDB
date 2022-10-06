@@ -32,17 +32,17 @@ public abstract class PostMapper {
     TopicService topicService;
 
     //Uses a PostDTO object to attain a Post object
-    @Mapping(target = "students", source="students", qualifiedByName = "studentsToIds")
-    @Mapping(target = "group", source="group", qualifiedByName = "groupsToIds")
-    @Mapping(target = "event", source="event", qualifiedByName = "eventsToIds")
-    @Mapping(target = "topic", source="topic", qualifiedByName = "topicsToIds")
+    @Mapping(target = "target_student", source="target_student.id")
+    @Mapping(target = "target_group", source="target_group.id")
+    @Mapping(target = "target_event", source="target_event.id")
+    @Mapping(target = "target_topic", source="target_topic.id")
     public abstract PostDTO postToPostDTO(Post post);
 
     //Uses a Post object to attain a PostDTO object
-    @Mapping(target="students", source="students", qualifiedByName = "studentIdToStudent")
-    @Mapping(target="group", source="group", qualifiedByName = "groupIdToGroup")
-    @Mapping(target="event", source="event", qualifiedByName = "eventIdToEvent")
-    @Mapping(target="topic", source="topic", qualifiedByName = "topicIdToTopic")
+    @Mapping(target="target_student", source="target_student", qualifiedByName = "studentIdToStudent")
+    @Mapping(target="target_group", source="target_group", qualifiedByName = "groupIdToGroup")
+    @Mapping(target="target_event", source="target_event", qualifiedByName = "eventIdToEvent")
+    @Mapping(target="target_topic", source="target_topic", qualifiedByName = "topicIdToTopic")
     public abstract Post PostDTOToPost (PostDTO postDTO);
 
     //Collection of Posts into a collection of PostDTOs
