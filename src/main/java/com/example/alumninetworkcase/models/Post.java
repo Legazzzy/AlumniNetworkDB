@@ -10,11 +10,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(length = 50, nullable = false)
     private Timestamp timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "sender_student_id")
     private Student sender_student;  //FK
 
     /*@OneToMany(mappedBy = "post")
@@ -25,7 +25,7 @@ public class Post {
     private Post reply_post; //FK*/
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "target_student_id")
     private Student target_student;  //FK
 
     @ManyToOne
