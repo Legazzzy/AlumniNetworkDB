@@ -2,6 +2,7 @@ package com.example.alumninetworkcase.services.group;
 
 import com.example.alumninetworkcase.exceptions.PostNotFoundException;
 import com.example.alumninetworkcase.models.Group;
+import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.GroupRepo;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,11 @@ public class GroupServiceImplements implements GroupService{
     @Override
     public boolean exists(Integer id) {
         return groupRepo.existsById(id);
+    }
+
+    @Override
+    public Collection<Student> getAllStudentsInGroup(Group group) {
+        Collection<Student> studentsInGroup = group.getStudents();
+        return studentsInGroup;
     }
 }
