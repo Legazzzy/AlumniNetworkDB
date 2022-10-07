@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
     private final EventService eventService;
     private final EventMapper eventMapper;
-    private final UserMapper userMapper;
     private final GroupMapper groupMapper;
     private final TopicMapper topicMapper;
     private final PostMapper postMapper;
 
-    public StudentController(EventService eventService, EventMapper eventMapper, UserMapper userMapper, GroupMapper groupMapper, TopicMapper topicMapper, PostMapper postMapper) {
+    public StudentController(EventService eventService, EventMapper eventMapper, GroupMapper groupMapper, TopicMapper topicMapper, PostMapper postMapper) {
         this.eventService = eventService;
         this.eventMapper = eventMapper;
-        this.userMapper = userMapper;
         this.groupMapper = groupMapper;
         this.topicMapper = topicMapper;
         this.postMapper = postMapper;
