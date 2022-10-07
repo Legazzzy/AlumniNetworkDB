@@ -29,8 +29,8 @@ public class Post {
     private Student target_student;  //FK
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group target_group; //FK
+    @JoinColumn(name = "alumnigroup_id")
+    private AlumniGroup target_alumniGroup; //FK
 
     @ManyToOne
     @JoinColumn(name = "topic_id")
@@ -72,12 +72,12 @@ public class Post {
         this.target_student = target_student;
     }
 
-    public Group getTarget_group() {
-        return target_group;
+    public AlumniGroup getTarget_alumniGroup() {
+        return target_alumniGroup;
     }
 
-    public void setTarget_group(Group target_group) {
-        this.target_group = target_group;
+    public void setTarget_alumniGroup(AlumniGroup target_alumniGroup) {
+        this.target_alumniGroup = target_alumniGroup;
     }
 
     public Topic getTarget_topic() {

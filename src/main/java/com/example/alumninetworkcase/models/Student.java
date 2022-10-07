@@ -58,11 +58,11 @@ public class Student {
     //User to Group (Many to Many)
     @ManyToMany
     @JoinTable(
-            name = "student_group",
+            name = "student_alumnigroup",
             joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "group_id")}
+            inverseJoinColumns = {@JoinColumn(name = "alumnigroup_id")}
     )
-    private Set<Group> groups;
+    private Set<AlumniGroup> alumniGroups;
 
     //User to Event (Many to Many)
     @ManyToMany
@@ -89,12 +89,12 @@ public class Student {
     @OneToMany(mappedBy = "target_student")
     private Set<Post> posts;
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<AlumniGroup> getAlumniGroups() {
+        return alumniGroups;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setAlumniGroups(Set<AlumniGroup> alumniGroups) {
+        this.alumniGroups = alumniGroups;
     }
 
     public Set<Event> getEvents() {

@@ -47,8 +47,8 @@ public class Event {
     private Set<Topic> topics;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @JoinColumn(name = "alumnigroup_id")
+    private AlumniGroup alumniGroup;
 
     @OneToMany(mappedBy = "target_event")
     private Set<Post> posts;
@@ -141,12 +141,12 @@ public class Event {
         this.topics = topics;
     }
 
-    public Group getGroup() {
-        return group;
+    public AlumniGroup getAlumniGroup() {
+        return alumniGroup;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setAlumniGroup(AlumniGroup alumniGroup) {
+        this.alumniGroup = alumniGroup;
     }
 
     public Set<Post> getPosts() {

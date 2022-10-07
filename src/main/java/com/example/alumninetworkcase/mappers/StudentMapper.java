@@ -3,6 +3,7 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
+import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.post.PostService;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public abstract class StudentMapper {
 
     @Autowired
-    protected GroupService groupService;
+    protected AlumniGroupService alumniGroupService;
 
     @Autowired
     protected EventService eventService;
@@ -33,7 +34,7 @@ public abstract class StudentMapper {
 
     //Uses a UserDTO object to attain a User object
     //MIGHT NEED TO REWRITE FOR MANY TO MANY INTERACTIONS
-    @Mapping(target = "groups", source= "groups", qualifiedByName = "groupsToIds")
+    @Mapping(target = "alumniGroups", source= "alumniGroups", qualifiedByName = "alumniGroupsToIds")
     @Mapping(target = "events", source= "events", qualifiedByName = "eventsToIds")
     @Mapping(target = "createdEvents", source= "createdEvents", qualifiedByName = "eventsToIds")
     @Mapping(target = "topics", source= "topics", qualifiedByName = "topicsToIds")
@@ -41,7 +42,7 @@ public abstract class StudentMapper {
     public abstract StudentDTO studentToStudentDTO(Student student);
 
     //Uses a User object to attain a UserDTO object
-    @Mapping(target="groups", source= "groups", qualifiedByName = "groupIdToGroup")
+    @Mapping(target="alumniGroups", source= "alumniGroups", qualifiedByName = "alumniGroupIdToAlumniGroup")
     @Mapping(target="events", source= "events", qualifiedByName = "eventIdToEvent")
     @Mapping(target = "createdEvents", source= "createdEvents", qualifiedByName = "eventIdToEvent")
     @Mapping(target="topics", source= "topics", qualifiedByName = "topicIdToTopic")
@@ -53,8 +54,8 @@ public abstract class StudentMapper {
 
     //Custom mappings
     //Maps id to group
-    @Named("groupIdToGroup")
-    Group mapIdToGroup(int id) { return groupService.findById(id);}
+    @Named("alumniGroupIdToAlumniGroup")
+    AlumniGroup mapIdToAlumniGroup(int id) { return alumniGroupService.findById(id);}
 
     //Maps id to event
     @Named("eventIdToEvent")
@@ -69,8 +70,8 @@ public abstract class StudentMapper {
     Post mapIdToPost(int id) { return postService.findById(id);}
 
     //Maps groups to ids
-    @Named("groupsToIds")
-    Set<Integer> mapGroupsToIds(Set<Group> source) {
+    @Named("alumniGroupsToIds")
+    Set<Integer> mapAlumniGroupsToIds(Set<AlumniGroup> source) {
         if (source == null)
             return null;
         return source.stream().map(s -> s.getId()).collect(Collectors.toSet());
