@@ -31,16 +31,16 @@ public abstract class AlumniGroupMapper {
     @Mapping(target = "students", source= "students", qualifiedByName = "studentsToIds")
     @Mapping(target = "events", source= "events", qualifiedByName = "eventsToIds")
     @Mapping(target = "posts", source= "posts", qualifiedByName = "postsToIds")
-    public abstract AlumniGroupDTO alumniGroupToAlumniGroupDTO(AlumniGroup alumniGroup);
+    public abstract AlumniGroupDTO AlumniGroupToAlumniGroupDTO(AlumniGroup alumniGroup);
 
     //Uses a Group object to attain a GroupDTO object
     @Mapping(target="students", source= "students", qualifiedByName = "studentIdToStudent")
     @Mapping(target="events", source= "events", qualifiedByName = "eventIdToEvent")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
-    public abstract AlumniGroup AlumniGroupToAlumniGroupDTO (AlumniGroupDTO alumniGroupDTO);
+    public abstract AlumniGroup AlumniGroupDTOToAlumniGroup (AlumniGroupDTO alumniGroupDTO);
 
     //Collection of Groups into a collection of GroupDTOs
-    public abstract Collection<AlumniGroupDTO> alumniGroupToAlmuniGroupDTO(Collection<AlumniGroup> alumniGroup);
+    public abstract Collection<AlumniGroupDTO> AlumniGroupToAlumniGroupDTO(Collection<AlumniGroup> alumniGroup);
 
     //Custom mappings
     //Maps id to user

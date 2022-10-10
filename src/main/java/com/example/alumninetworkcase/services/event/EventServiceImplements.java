@@ -2,7 +2,6 @@ package com.example.alumninetworkcase.services.event;
 
 import com.example.alumninetworkcase.exceptions.EventNotFoundException;
 import com.example.alumninetworkcase.models.Event;
-import com.example.alumninetworkcase.models.Group;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.EventRepo;
 import org.springframework.stereotype.Service;
