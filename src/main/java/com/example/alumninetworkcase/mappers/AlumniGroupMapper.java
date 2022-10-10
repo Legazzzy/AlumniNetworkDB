@@ -41,7 +41,7 @@ public abstract class AlumniGroupMapper {
     public abstract AlumniGroup AlumniGroupToAlumniGroupDTO (AlumniGroupDTO alumniGroupDTO);
 
     //Collection of Groups into a collection of GroupDTOs
-    public abstract Collection<GroupDTO> groupToGroupDTO(Collection<Group> group);
+    public abstract Collection<AlumniGroupDTO> alumniGroupToAlmuniGroupDTO(Collection<AlumniGroup> alumniGroup);
 
     //Custom mappings
     //Maps id to user
