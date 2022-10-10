@@ -2,8 +2,8 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
+import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
-import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
@@ -23,7 +23,7 @@ public abstract class PostMapper {
     StudentService studentService;
 
     @Autowired
-    EventService eventService;
+    AlumniEventService alumniEventService;
 
     @Autowired
     AlumniGroupService alumniGroupService;
@@ -38,7 +38,7 @@ public abstract class PostMapper {
     @Mapping(target = "sender_student", source = "sender_student.id")
     @Mapping(target = "target_student", source="target_student.id")
     @Mapping(target = "target_alumniGroup", source="target_alumniGroup.id")
-    @Mapping(target = "target_event", source="target_event.id")
+    @Mapping(target = "target_alumniEvent", source="target_alumniEvent.id")
     @Mapping(target = "target_topic", source="target_topic.id")
     //@Mapping(target = "reply_post", source="reply_post.id")
     //@Mapping(target = "replies", source="replies", qualifiedByName = "postsToIds")
@@ -48,7 +48,7 @@ public abstract class PostMapper {
     @Mapping(target="sender_student", source="sender_student", qualifiedByName = "studentIdToStudent")
     @Mapping(target="target_student", source="target_student", qualifiedByName = "studentIdToStudent")
     @Mapping(target="target_alumniGroup", source="target_alumniGroup", qualifiedByName = "alumniGroupIdToAlumniGroup")
-    @Mapping(target="target_event", source="target_event", qualifiedByName = "eventIdToEvent")
+    @Mapping(target="target_alumniEvent", source="target_alumniEvent", qualifiedByName = "alumniEventIdToAlumniEvent")
     @Mapping(target="target_topic", source="target_topic", qualifiedByName = "topicIdToTopic")
     //@Mapping(target="reply_post", source="reply_post", qualifiedByName = "postIdToPost")
     //@Mapping(target="replies", source="replies", qualifiedByName = "postIdToPost")
@@ -67,8 +67,8 @@ public abstract class PostMapper {
     AlumniGroup mapIdToAlumniGroup(int id) { return alumniGroupService.findById(id);}
 
     //Maps id to event
-    @Named("eventIdToEvent")
-    Event mapIdToEvent(int id) { return eventService.findById(id);}
+    @Named("alumniEventIdToAlumniEvent")
+    AlumniEvent mapIdToAlumniEvent(int id) { return alumniEventService.findById(id);}
 
     //Maps id to topic
     @Named("topicIdToTopic")
@@ -96,8 +96,8 @@ public abstract class PostMapper {
     }
 
     //Maps events to ids
-    @Named("eventsToIds")
-    Set<Integer> mapEventsToIds(Set<Event> source) {
+    @Named("alumniEventsToAlumniIds")
+    Set<Integer> mapAlumniEventsToIds(Set<AlumniEvent> source) {
         if (source == null)
             return null;
         return source.stream().map(s -> s.getId()).collect(Collectors.toSet());

@@ -9,7 +9,7 @@ public class PostDTO {
     private Timestamp timestamp;
     private int sender_student;  //FK
     private int target_student;  //FK
-    private int target_event; //FK
+    private int target_alumniEvent; //FK
     private int target_alumniGroup; //FK
     private int target_topic; //FK
 

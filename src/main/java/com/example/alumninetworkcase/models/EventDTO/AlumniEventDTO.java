@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Data
-public class EventDTO {
+public class AlumniEventDTO {
     private int id; //PK
     private int creator_student; //FK
     private String event_name;

@@ -2,9 +2,7 @@ package com.example.alumninetworkcase.controllers;
 
 import com.example.alumninetworkcase.mappers.AlumniGroupMapper;
 import com.example.alumninetworkcase.models.AlumniGroup;
-import com.example.alumninetworkcase.models.Event;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
-import com.example.alumninetworkcase.models.EventDTO.EventDTO;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;

@@ -23,7 +23,7 @@ public class Topic {
 
     //Variable used to store a Set of all the events that are a part of the topic
     @ManyToMany (mappedBy = "topics")
-    private Set<Event> events;
+    private Set<AlumniEvent> alumniEvents;
 
     //User to Post (One to Many)
     @OneToMany(mappedBy = "target_topic")
@@ -37,12 +37,12 @@ public class Topic {
         this.students = students;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public Set<AlumniEvent> getAlumniEvents() {
+        return alumniEvents;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setAlumniEvents(Set<AlumniEvent> alumniEvents) {
+        this.alumniEvents = alumniEvents;
     }
 
     public Set<Post> getPosts() {

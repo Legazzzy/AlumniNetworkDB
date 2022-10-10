@@ -12,6 +12,7 @@ public class AlumniGroupDTO {
     private boolean is_private;
 
     private Set<Integer> students;
-    private Set<Integer> events;
+    private Set<Integer> alumniEvents;
     private Set<Integer> posts;
+
 }

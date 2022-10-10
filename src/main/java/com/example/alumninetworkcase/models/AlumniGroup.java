@@ -22,7 +22,7 @@ public class AlumniGroup {
     private Set<Student> students;
 
     @OneToMany(mappedBy = "alumniGroup")
-    private Set<Event> events;
+    private Set<AlumniEvent> alumniEvents;
 
     @OneToMany(mappedBy = "target_alumniGroup")
     private Set<Post> posts;
@@ -67,12 +67,12 @@ public class AlumniGroup {
         this.students = students;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public Set<AlumniEvent> getAlumniEvents() {
+        return alumniEvents;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setAlumniEvents(Set<AlumniEvent> alumniEvents) {
+        this.alumniEvents = alumniEvents;
     }
 
     public Set<Post> getPosts() {

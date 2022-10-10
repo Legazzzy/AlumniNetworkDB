@@ -2,7 +2,7 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.TopicDTO;
-import com.example.alumninetworkcase.services.event.EventService;
+import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import org.mapstruct.Mapper;
@@ -21,20 +21,20 @@ public abstract class TopicMapper {
     protected StudentService studentService;
 
     @Autowired
-    protected EventService eventService;
+    protected AlumniEventService alumniEventService;
 
     @Autowired
     protected PostService postService;
 
     //Many to many?
     @Mapping(target = "students", source="students", qualifiedByName = "studentsToIds")
-    @Mapping(target = "events", source="events", qualifiedByName = "eventsToIds")
+    @Mapping(target = "alumniEvents", source="alumniEvents", qualifiedByName = "alumniEventsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
     public abstract TopicDTO topicToTopicDTO(Topic topic);
 
 
     @Mapping(target = "students", source = "students", qualifiedByName = "studentIdToStudent")
-    @Mapping(target = "events", source = "events", qualifiedByName = "eventIdToEvent")
+    @Mapping(target = "alumniEvents", source = "alumniEvents", qualifiedByName = "alumniEventIdToAlumniEvent")
     @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
     public abstract Topic topicDTOToTopic(TopicDTO topic);
 
@@ -47,8 +47,8 @@ public abstract class TopicMapper {
     Student mapIdToStudent(int id) { return studentService.findById(id);}
 
     //Maps id to event
-    @Named("eventIdToEvent")
-    Event mapIdToEvent(int id) { return eventService.findById(id);}
+    @Named("alumniEventIdToAlumniEvent")
+    AlumniEvent mapIdToAlumniEvent(int id) { return alumniEventService.findById(id);}
 
     //Maps id to event
     @Named("postIdToPost")
@@ -64,8 +64,8 @@ public abstract class TopicMapper {
     }
 
     //Map users to ids
-    @Named("eventsToIds")
-    Set<Integer> mapEventsToIds(Set<Event> source) {
+    @Named("alumniEventsToIds")
+    Set<Integer> mapAlumniEventsToIds(Set<AlumniEvent> source) {
         if(source == null)
             return null;
         return source.stream()

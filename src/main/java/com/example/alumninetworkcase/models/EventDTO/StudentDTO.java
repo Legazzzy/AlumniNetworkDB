@@ -13,9 +13,9 @@ public class StudentDTO {
     private String bio;
     private String fun_fact;
 
-    private Set<Integer> createdEvents;
+    private Set<Integer> createdAlumniEvents;
     private Set<Integer> alumniGroups;
-    private Set<Integer> events;
+    private Set<Integer> alumniEvents;
     private Set<Integer> topics;
     private Set<Integer> posts;
 }

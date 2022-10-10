@@ -5,7 +5,7 @@ import com.example.alumninetworkcase.mappers.*;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
-import com.example.alumninetworkcase.services.event.EventService;
+import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,15 +25,15 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "api/v1/student")
 public class StudentController {
-    private final EventService eventService;
-    private final EventMapper eventMapper;
+    private final AlumniEventService eventService;
+    private final AlumniEventMapper eventMapper;
     private final TopicMapper topicMapper;
     private final PostMapper postMapper;
     private final AlumniGroupMapper alumniGroupMapper;
     private final StudentMapper studentMapper;
     private final StudentService studentService;
 
-    public StudentController(EventService eventService, EventMapper eventMapper, TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper alumniGroupMapper, StudentMapper studentMapper, StudentService studentService) {
+    public StudentController(AlumniEventService eventService, AlumniEventMapper eventMapper, TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper alumniGroupMapper, StudentMapper studentMapper, StudentService studentService) {
         this.eventService = eventService;
         this.eventMapper = eventMapper;
         this.topicMapper = topicMapper;

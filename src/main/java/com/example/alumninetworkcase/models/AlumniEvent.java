@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
-public class Event {
+public class AlumniEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; //PK
@@ -35,13 +35,13 @@ public class Event {
     @Column()
     private Timestamp end_time;
 
-    @ManyToMany(mappedBy = "events")
+    @ManyToMany(mappedBy = "alumniEvents")
     private Set<Student> students;
 
     @ManyToMany
     @JoinTable(
-            name = "event_topic",
-            joinColumns = {@JoinColumn(name = "event_id")},
+            name = "alumniEvent_topic",
+            joinColumns = {@JoinColumn(name = "alumniEvent_id")},
             inverseJoinColumns = {@JoinColumn(name = "topic_id")}
     )
     private Set<Topic> topics;
@@ -50,7 +50,7 @@ public class Event {
     @JoinColumn(name = "alumniGroup_id")
     private AlumniGroup alumniGroup;
 
-    @OneToMany(mappedBy = "target_event")
+    @OneToMany(mappedBy = "target_alumniEvent")
     private Set<Post> posts;
 
     public int getId() {

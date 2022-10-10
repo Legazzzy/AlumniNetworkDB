@@ -1,13 +1,13 @@
 package com.example.alumninetworkcase.controllers;
 
 import com.example.alumninetworkcase.mappers.*;
+import com.example.alumninetworkcase.models.AlumniEvent;
 import com.example.alumninetworkcase.models.AlumniGroup;
-import com.example.alumninetworkcase.models.Event;
+import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
-import com.example.alumninetworkcase.models.EventDTO.EventDTO;
 import com.example.alumninetworkcase.models.Student;
+import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
-import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,11 +23,10 @@ import java.net.URI;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = "api/v1/event")
-public class EventController {
-
-    private final EventService eventService;
-    private final EventMapper eventMapper;
+@RequestMapping(path = "api/v1/alumniEvent")
+public class AlumniEventController {
+    private final AlumniEventService eventService;
+    private final AlumniEventMapper eventMapper;
 
     AlumniGroupService alumniGroupService;
     private final AlumniGroupMapper groupMapper;
@@ -36,8 +35,8 @@ public class EventController {
     private final TopicMapper topicMapper;
     private final PostMapper postMapper;
 
-    public EventController(EventService eventService, EventMapper eventMapper
-    , TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper groupMapper, StudentMapper studentMapper, StudentService studentService) {
+    public AlumniEventController(AlumniEventService eventService, AlumniEventMapper eventMapper
+            , TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper groupMapper, StudentMapper studentMapper, StudentService studentService) {
         this.eventService = eventService;
         this.eventMapper = eventMapper;
         this.groupMapper = groupMapper;
@@ -48,21 +47,21 @@ public class EventController {
     }
 
     @Operation(summary = "Find all Events")
-    @ApiResponses( value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Events successfully found",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
                     description = "No events found",
                     content = @Content)
     })
     @GetMapping // GET: localhost:8080/api/v1/event
     public ResponseEntity getAll() {
-        Collection<EventDTO> events = eventMapper.eventToEventDTO(
+        Collection<AlumniEventDTO> events = eventMapper.alumniEventToAlumniEventDTO(
                 eventService.findAll()
         );
         return ResponseEntity.ok(events);
@@ -81,8 +80,8 @@ public class EventController {
                             schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping("{id}")
-    public ResponseEntity<EventDTO> getById(@PathVariable int id) {
-        EventDTO event = eventMapper.eventToEventDTO(
+    public ResponseEntity<AlumniEventDTO> getById(@PathVariable int id) {
+        AlumniEventDTO event = eventMapper.alumniEventToAlumniEventDTO(
                 eventService.findById(id)
         );
 
@@ -91,56 +90,56 @@ public class EventController {
 
     //find all students in event with ID
     @Operation(summary = "Find students from event with ID")
-    @ApiResponses( value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Event students has successfully been found",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
                     description = "Event not found with supplied ID",
                     content = @Content)
     })
     @GetMapping("/getAllStudentsInEvent/{id}")
-    public ResponseEntity getAllStudentsInEvent(@PathVariable int id){
+    public ResponseEntity getAllStudentsInEvent(@PathVariable int id) {
         if (!eventService.exists(id)) {
             ResponseEntity.badRequest().build();
         }
-        Event event = eventService.findById(id);
-        Collection<Student> students = eventService.getAllStudentsInEvent(event);
+        AlumniEvent alumniEvent = eventService.findById(id);
+        Collection<Student> students = eventService.getAllStudentsInAlumniEvent(alumniEvent);
         return ResponseEntity.ok(students.stream().map(movie -> studentMapper.studentToStudentDTO(movie)));
     }
 
     //add - add new event
     @Operation(summary = "Add new event")
-    @ApiResponses( value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "event successfully added",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Event event) {
-        Event e = eventService.add(event);
+    public ResponseEntity add(@RequestBody AlumniEvent alumniEvent) {
+        AlumniEvent e = eventService.add(alumniEvent);
         URI location = URI.create("events/" + e.getId());
         return ResponseEntity.created(location).build();
     }
 
     //update - update an existing group
     @Operation(summary = "Update group")
-    @ApiResponses( value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "group successfully updated",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
                     description = "Group not found with supplied ID",
                     content = @Content)
@@ -158,14 +157,14 @@ public class EventController {
 
     //deleteById - delete a franchise by id
     @Operation(summary = "Delete a group by id")
-    @ApiResponses( value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Group successfully deleted",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
                     description = "Group not found with supplied ID",
                     content = @Content)
@@ -179,14 +178,14 @@ public class EventController {
 
     //delete - delete a franchise
     @Operation(summary = "Delete group with RequestBody")
-    @ApiResponses( value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Group successfully deleted",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
                     description = "Group not found with supplied ID",
                     content = @Content)
