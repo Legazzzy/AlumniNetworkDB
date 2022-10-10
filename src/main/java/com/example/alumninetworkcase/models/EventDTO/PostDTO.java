@@ -1,12 +1,8 @@
 package com.example.alumninetworkcase.models.EventDTO;
 
-import com.example.alumninetworkcase.models.Group;
-import com.example.alumninetworkcase.models.Student;
-import com.example.alumninetworkcase.models.Topic;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 @Data
 public class PostDTO {

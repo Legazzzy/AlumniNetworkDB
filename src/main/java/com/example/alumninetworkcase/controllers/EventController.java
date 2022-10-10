@@ -23,15 +23,13 @@ public class EventController {
 
     private final EventService eventService;
     private final EventMapper eventMapper;
-    private final GroupMapper groupMapper;
     private final TopicMapper topicMapper;
     private final PostMapper postMapper;
 
     public EventController(EventService eventService, EventMapper eventMapper
-    , GroupMapper groupMapper, TopicMapper topicMapper, PostMapper postMapper) {
+    , TopicMapper topicMapper, PostMapper postMapper) {
         this.eventService = eventService;
         this.eventMapper = eventMapper;
-        this.groupMapper = groupMapper;
         this.topicMapper = topicMapper;
         this.postMapper = postMapper;
     }

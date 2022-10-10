@@ -2,7 +2,6 @@ package com.example.alumninetworkcase.services.alumnigroup;
 
 import com.example.alumninetworkcase.exceptions.AlumniGroupNotFoundException;
 import com.example.alumninetworkcase.models.AlumniGroup;
-import com.example.alumninetworkcase.models.Group;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.AlumniGroupRepo;
 import org.springframework.stereotype.Service;

@@ -5,7 +5,6 @@ import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.event.EventService;
-import com.example.alumninetworkcase.services.group.GroupService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import org.mapstruct.Mapper;
