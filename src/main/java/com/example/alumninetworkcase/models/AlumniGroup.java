@@ -9,8 +9,8 @@ public class AlumniGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 20)
-    private String name;
+    @Column(length = 200)
+    private String group_name;
 
     @Column(length = 200)
     private String description;
@@ -37,11 +37,11 @@ public class AlumniGroup {
     }
 
     public String getName() {
-        return name;
+        return group_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String group_name) {
+        this.group_name = group_name;
     }
 
     public String getDescription() {
