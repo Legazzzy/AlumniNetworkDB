@@ -2,9 +2,12 @@ package com.example.alumninetworkcase.controllers;
 
 
 import com.example.alumninetworkcase.mappers.*;
+import com.example.alumninetworkcase.models.AlumniGroup;
+import com.example.alumninetworkcase.models.EventDTO.PostDTO;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.services.event.EventService;
 import com.example.alumninetworkcase.services.student.StudentService;
+import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,5 +63,31 @@ public class StudentController {
         );
         return ResponseEntity.ok(students);
     }
+
+    //find event with ID
+    @Operation(summary = "Get student with id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Student has been found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AlumniGroup.class))),
+            @ApiResponse(responseCode = "403",
+                    description = "Forbidden",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "Student does not exist with supplied ID",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class))})
+    })
+    @GetMapping("{id}")
+    public ResponseEntity<StudentDTO> getById(@PathVariable int id) {
+        StudentDTO student = studentMapper.studentToStudentDTO(
+                studentService.findById(id)
+        );
+
+        return ResponseEntity.ok(student);
+    }
+
 
 }
