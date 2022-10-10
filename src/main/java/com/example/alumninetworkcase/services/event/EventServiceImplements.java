@@ -2,6 +2,8 @@ package com.example.alumninetworkcase.services.event;
 
 import com.example.alumninetworkcase.exceptions.EventNotFoundException;
 import com.example.alumninetworkcase.models.Event;
+import com.example.alumninetworkcase.models.Group;
+import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.EventRepo;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +52,11 @@ public class EventServiceImplements implements EventService{
     @Override
     public boolean exists(Integer id) {
         return eventRepo.existsById(id);
+    }
+
+    @Override
+    public Collection<Student> getAllStudentsInEvent(Event event) {
+        Collection<Student> studentsInGroup = event.getStudents();
+        return studentsInGroup;
     }
 }

@@ -13,7 +13,6 @@ public class StudentController {
     private final EventMapper eventMapper;
     private final TopicMapper topicMapper;
     private final PostMapper postMapper;
-
     private final AlumniGroupMapper alumniGroupMapper;
 
     public StudentController(EventService eventService, EventMapper eventMapper, TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper alumniGroupMapper) {
