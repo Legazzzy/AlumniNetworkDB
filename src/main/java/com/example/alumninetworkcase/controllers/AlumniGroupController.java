@@ -1,11 +1,13 @@
 package com.example.alumninetworkcase.controllers;
 
 import com.example.alumninetworkcase.mappers.AlumniGroupMapper;
+import com.example.alumninetworkcase.mappers.StudentMapper;
 import com.example.alumninetworkcase.models.AlumniGroup;
-import com.example.alumninetworkcase.models.Event;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
-import com.example.alumninetworkcase.models.EventDTO.EventDTO;
+import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
+import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
+import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,10 +26,14 @@ import java.util.Collection;
 public class AlumniGroupController {
     private final AlumniGroupService alumniGroupService;
     private final AlumniGroupMapper alumniGroupMapper;
+    private final StudentMapper studentMapper;
+    private final StudentService studentService;
 
-    public AlumniGroupController(AlumniGroupService alumniGroupService, AlumniGroupMapper alumniGroupMapper) {
+    public AlumniGroupController(AlumniGroupService alumniGroupService, AlumniGroupMapper alumniGroupMapper, StudentMapper studentMapper, StudentService studentService) {
         this.alumniGroupService = alumniGroupService;
         this.alumniGroupMapper = alumniGroupMapper;
+        this.studentMapper = studentMapper;
+        this.studentService = studentService;
     }
 
 
@@ -94,4 +100,5 @@ public class AlumniGroupController {
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();
     }
+
 }

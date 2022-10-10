@@ -77,7 +77,6 @@ public class PostController {
 
         return ResponseEntity.ok(post);
     }
-
     //add - add new event
     @Operation(summary = "Add new post")
     @ApiResponses( value = {
