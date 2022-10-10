@@ -18,7 +18,7 @@ public class Event {
     private Student creator_student; //FK
 
     @Column(length = 50)
-    private String name;
+    private String event_name;
 
     @Column(length = 50)
     private String description;
@@ -78,11 +78,11 @@ public class Event {
     }
 
     public String getName() {
-        return name;
+        return event_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String event_name) {
+        this.event_name = event_name;
     }
 
     public String getDescription() {

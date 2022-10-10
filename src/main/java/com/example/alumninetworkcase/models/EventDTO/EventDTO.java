@@ -9,7 +9,7 @@ import java.util.Set;
 public class EventDTO {
     private int id; //PK
     private int creator_student; //FK
-    private String name;
+    private String event_name;
     private String description;
     private boolean allow_guests;
     private String banner_img;
