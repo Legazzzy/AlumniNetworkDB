@@ -47,7 +47,7 @@ public class Event {
     private Set<Topic> topics;
 
     @ManyToOne
-    @JoinColumn(name = "alumnigroup_id")
+    @JoinColumn(name = "alumniGroup_id")
     private AlumniGroup alumniGroup;
 
     @OneToMany(mappedBy = "target_event")

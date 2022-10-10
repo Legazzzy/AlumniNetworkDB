@@ -5,6 +5,7 @@ import java.util.Set;
 
 @Entity
 public class Group {
+    /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -81,5 +82,5 @@ public class Group {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
-    }
+    }*/
 }

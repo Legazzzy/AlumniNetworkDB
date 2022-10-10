@@ -3,6 +3,7 @@ package com.example.alumninetworkcase.models;
 import javax.persistence.*;
 import java.util.Set;
 
+@Entity
 public class AlumniGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,13 +18,13 @@ public class AlumniGroup {
     @Column(nullable=false)
     private boolean is_private;
 
-    @ManyToMany(mappedBy = "alumnigroups")
+    @ManyToMany(mappedBy = "alumniGroups")
     private Set<Student> students;
 
-    @OneToMany(mappedBy = "alumnigroup")
+    @OneToMany(mappedBy = "alumniGroup")
     private Set<Event> events;
 
-    @OneToMany(mappedBy = "target_alumnigroup")
+    @OneToMany(mappedBy = "target_alumniGroup")
     private Set<Post> posts;
 
 

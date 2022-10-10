@@ -29,7 +29,7 @@ public class Post {
     private Student target_student;  //FK
 
     @ManyToOne
-    @JoinColumn(name = "alumnigroup_id")
+    @JoinColumn(name = "alumniGroup_id")
     private AlumniGroup target_alumniGroup; //FK
 
     @ManyToOne
