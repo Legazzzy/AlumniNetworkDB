@@ -24,25 +24,14 @@ import java.util.Collection;
 @RequestMapping(path = "api/v1/group")
 public class GroupController {
 
-    private final EventService eventService;
-    private final EventMapper eventMapper;
     private final GroupMapper groupMapper;
     private final GroupService groupService;
-    private final TopicMapper topicMapper;
-    private final PostMapper postMapper;
-
     private final StudentMapper studentMapper;
-    private final StudentService studentService;
 
-    public GroupController(EventService eventService, EventMapper eventMapper, GroupMapper groupMapper, GroupService groupService, TopicMapper topicMapper, PostMapper postMapper, StudentMapper studentMapper, StudentService studentService) {
-        this.eventService = eventService;
-        this.eventMapper = eventMapper;
+    public GroupController(GroupMapper groupMapper, GroupService groupService, StudentMapper studentMapper) {
         this.groupMapper = groupMapper;
         this.groupService = groupService;
-        this.topicMapper = topicMapper;
-        this.postMapper = postMapper;
         this.studentMapper = studentMapper;
-        this.studentService = studentService;
     }
 
     //find all groups
