@@ -8,5 +8,5 @@ import com.example.alumninetworkcase.services.CrudService;
 import java.util.Collection;
 
 public interface AlumniGroupService extends CrudService<AlumniGroup, Integer> {
-    Collection<Student> getAllStudentsInGroup(Group group);
+    Collection<Student> getAllStudentsInAlumniGroup(AlumniGroup alumniGroup);
 }

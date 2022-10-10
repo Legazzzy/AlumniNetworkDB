@@ -54,8 +54,8 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     }
 
     @Override
-    public Collection<Student> getAllStudentsInGroup(Group group) {
-        Collection<Student> studentsInGroup = group.getStudents();
-        return studentsInGroup;
+    public Collection<Student> getAllStudentsInAlumniGroup(AlumniGroup alumniGroup) {
+        Collection<Student> studentsInAlumniGroup = alumniGroup.getStudents();
+        return studentsInAlumniGroup;
     }
 }
