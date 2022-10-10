@@ -17,7 +17,7 @@ public class EventDTO {
     private Timestamp end_time;
     private Timestamp last_updated;
 
-    private int group;
+    private int alumniGroup;
     private Set<Integer> topics;
     private Set<Integer> students;
     private Set<Integer> posts;

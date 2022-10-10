@@ -9,6 +9,20 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column (length = 50)
+    private String name;
+
+    @Column(length = 200)
+    private String picture;
+
+    @Column(length = 20)
+    private String status;
+
+    @Column(length = 200)
+    private String bio;
+
+    @Column(length = 200)
+    private String fun_fact;
 
     //getters and setters
     public int getId() {
@@ -19,14 +33,36 @@ public class Student {
         this.id = id;
     }
 
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+
+    public String getPicture() { return picture; }
+
+    public void setPicture(String picture) { this.picture = picture; }
+
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
+
+    public String getBio() { return bio; }
+
+    public void setBio(String bio) { this.bio = bio; }
+
+    public String getFun_fact() { return fun_fact; }
+
+    public void setFun_fact(String fun_fact) { this.fun_fact = fun_fact; }
+
     //User to Group (Many to Many)
     @ManyToMany
     @JoinTable(
-            name = "student_group",
+            name = "student_alumnigroup",
             joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "group_id")}
+            inverseJoinColumns = {@JoinColumn(name = "alumnigroup_id")}
     )
-    private Set<Group> groups;
+    private Set<AlumniGroup> alumniGroups;
 
     //User to Event (Many to Many)
     @ManyToMany
@@ -53,12 +89,12 @@ public class Student {
     @OneToMany(mappedBy = "target_student")
     private Set<Post> posts;
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<AlumniGroup> getAlumniGroups() {
+        return alumniGroups;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setAlumniGroups(Set<AlumniGroup> alumniGroups) {
+        this.alumniGroups = alumniGroups;
     }
 
     public Set<Event> getEvents() {
