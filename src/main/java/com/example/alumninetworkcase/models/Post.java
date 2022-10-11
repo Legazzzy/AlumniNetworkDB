@@ -37,8 +37,8 @@ public class Post {
     private Topic target_topic; //FK
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event target_event; //FK
+    @JoinColumn(name = "alumniEvent_id")
+    private AlumniEvent target_alumniEvent; //FK
 
     public int getId() {
         return id;
@@ -88,12 +88,12 @@ public class Post {
         this.target_topic = target_topic;
     }
 
-    public Event getTarget_event() {
-        return target_event;
+    public AlumniEvent getTarget_alumniEvent() {
+        return target_alumniEvent;
     }
 
-    public void setTarget_event(Event target_event) {
-        this.target_event = target_event;
+    public void setTarget_alumniEvent(AlumniEvent target_alumniEvent) {
+        this.target_alumniEvent = target_alumniEvent;
     }
 /*
     public Set<Post> getReplies() {

@@ -11,6 +11,6 @@ public class TopicDTO {
     private String description;
 
     private Set<Integer> students;
-    private Set<Integer> events;
+    private Set<Integer> alumniEvents;
     private Set<Integer> posts;
 }

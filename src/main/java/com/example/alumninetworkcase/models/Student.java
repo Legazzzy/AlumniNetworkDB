@@ -7,10 +7,10 @@ import java.util.Set;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int stud_id;
 
     @Column (length = 50)
-    private String name;
+    private String stud_name;
 
     @Column(length = 200)
     private String picture;
@@ -26,16 +26,16 @@ public class Student {
 
     //getters and setters
     public int getId() {
-        return id;
+        return stud_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.stud_id = stud_id;
     }
 
-    public String getName() { return name; }
+    public String getName() { return stud_name; }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String stud_name) { this.stud_name = stud_name; }
 
 
     public String getPicture() { return picture; }
@@ -64,17 +64,17 @@ public class Student {
     )
     private Set<AlumniGroup> alumniGroups;
 
-    //User to Event (Many to Many)
+    //User to AlumniEvent (Many to Many)
     @ManyToMany
     @JoinTable(
-            name = "student_event",
+            name = "student_alumniEvent",
             joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "event_id")}
+            inverseJoinColumns = {@JoinColumn(name = "alumniEvent_id")}
     )
-    private Set<Event> events;
+    private Set<AlumniEvent> alumniEvents;
 
     @OneToMany(mappedBy = "creator_student")
-    private Set<Event> createdEvents;
+    private Set<AlumniEvent> createdAlumniEvents;
 
     //User to Topic (Many to Many)
     @ManyToMany
@@ -97,12 +97,12 @@ public class Student {
         this.alumniGroups = alumniGroups;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public Set<AlumniEvent> getAlumniEvents() {
+        return alumniEvents;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setAlumniEvents(Set<AlumniEvent> alumniEvents) {
+        this.alumniEvents = alumniEvents;
     }
 
     public Set<Topic> getTopics() {
@@ -121,11 +121,11 @@ public class Student {
         this.posts = posts;
     }
 
-    public Set<Event> getCreatedEvents() {
-        return createdEvents;
+    public Set<AlumniEvent> getCreatedAlumniEvents() {
+        return createdAlumniEvents;
     }
 
-    public void setCreatedEvents(Set<Event> createdEvents) {
-        this.createdEvents = createdEvents;
+    public void setCreatedAlumniEvents(Set<AlumniEvent> createdAlumniEvents) {
+        this.createdAlumniEvents = createdAlumniEvents;
     }
 }

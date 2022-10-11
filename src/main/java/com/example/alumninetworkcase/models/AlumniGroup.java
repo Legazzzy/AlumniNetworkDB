@@ -9,8 +9,8 @@ public class AlumniGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 20)
-    private String name;
+    @Column(length = 200)
+    private String group_name;
 
     @Column(length = 200)
     private String description;
@@ -22,7 +22,7 @@ public class AlumniGroup {
     private Set<Student> students;
 
     @OneToMany(mappedBy = "alumniGroup")
-    private Set<Event> events;
+    private Set<AlumniEvent> alumniEvents;
 
     @OneToMany(mappedBy = "target_alumniGroup")
     private Set<Post> posts;
@@ -37,11 +37,11 @@ public class AlumniGroup {
     }
 
     public String getName() {
-        return name;
+        return group_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String group_name) {
+        this.group_name = group_name;
     }
 
     public String getDescription() {
@@ -67,12 +67,12 @@ public class AlumniGroup {
         this.students = students;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public Set<AlumniEvent> getAlumniEvents() {
+        return alumniEvents;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setAlumniEvents(Set<AlumniEvent> alumniEvents) {
+        this.alumniEvents = alumniEvents;
     }
 
     public Set<Post> getPosts() {

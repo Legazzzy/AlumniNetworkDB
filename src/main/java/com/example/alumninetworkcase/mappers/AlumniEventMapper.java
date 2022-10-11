@@ -1,7 +1,7 @@
 package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
-import com.example.alumninetworkcase.models.EventDTO.EventDTO;
+import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public abstract class EventMapper {
+public abstract class AlumniEventMapper {
     @Autowired
     protected StudentService studentService;
 
@@ -29,30 +29,29 @@ public abstract class EventMapper {
     @Autowired
     protected PostService postService;
 
-    //Uses a EventDTO object to attain a Event object
-
+    //Uses a AlumniEventDTO object to attain a AlumniEvent object
     @Mapping(target = "creator_student", source="creator_student.id")
     @Mapping(target = "alumniGroup", source="alumniGroup.id")
     @Mapping(target = "students", source="students", qualifiedByName = "studentsToIds")
     @Mapping(target = "topics", source="topics", qualifiedByName = "topicsToIds")
     @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
-    public abstract EventDTO eventToEventDTO(Event event);
+    public abstract AlumniEventDTO alumniEventToAlumniEventDTO(AlumniEvent alumniEvent);
 
-    //Uses a Event object to attain a EventDTO object
+    //Uses a AlumniEvent object to attain a AlumniEventDTO object
     @Mapping(target = "creator_student", source="creator_student", qualifiedByName = "studentIdToStudent")
     @Mapping(target = "students", source = "students", qualifiedByName = "studentIdToStudent")
     @Mapping(target = "alumniGroup", source = "alumniGroup", qualifiedByName = "alumniGroupIdToAlumniGroup")
     @Mapping(target = "topics", source = "topics", qualifiedByName = "topicIdToTopic")
     @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
-    public abstract Event eventDTOToEvent(EventDTO eventDTO);
+    public abstract AlumniEvent alumniEventDTOToAlumniEvent(AlumniEventDTO alumniEventDTO);
 
     //Collection of Events into a collection of EventDTOs
-    public abstract Collection<EventDTO> eventToEventDTO(Collection<Event> event);
+    public abstract Collection<AlumniEventDTO> alumniEventToAlumniEventDTO(Collection<AlumniEvent> alumniEvent);
 
     //Custom mappings
     //Maps id to user
     @Named("studentIdToStudent")
-    Student mapIdTOStudent(int id) { return studentService.findById(id);}
+    Student mapIdToStudent(int id) { return studentService.findById(id);}
 
     //Maps id to group
     @Named("alumniGroupIdToAlumniGroup")

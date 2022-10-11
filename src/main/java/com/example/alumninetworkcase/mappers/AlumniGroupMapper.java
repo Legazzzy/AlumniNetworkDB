@@ -2,7 +2,7 @@ package com.example.alumninetworkcase.mappers;
 
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
-import com.example.alumninetworkcase.services.event.EventService;
+import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import org.mapstruct.Mapper;
@@ -22,20 +22,20 @@ public abstract class AlumniGroupMapper {
     StudentService studentService;
 
     @Autowired
-    EventService eventService;
+    AlumniEventService alumniEventService;
 
     @Autowired
     PostService postService;
 
     //Uses a GroupDTO object to attain a Group object
     @Mapping(target = "students", source= "students", qualifiedByName = "studentsToIds")
-    @Mapping(target = "events", source= "events", qualifiedByName = "eventsToIds")
+    @Mapping(target = "alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventsToIds")
     @Mapping(target = "posts", source= "posts", qualifiedByName = "postsToIds")
     public abstract AlumniGroupDTO AlumniGroupToAlumniGroupDTO(AlumniGroup alumniGroup);
 
     //Uses a Group object to attain a GroupDTO object
     @Mapping(target="students", source= "students", qualifiedByName = "studentIdToStudent")
-    @Mapping(target="events", source= "events", qualifiedByName = "eventIdToEvent")
+    @Mapping(target="alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventIdToAlumniEvent")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
     public abstract AlumniGroup AlumniGroupDTOToAlumniGroup (AlumniGroupDTO alumniGroupDTO);
 
@@ -48,8 +48,8 @@ public abstract class AlumniGroupMapper {
     Student mapIdToStudent(int id) { return studentService.findById(id);}
 
     //Maps id to event
-    @Named("eventIdToEvent")
-    Event mapIdToEvent(int id) { return eventService.findById(id);}
+    @Named("alumniEventIdToAlumniEvent")
+    AlumniEvent mapIdToAlumniEvent(int id) { return alumniEventService.findById(id);}
 
     //Maps id to event
     @Named("postIdToPost")
@@ -64,8 +64,8 @@ public abstract class AlumniGroupMapper {
     }
 
     //Map users to ids
-    @Named("eventsToIds")
-    Set<Integer> mapEventsToIds(Set<Event> source) {
+    @Named("alumniEventsToIds")
+    Set<Integer> mapAlumniEventsToIds(Set<AlumniEvent> source) {
         if(source == null)
             return null;
         return source.stream()
