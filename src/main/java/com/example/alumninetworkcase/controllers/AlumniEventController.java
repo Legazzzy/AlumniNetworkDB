@@ -27,8 +27,7 @@ import java.util.Collection;
 public class AlumniEventController {
     private final AlumniEventService eventService;
     private final AlumniEventMapper eventMapper;
-
-    AlumniGroupService alumniGroupService;
+    private final AlumniGroupService alumniGroupService;
     private final AlumniGroupMapper groupMapper;
     private final StudentMapper studentMapper;
     private final StudentService studentService;
@@ -36,9 +35,10 @@ public class AlumniEventController {
     private final PostMapper postMapper;
 
     public AlumniEventController(AlumniEventService eventService, AlumniEventMapper eventMapper
-            , TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper groupMapper, StudentMapper studentMapper, StudentService studentService) {
+            , AlumniGroupService alumniGroupService, TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper groupMapper, StudentMapper studentMapper, StudentService studentService) {
         this.eventService = eventService;
         this.eventMapper = eventMapper;
+        this.alumniGroupService = alumniGroupService;
         this.groupMapper = groupMapper;
         this.studentMapper = studentMapper;
         this.studentService = studentService;
