@@ -66,3 +66,7 @@ INSERT INTO student_topic(student_id, topic_id) VALUES (8,4);
 INSERT INTO student_topic(student_id, topic_id) VALUES (4,5);
 INSERT INTO student_topic(student_id, topic_id) VALUES (5,5);
 INSERT INTO student_topic(student_id, topic_id) VALUES (6,5);
+
+-- Links events to topics
+INSERT INTO alumni_event_topic(alumni_event_id, topic_id) VALUES (1,5);
+INSERT INTO alumni_event_topic(alumni_event_id, topic_id) VALUES (2,1);
