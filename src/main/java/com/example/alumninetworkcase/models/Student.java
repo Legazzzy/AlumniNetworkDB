@@ -15,7 +15,7 @@ public class Student {
     @Column(length = 200)
     private String picture;
 
-    @Column(length = 20)
+    @Column(length = 50)
     private String status;
 
     @Column(length = 200)

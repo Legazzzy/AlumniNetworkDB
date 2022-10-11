@@ -9,6 +9,13 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(length = 200)
+    private String name;
+
+    @Column(length = 200)
+    private String description;
+
+
     public int getId() {
         return id;
     }
@@ -16,6 +23,14 @@ public class Topic {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
 
     //Variable used to store a Set of all the users that are a part of the topic
     @ManyToMany (mappedBy = "topics")
