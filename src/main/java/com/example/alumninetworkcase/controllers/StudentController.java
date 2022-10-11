@@ -43,7 +43,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @Operation(summary = "Find all Events")
+    @Operation(summary = "Find all Students")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",

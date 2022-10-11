@@ -7,10 +7,10 @@ import java.util.Set;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int stud_id;
+    private int id;
 
     @Column (length = 50)
-    private String stud_name;
+    private String name;
 
     @Column(length = 200)
     private String picture;
@@ -26,16 +26,16 @@ public class Student {
 
     //getters and setters
     public int getId() {
-        return stud_id;
+        return id;
     }
 
     public void setId(int id) {
-        this.stud_id = stud_id;
+        this.id = id;
     }
 
-    public String getName() { return stud_name; }
+    public String getName() { return name; }
 
-    public void setName(String stud_name) { this.stud_name = stud_name; }
+    public void setName(String name) { this.name = name; }
 
 
     public String getPicture() { return picture; }

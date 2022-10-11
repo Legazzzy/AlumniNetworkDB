@@ -10,7 +10,7 @@ public class AlumniGroup {
     private int id;
 
     @Column(length = 200)
-    private String group_name;
+    private String name;
 
     @Column(length = 200)
     private String description;
@@ -37,11 +37,11 @@ public class AlumniGroup {
     }
 
     public String getName() {
-        return group_name;
+        return name;
     }
 
-    public void setName(String group_name) {
-        this.group_name = group_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
