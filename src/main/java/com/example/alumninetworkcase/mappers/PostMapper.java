@@ -40,8 +40,8 @@ public abstract class PostMapper {
     @Mapping(target = "target_alumniGroup", source="target_alumniGroup.id")
     @Mapping(target = "target_alumniEvent", source="target_alumniEvent.id")
     @Mapping(target = "target_topic", source="target_topic.id")
-    //@Mapping(target = "reply_post", source="reply_post.id")
-    //@Mapping(target = "replies", source="replies", qualifiedByName = "postsToIds")
+    @Mapping(target = "reply_post", source="reply_post.id")
+    @Mapping(target = "replies", source="replies", qualifiedByName = "postsToIds")
     public abstract PostDTO postToPostDTO(Post post);
 
     //Uses a Post object to attain a PostDTO object
@@ -50,8 +50,8 @@ public abstract class PostMapper {
     @Mapping(target="target_alumniGroup", source="target_alumniGroup", qualifiedByName = "alumniGroupIdToAlumniGroup")
     @Mapping(target="target_alumniEvent", source="target_alumniEvent", qualifiedByName = "alumniEventIdToAlumniEvent")
     @Mapping(target="target_topic", source="target_topic", qualifiedByName = "topicIdToTopic")
-    //@Mapping(target="reply_post", source="reply_post", qualifiedByName = "postIdToPost")
-    //@Mapping(target="replies", source="replies", qualifiedByName = "postIdToPost")
+    @Mapping(target="reply_post", source="reply_post", qualifiedByName = "postIdToPost")
+    @Mapping(target="replies", source="replies", qualifiedByName = "postIdToPost")
     public abstract Post PostDTOToPost (PostDTO postDTO);
 
     //Collection of Posts into a collection of PostDTOs

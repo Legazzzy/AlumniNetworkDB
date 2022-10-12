@@ -13,16 +13,19 @@ public class Post {
     @Column(length = 50, nullable = false)
     private Timestamp timestamp;
 
+    @Column(length = 200)
+    private String content;
+
     @ManyToOne
     @JoinColumn(name = "sender_student_id")
     private Student sender_student;  //FK
 
-    /*@OneToMany(mappedBy = "post")
-    private Set<Post> replies;  //FK
+    @OneToMany(mappedBy = "reply_post")
+    private Set<Post> replies;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post reply_post; //FK*/
+    @JoinColumn(name = "reply_post_id")
+    private Post reply_post; //FK
 
     @ManyToOne
     @JoinColumn(name = "target_student_id")
@@ -54,6 +57,14 @@ public class Post {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Student getSender_student() {
@@ -95,7 +106,14 @@ public class Post {
     public void setTarget_alumniEvent(AlumniEvent target_alumniEvent) {
         this.target_alumniEvent = target_alumniEvent;
     }
-/*
+
+
+    public Post getReply_post() {
+        return reply_post;
+    }
+
+    public void setReply_post(Post reply_post) {this.reply_post = reply_post;}
+
     public Set<Post> getReplies() {
         return replies;
     }
@@ -103,10 +121,4 @@ public class Post {
     public void setReplies(Set<Post> replies) {
         this.replies = replies;
     }
-
-    public Post getReply_post() {
-        return reply_post;
-    }
-
-    public void setReply_post(Post reply_post) {this.reply_post = reply_post;}*/
 }

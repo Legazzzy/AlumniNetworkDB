@@ -9,6 +9,9 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(length = 200)
+    private String token;
+
     @Column (length = 50)
     private String name;
 
@@ -32,6 +35,8 @@ public class Student {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getToken() { return token; }
 
     public String getName() { return name; }
 
