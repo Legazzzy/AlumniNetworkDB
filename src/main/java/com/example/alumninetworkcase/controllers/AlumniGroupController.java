@@ -87,7 +87,7 @@ public class AlumniGroupController {
     @Operation(summary = "Add new alumni group")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
-                    description = "Alumni groupå successfully added",
+                    description = "Alumni group successfully added",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
