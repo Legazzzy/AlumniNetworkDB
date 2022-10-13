@@ -13,7 +13,7 @@ INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Shakira', 'h
                                                                         'Singer', 'I like singing more', 'Here thanks to my friend Rihanna');
 INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Bill Gates', 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Bill_Gates_2017_%28cropped%29.jpg',
                                                                    'Working with charities', 'My name is Gates, I have earned a lot of money', 'I didnt found this course, but I sure do own it');
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Nic Cage', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6GtcitsAnDUTkujF21rBWXnVCw-7P-SczYYIBzmJyKj0IWRlZn1nEfYvvtqfDYSJdv94&usqp=CAU',
+INSERT INTO student (token, name, picture, status, bio, fun_fact) VALUES ('abcdefghijklmnopqrstuvwxyz','Nic Cage', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6GtcitsAnDUTkujF21rBWXnVCw-7P-SczYYIBzmJyKj0IWRlZn1nEfYvvtqfDYSJdv94&usqp=CAU',
                                                                    'Playing in my 12107543 movie', 'I act like my life depend on it', 'I looked for the holy grail once');
 
 
