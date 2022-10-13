@@ -56,7 +56,7 @@ public class StudentController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-
+    @GetMapping
     public ResponseEntity getAll() {
         Collection<StudentDTO> students = studentMapper.studentToStudentDTO(
                 studentService.findAll()
