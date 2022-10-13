@@ -59,13 +59,14 @@ public class AlumniGroupController {
     }
 
     //find alumnigroup by ID
+    //TODO: Needs to change from _private to is_private in online DB
     @Operation(summary = "Get alumni group with specific ID, taking in the ID of the accessing user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Alumni group has been found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = AlumniGroup.class))),
-            @ApiResponse(responseCode = "403",
+            @ApiResponse(responseCode = "400",
                     description = "Forbidden",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class))}),
@@ -79,13 +80,14 @@ public class AlumniGroupController {
         AlumniGroupDTO group = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findById(id)
         );
-        if(group.is_private() && alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(id))){
-            return ResponseEntity.ok(group);
+
+        if(group.is_private()){
+            return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(group);
     }
 
-    //add - add new event
+    //add new Alumni group
     @Operation(summary = "Add new alumni group")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
@@ -99,8 +101,28 @@ public class AlumniGroupController {
     @PostMapping
     public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, int creator_student_id) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
+        group.setAlumnigroup_creator_student(studentService.findById(creator_student_id));
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();
     }
-
+/*
+    //update Alumni group with new students
+    @Operation(summary = "Update alumni group with new user")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Alumni group successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PostMapping
+    public ResponseEntity update(@RequestBody Collection<Integer> studentIds, @PathVariable int id) {
+        if(!alumniGroupService.exists(id)) {
+            return ResponseEntity.badRequest().build();
+        }
+        alumniGroupService.updateStudentsInAlumniGroup(alumniGroupService.findById(id), studentIds);
+        return ResponseEntity.noContent().build();
+    }*/
 }

@@ -10,7 +10,7 @@ public class AlumniGroupDTO {
     private int alumnigroup_creator_student; //FK
     private String name;
     private String description;
-    private boolean is_private;
+    private boolean _private;
 
     private Set<Integer> students;
     private Set<Integer> alumniEvents;

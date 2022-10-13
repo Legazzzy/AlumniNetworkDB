@@ -9,5 +9,7 @@ import java.util.Collection;
 public interface AlumniGroupService extends CrudService<AlumniGroup, Integer> {
     Collection<Student> getAllStudentsInAlumniGroup(AlumniGroup alumniGroup);
 
+    AlumniGroup updateStudentsInAlumniGroup(AlumniGroup alumniGroup, Collection<Integer> studentIds);
+
     public boolean isStudentInGroup(int student_id, AlumniGroup group);
 }

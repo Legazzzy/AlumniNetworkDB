@@ -4,16 +4,23 @@ import com.example.alumninetworkcase.exceptions.AlumniGroupNotFoundException;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.AlumniGroupRepo;
+import com.example.alumninetworkcase.repositories.StudentRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class AlumniGroupServiceImplements implements AlumniGroupService {
 
     private final AlumniGroupRepo alumniGroupRepo;
 
-    public AlumniGroupServiceImplements(AlumniGroupRepo alumniGroupRepo) {
+    private final StudentRepo studentRepo;
+
+    public AlumniGroupServiceImplements(AlumniGroupRepo alumniGroupRepo, StudentRepo studentRepo) {
         this.alumniGroupRepo = alumniGroupRepo;
+        this.studentRepo = studentRepo;
     }
 
     @Override
@@ -56,6 +63,18 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     public Collection<Student> getAllStudentsInAlumniGroup(AlumniGroup alumniGroup) {
         Collection<Student> studentsInAlumniGroup = alumniGroup.getStudents();
         return studentsInAlumniGroup;
+    }
+
+    @Override
+    public AlumniGroup updateStudentsInAlumniGroup (AlumniGroup alumniGroup, Collection<Integer> ids){
+        alumniGroup.getStudents().forEach(c -> c.setAlumniGroups(null));
+        Set<Student> students = new HashSet<Student>();
+
+        //Adding the part to the movie
+        ids.stream().forEach(p -> students.add(studentRepo.findById(p).get()));
+
+        alumniGroup.setStudents(students);
+        return alumniGroupRepo.save(alumniGroup);
     }
 
     @Override

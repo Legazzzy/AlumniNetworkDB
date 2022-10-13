@@ -16,7 +16,7 @@ public class AlumniGroup {
     private String description;
 
     @Column(nullable=false)
-    private boolean is_private;
+    private boolean _private;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -59,12 +59,12 @@ public class AlumniGroup {
         this.description = description;
     }
 
-    public Boolean getIs_private() {
-        return is_private;
+    public Boolean get_private() {
+        return _private;
     }
 
-    public void setIs_private(boolean is_private) {
-        this.is_private = is_private;
+    public void set_private(boolean is_private) {
+        this._private = _private;
     }
 
     public Set<Student> getStudents() {
