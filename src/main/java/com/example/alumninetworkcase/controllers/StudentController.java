@@ -3,6 +3,7 @@ package com.example.alumninetworkcase.controllers;
 
 import com.example.alumninetworkcase.mappers.*;
 import com.example.alumninetworkcase.models.AlumniGroup;
+import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.Student;
@@ -55,12 +56,31 @@ public class StudentController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping // GET: localhost:8080/api/v1/alumnigroup
+
     public ResponseEntity getAll() {
         Collection<StudentDTO> students = studentMapper.studentToStudentDTO(
                 studentService.findAll()
         );
         return ResponseEntity.ok(students);
+    }
+
+    @Operation(summary = "Get student with id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Student has been found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AlumniGroup.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Student does not exist with supplied ID",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class))})
+    })
+    @GetMapping("{id}")
+    public ResponseEntity<StudentDTO> getById(@PathVariable int id) {
+        StudentDTO student = studentMapper.studentToStudentDTO(
+                studentService.findById(id)
+        );
+        return ResponseEntity.ok(student);
     }
 
     //post new student
