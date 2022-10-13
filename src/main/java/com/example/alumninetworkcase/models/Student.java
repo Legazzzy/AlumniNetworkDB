@@ -27,38 +27,6 @@ public class Student {
     @Column(length = 200)
     private String fun_fact;
 
-    //getters and setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getToken() { return token; }
-
-    public String getName() { return name; }
-
-    public void setName(String name) { this.name = name; }
-
-
-    public String getPicture() { return picture; }
-
-    public void setPicture(String picture) { this.picture = picture; }
-
-
-    public String getStatus() { return status; }
-
-    public void setStatus(String status) { this.status = status; }
-
-    public String getBio() { return bio; }
-
-    public void setBio(String bio) { this.bio = bio; }
-
-    public String getFun_fact() { return fun_fact; }
-
-    public void setFun_fact(String fun_fact) { this.fun_fact = fun_fact; }
 
     //User to Group (Many to Many)
     @ManyToMany
@@ -93,6 +61,51 @@ public class Student {
     //User to Post (One to Many)
     @OneToMany(mappedBy = "target_student")
     private Set<Post> posts;
+
+    //User to created groups
+    @OneToMany(mappedBy = "alumnigroup_creator_student")
+    private Set<AlumniGroup> ownedAlumniGroups;
+
+    //getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<AlumniGroup> getOwnedAlumniGroups() {
+        return ownedAlumniGroups;
+    }
+
+    public void setOwnedAlumniGroups(Set<AlumniGroup> ownedAlumniGroups) {
+        this.ownedAlumniGroups = ownedAlumniGroups;
+    }
+
+    public String getToken() { return token; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+
+    public String getPicture() { return picture; }
+
+    public void setPicture(String picture) { this.picture = picture; }
+
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
+
+    public String getBio() { return bio; }
+
+    public void setBio(String bio) { this.bio = bio; }
+
+    public String getFun_fact() { return fun_fact; }
+
+    public void setFun_fact(String fun_fact) { this.fun_fact = fun_fact; }
 
     public Set<AlumniGroup> getAlumniGroups() {
         return alumniGroups;

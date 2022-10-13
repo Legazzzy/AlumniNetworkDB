@@ -27,13 +27,15 @@ public abstract class AlumniGroupMapper {
     @Autowired
     PostService postService;
 
-    //Uses a GroupDTO object to attain a Group object
-    @Mapping(target = "students", source= "students", qualifiedByName = "studentsToIds")
-    @Mapping(target = "alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventsToIds")
-    @Mapping(target = "posts", source= "posts", qualifiedByName = "postsToIds")
+    //Uses a AlumniGroupDTO object to attain a AlumniGroup object
+    @Mapping(target="alumnigroup_creator_student", source="alumnigroup_creator_student.id")
+    @Mapping(target="students", source= "students", qualifiedByName = "studentsToIds")
+    @Mapping(target="alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventsToIds")
+    @Mapping(target="posts", source= "posts", qualifiedByName = "postsToIds")
     public abstract AlumniGroupDTO AlumniGroupToAlumniGroupDTO(AlumniGroup alumniGroup);
 
-    //Uses a Group object to attain a GroupDTO object
+    //Uses a AlumniGroup object to attain a AlumniGroupDTO object
+    @Mapping(target="alumnigroup_creator_student", source="alumnigroup_creator_student", qualifiedByName = "studentIdToStudent")
     @Mapping(target="students", source= "students", qualifiedByName = "studentIdToStudent")
     @Mapping(target="alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventIdToAlumniEvent")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")

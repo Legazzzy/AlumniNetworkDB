@@ -58,8 +58,8 @@ public class AlumniGroupController {
         return ResponseEntity.ok(events);
     }
 
-    //find event with ID
-    @Operation(summary = "Get alumni group with id")
+    //find alumnigroup by ID
+    @Operation(summary = "Get alumni group with specific ID, taking in the ID of the accessing user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Alumni group has been found",
@@ -75,11 +75,13 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping("{id}")
-    public ResponseEntity<AlumniGroupDTO> getById(@PathVariable int id) {
+    public ResponseEntity<AlumniGroupDTO> getById(@PathVariable int id, int accessing_student_id) {
         AlumniGroupDTO group = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findById(id)
         );
-
+        if(group.is_private() && alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(id))){
+            return ResponseEntity.ok(group);
+        }
         return ResponseEntity.ok(group);
     }
 
@@ -95,7 +97,7 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup) {
+    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, int creator_student_id) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();

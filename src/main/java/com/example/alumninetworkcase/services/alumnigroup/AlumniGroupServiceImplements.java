@@ -57,4 +57,14 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
         Collection<Student> studentsInAlumniGroup = alumniGroup.getStudents();
         return studentsInAlumniGroup;
     }
+
+    @Override
+    public boolean isStudentInGroup (int student_id, AlumniGroup group) {
+        for (Student stud : group.getStudents()) {
+            if(stud.getId() == student_id) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

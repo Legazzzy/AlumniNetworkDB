@@ -18,6 +18,10 @@ public class AlumniGroup {
     @Column(nullable=false)
     private boolean is_private;
 
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student alumnigroup_creator_student; //FK
+
     @ManyToMany(mappedBy = "alumniGroups")
     private Set<Student> students;
 
@@ -35,6 +39,10 @@ public class AlumniGroup {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Student getAlumnigroup_creator_student() { return alumnigroup_creator_student; }
+
+    public Student setAlumnigroup_creator_student(Student alumnigroup_creator_student) { return this.alumnigroup_creator_student = alumnigroup_creator_student; }
 
     public String getName() {
         return name;
@@ -66,6 +74,16 @@ public class AlumniGroup {
     public void setStudents(Set<Student> students) {
         this.students = students;
     }
+
+    /*
+    public boolean isStudentInGroup (int student_id) {
+        for (Student stud : students) {
+            if(stud.getId() == student_id) {
+                return true;
+            }
+        }
+        return false;
+    }*/
 
     public Set<AlumniEvent> getAlumniEvents() {
         return alumniEvents;

@@ -36,6 +36,7 @@ public abstract class StudentMapper {
     @Mapping(target = "alumniGroups", source= "alumniGroups", qualifiedByName = "alumniGroupsToIds")
     @Mapping(target = "alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventsToIds")
     @Mapping(target = "createdAlumniEvents", source= "createdAlumniEvents", qualifiedByName = "alumniEventsToIds")
+    @Mapping(target = "ownedAlumniGroups", source= "ownedAlumniGroups", qualifiedByName = "alumniGroupsToIds")
     @Mapping(target = "topics", source= "topics", qualifiedByName = "topicsToIds")
     @Mapping(target = "posts", source= "posts", qualifiedByName = "postsToIds")
     public abstract StudentDTO studentToStudentDTO(Student student);
@@ -44,6 +45,7 @@ public abstract class StudentMapper {
     @Mapping(target="alumniGroups", source= "alumniGroups", qualifiedByName = "alumniGroupIdToAlumniGroup")
     @Mapping(target="alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventIdToAlumniEvent")
     @Mapping(target = "createdAlumniEvents", source= "createdAlumniEvents", qualifiedByName = "alumniEventIdToAlumniEvent")
+    @Mapping(target = "ownedAlumniGroups", source= "ownedAlumniGroups", qualifiedByName = "alumniGroupIdToAlumniGroup")
     @Mapping(target="topics", source= "topics", qualifiedByName = "topicIdToTopic")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
     public abstract Student studentDTOToStudent (StudentDTO student);
