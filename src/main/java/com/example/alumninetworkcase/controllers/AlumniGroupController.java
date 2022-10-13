@@ -81,7 +81,7 @@ public class AlumniGroupController {
                 alumniGroupService.findById(id)
         );
 
-        if(group.is_private()){
+        if(group.is_private() && !alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(id))){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(group);
