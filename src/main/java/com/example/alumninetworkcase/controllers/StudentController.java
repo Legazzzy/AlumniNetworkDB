@@ -91,6 +91,18 @@ public class StudentController {
         return ResponseEntity.created(location).build();
     }
 
+
+    @Operation(summary = "Get student with name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Student has been found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AlumniGroup.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Student does not exist with supplied name",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class))})
+    })
     @GetMapping("name")
     public ResponseEntity<StudentDTO> getByName(@RequestParam String name) {
         StudentDTO student = studentMapper.studentToStudentDTO(
