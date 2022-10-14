@@ -1,11 +1,14 @@
 package com.example.alumninetworkcase.services.student;
 
 import com.example.alumninetworkcase.exceptions.StudentNotFoundException;
+import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.StudentRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImplements implements StudentService {
@@ -50,5 +53,11 @@ public class StudentServiceImplements implements StudentService {
     @Override
     public boolean exists(Integer id) {
         return studentRepo.existsById(id);
+    }
+
+    @Override
+    public Student getByName(String name) {
+        Student student = studentRepo.findByName(name);
+        return student;
     }
 }

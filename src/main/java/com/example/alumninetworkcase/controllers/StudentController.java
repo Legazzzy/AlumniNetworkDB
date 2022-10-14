@@ -44,14 +44,14 @@ public class StudentController {
     }
 
     @Operation(summary = "Find all Students")
-    @ApiResponses( value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
                     description = "No alumni groups found",
                     content = @Content)
@@ -89,5 +89,13 @@ public class StudentController {
         Student s = studentService.add(student);
         URI location = URI.create("student/" + s.getId());
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("name")
+    public ResponseEntity<StudentDTO> getByName(@RequestParam String name) {
+        StudentDTO student = studentMapper.studentToStudentDTO(
+                studentService.getByName(name)
+        );
+        return ResponseEntity.ok(student);
     }
 }
