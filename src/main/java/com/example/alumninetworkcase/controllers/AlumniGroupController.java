@@ -89,7 +89,7 @@ public class AlumniGroupController {
 
 
     //invite member to alumni group
-    //TODO: sends 200 response regardless of host, does not actually add student
+    //TODO: does not actually add student
     @Operation(summary = "Lets a user invite another user to a group")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
@@ -106,7 +106,7 @@ public class AlumniGroupController {
             return ResponseEntity.badRequest().build();
         }
         AlumniGroup group = alumniGroupService.findById(id);
-        if(group.get_private() && alumniGroupService.isStudentInGroup(host_student_id, group)){
+        if(group.get_private() && !alumniGroupService.isStudentInGroup(host_student_id, group)){
             return ResponseEntity.badRequest().build();
         }
         alumniGroupService.addStudentToGroup(group, invited_student_id);
