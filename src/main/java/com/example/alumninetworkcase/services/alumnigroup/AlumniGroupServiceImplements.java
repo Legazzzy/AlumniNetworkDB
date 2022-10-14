@@ -70,8 +70,19 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
         alumniGroup.getStudents().forEach(c -> c.setAlumniGroups(null));
         Set<Student> students = new HashSet<Student>();
 
-        //Adding the part to the movie
+        //Adding the students to the group
         ids.stream().forEach(p -> students.add(studentRepo.findById(p).get()));
+
+        alumniGroup.setStudents(students);
+        return alumniGroupRepo.save(alumniGroup);
+    }
+
+    @Override
+    public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, int student_id) {
+        alumniGroup.getStudents().forEach(c -> c.setAlumniGroups(null));
+        Set<Student> students = new HashSet<Student>();
+
+        students.add(studentRepo.findById(student_id).get());
 
         alumniGroup.setStudents(students);
         return alumniGroupRepo.save(alumniGroup);

@@ -112,7 +112,8 @@ public class AlumniEventController {
         return ResponseEntity.ok(students.stream().map(movie -> studentMapper.studentToStudentDTO(movie)));
     }
 
-    //add - add new event
+    // add new event
+    //TODO Fix so events are actually added
     @Operation(summary = "Add new event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
@@ -124,14 +125,15 @@ public class AlumniEventController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class))}),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody AlumniEvent alumniEvent) {
-        AlumniEvent e = eventService.add(alumniEvent);
-        URI location = URI.create("events/" + e.getId());
+    public ResponseEntity add(@RequestBody AlumniEvent alumniEvent, int creator_student_id) {
+        AlumniEvent event = eventService.add(alumniEvent);
+        event.setCreator_student(studentService.findById(creator_student_id));
+        URI location = URI.create("alumniEvent/" + event.getId());
         return ResponseEntity.created(location).build();
     }
 
-    //update - update an existing group
-    @Operation(summary = "Update group")
+    //update - update an existing event
+    @Operation(summary = "Update event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "group successfully updated",
@@ -144,8 +146,6 @@ public class AlumniEventController {
                     description = "Group not found with supplied ID",
                     content = @Content)
     })
-
-
     @PutMapping("{id}")
     public ResponseEntity update(@RequestBody AlumniGroupDTO alumniGroupDTO, @PathVariable int id) {
         if (id != alumniGroupDTO.getId())
@@ -176,7 +176,7 @@ public class AlumniEventController {
     }
 
 
-    //delete - delete a franchise
+    //delete - delete an alumnigroup
     @Operation(summary = "Delete group with RequestBody")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
