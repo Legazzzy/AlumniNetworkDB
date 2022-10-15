@@ -18,10 +18,10 @@ INSERT INTO student (token, name, picture, status, bio, fun_fact) VALUES ('abcde
 
 
 -- AlumniGroups
-INSERT INTO alumni_group(description, _private, name) VALUES ('A club for cool people only', true, 'The Cool Club');
-INSERT INTO alumni_group(description, _private, name) VALUES ('A group for those who love mysteries', true, 'Gloomy True Crime Fans');
-INSERT INTO alumni_group(description, _private, name) VALUES ('For those who love to sing', false, 'Singers of Accelerate');
-INSERT INTO alumni_group(description, _private, name) VALUES ('We like movies', false, 'Accelerate Movie Club');
+INSERT INTO alumni_group(student_id, description, _private, name) VALUES (2, 'A club for cool people only', true, 'The Cool Club');
+INSERT INTO alumni_group(student_id, description, _private, name) VALUES (3, 'A group for those who love mysteries', true, 'Gloomy True Crime Fans');
+INSERT INTO alumni_group(student_id, description, _private, name) VALUES (5, 'For those who love to sing', false, 'Singers of Accelerate');
+INSERT INTO alumni_group(student_id, description, _private, name) VALUES (8, 'We like movies', false, 'Accelerate Movie Club');
 
 
 -- Reference students to groups

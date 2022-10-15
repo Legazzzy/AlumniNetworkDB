@@ -79,8 +79,7 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
 
     @Override
     public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, int student_id) {
-        alumniGroup.getStudents().forEach(c -> c.setAlumniGroups(null));
-        Set<Student> students = new HashSet<Student>();
+        Set<Student> students = alumniGroup.getStudents();
 
         students.add(studentRepo.findById(student_id).get());
 

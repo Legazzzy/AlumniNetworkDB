@@ -113,7 +113,7 @@ public class AlumniEventController {
     }
 
     // add new event
-    //TODO Fix so events are actually added
+
     @Operation(summary = "Add new event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",

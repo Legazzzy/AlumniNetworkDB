@@ -37,7 +37,7 @@ public class AlumniGroupController {
     }
 
 
-    @Operation(summary = "Find all Events")
+    @Operation(summary = "Find all alumni groups")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
@@ -100,7 +100,7 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PostMapping("invite{id}")
+    @PutMapping("invite{id}")
     public ResponseEntity inviteMember(@PathVariable int id, int invited_student_id, int host_student_id) {
         if(!alumniGroupService.exists(id)) {
             return ResponseEntity.badRequest().build();
@@ -131,9 +131,9 @@ public class AlumniGroupController {
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();
     }
-/*
+
     //update Alumni group with new students
-    @Operation(summary = "Update alumni group with new user")
+    @Operation(summary = "Update alumni group with new users")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "Alumni group successfully added",
@@ -143,12 +143,15 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PostMapping
+    @PutMapping
     public ResponseEntity update(@RequestBody Collection<Integer> studentIds, @PathVariable int id) {
         if(!alumniGroupService.exists(id)) {
             return ResponseEntity.badRequest().build();
         }
         alumniGroupService.updateStudentsInAlumniGroup(alumniGroupService.findById(id), studentIds);
         return ResponseEntity.noContent().build();
-    }*/
+    }
+
+    //Delete AlumniGroup
+
 }
