@@ -151,7 +151,4 @@ public class AlumniGroupController {
         alumniGroupService.updateStudentsInAlumniGroup(alumniGroupService.findById(id), studentIds);
         return ResponseEntity.noContent().build();
     }
-
-    //Delete AlumniGroup
-
 }

@@ -113,7 +113,6 @@ public class AlumniEventController {
     }
 
     // add new event
-
     @Operation(summary = "Add new event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
@@ -132,11 +131,11 @@ public class AlumniEventController {
         return ResponseEntity.created(location).build();
     }
 
-    //update - update an existing event
+    //update an existing event
     @Operation(summary = "Update event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
-                    description = "group successfully updated",
+                    description = "event successfully updated",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
@@ -147,16 +146,16 @@ public class AlumniEventController {
                     content = @Content)
     })
     @PutMapping("{id}")
-    public ResponseEntity update(@RequestBody AlumniGroupDTO alumniGroupDTO, @PathVariable int id) {
-        if (id != alumniGroupDTO.getId())
+    public ResponseEntity update(@RequestBody AlumniEventDTO alumniEventDTO, @PathVariable int id) {
+        if (id != alumniEventDTO.getId())
             return ResponseEntity.badRequest().build();
-        alumniGroupService.update(
-                groupMapper.AlumniGroupDTOToAlumniGroup(alumniGroupDTO));
+        eventService.update(eventMapper.alumniEventDTOToAlumniEvent(alumniEventDTO));
         return ResponseEntity.noContent().build();
     }
 
-    //deleteById - delete a franchise by id
-    @Operation(summary = "Delete a group by id")
+
+    //deleteById - delete a event by id
+    @Operation(summary = "Delete a event by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Group successfully deleted",
@@ -171,28 +170,28 @@ public class AlumniEventController {
     })
     @DeleteMapping("{id}")
     public ResponseEntity deleteById(@PathVariable int id) {
-        alumniGroupService.deleteById(id);
+        eventService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-
-    //delete - delete an alumnigroup
-    @Operation(summary = "Delete group with RequestBody")
+    @Operation(summary = "Invite student to event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
-                    description = "Group successfully deleted",
+                    description = "Student successfully added to event",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class))}),
             @ApiResponse(responseCode = "404",
-                    description = "Group not found with supplied ID",
+                    description = "Event not found with supplied ID",
                     content = @Content)
-    })
-    @DeleteMapping()
-    public ResponseEntity delete(@RequestBody AlumniGroup alumniGroup) {
-        alumniGroupService.delete(alumniGroup);
+    })@PutMapping("invite{id}")
+    public ResponseEntity inviteStudent(int invited_student_id, @PathVariable int id) {
+        if(!eventService.exists(id)) {
+            return ResponseEntity.badRequest().build();
+        }
+        eventService.addStudentToEvent(eventService.findById(id), invited_student_id);
         return ResponseEntity.noContent().build();
     }
 }

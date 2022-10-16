@@ -4,17 +4,22 @@ import com.example.alumninetworkcase.exceptions.AlumniEventNotFoundException;
 import com.example.alumninetworkcase.models.AlumniEvent;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.AlumniEventRepo;
+import com.example.alumninetworkcase.repositories.StudentRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Service
 public class AlumniEventServiceImplements implements AlumniEventService {
 
     private final AlumniEventRepo alumniEventRepo;
 
-    public AlumniEventServiceImplements(AlumniEventRepo alumniEventRepo) {
+    private final StudentRepo studentRepo;
+
+    public AlumniEventServiceImplements(AlumniEventRepo alumniEventRepo, StudentRepo studentRepo) {
         this.alumniEventRepo = alumniEventRepo;
+        this.studentRepo = studentRepo;
     }
 
     @Override
@@ -57,5 +62,13 @@ public class AlumniEventServiceImplements implements AlumniEventService {
     public Collection<Student> getAllStudentsInAlumniEvent(AlumniEvent alumniEvent) {
         Collection<Student> studentsInGroup = alumniEvent.getStudents();
         return studentsInGroup;
+    }
+
+    @Override
+    public AlumniEvent addStudentToEvent(AlumniEvent alumniEvent, int student_id) {
+        Set<Student> students = alumniEvent.getStudents();
+        students.add(studentRepo.findById(student_id).get());
+        alumniEvent.setStudents(students);
+        return alumniEventRepo.save(alumniEvent);
     }
 }
