@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -146,7 +147,7 @@ public class AlumniGroupController {
 
     //invite member to alumni group
     //TODO: does not actually add student
-    @Operation(summary = "Lets a user invite another user to a group")
+    /*@Operation(summary = "Lets a user invite another user to a group")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "User successfully added to group",
@@ -156,18 +157,15 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PutMapping("invite{id}") //PUT: localhost:8081/api/v1/alumniGroup/1
-    public ResponseEntity inviteMember(@RequestBody Student invited_student, @PathVariable int id) {
-        if(!alumniGroupService.exists(id)) {
+    @PostMapping //PUT: localhost:8081/api/v1/alumniGroup/1
+    public ResponseEntity inviteMember(int invited_student_id, @PathVariable int id) {
+        if(!alumniGroupService.exists(id)){
             return ResponseEntity.badRequest().build();
         }
-        /*if(group.get_private() && !alumniGroupService.isStudentInGroup(host_student_id, group)){
-            return ResponseEntity.badRequest().build();
-        }*/
-        alumniGroupService.addStudentToGroup(alumniGroupService.findById(id), invited_student);
-        return ResponseEntity.noContent().build();
-    }
-
+        
+        URI location = URI.create("student_alumnigroup/alumnigroup_id/"+id);
+        return ResponseEntity.created(location).build();
+    }*/
     //add new Alumni group
     @Operation(summary = "Create a new alumni group")
     @ApiResponses( value = {
@@ -193,7 +191,7 @@ public class AlumniGroupController {
     }
 
     //update Alumni group with new students
-    @Operation(summary = "Update alumni group with new users")
+    /*@Operation(summary = "Update alumni group with new users")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "Alumni group successfully added",
@@ -210,5 +208,5 @@ public class AlumniGroupController {
         }
         alumniGroupService.updateStudentsInAlumniGroup(alumniGroupService.findById(id), studentIds);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }

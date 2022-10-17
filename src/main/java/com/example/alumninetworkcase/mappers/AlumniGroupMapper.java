@@ -3,6 +3,7 @@ package com.example.alumninetworkcase.mappers;
 import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
+import com.example.alumninetworkcase.services.membershipinvite.MembershipInviteService;
 import com.example.alumninetworkcase.services.post.PostService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import org.mapstruct.Mapper;
@@ -27,11 +28,15 @@ public abstract class AlumniGroupMapper {
     @Autowired
     PostService postService;
 
+    @Autowired
+    MembershipInviteService membershipInviteService;
+
     //Uses a AlumniGroupDTO object to attain a AlumniGroup object
     @Mapping(target="alumnigroup_creator_student", source="alumnigroup_creator_student.id")
     @Mapping(target="students", source= "students", qualifiedByName = "studentsToIds")
     @Mapping(target="alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventsToIds")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postsToIds")
+    @Mapping(target="groupMembershipInvites", source="groupMembershipInvites", qualifiedByName = "membershipInvitesToIds")
     public abstract AlumniGroupDTO AlumniGroupToAlumniGroupDTO(AlumniGroup alumniGroup);
 
     //Uses a AlumniGroup object to attain a AlumniGroupDTO object
@@ -39,6 +44,7 @@ public abstract class AlumniGroupMapper {
     @Mapping(target="students", source= "students", qualifiedByName = "studentIdToStudent")
     @Mapping(target="alumniEvents", source= "alumniEvents", qualifiedByName = "alumniEventIdToAlumniEvent")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
+    @Mapping(target="groupMembershipInvites", source="groupMembershipInvites", qualifiedByName = "membershipInviteIdToMembershipInvite")
     public abstract AlumniGroup AlumniGroupDTOToAlumniGroup (AlumniGroupDTO alumniGroupDTO);
 
     //Collection of Groups into a collection of GroupDTOs
@@ -56,6 +62,10 @@ public abstract class AlumniGroupMapper {
     //Maps id to event
     @Named("postIdToPost")
     Post mapIdToPost(int id) { return postService.findById(id);}
+
+    //Maps id to post
+    @Named("membershipInviteIdToMembershipInvite")
+    MembershipInvite mapIdToMembershipInvite(int id) { return membershipInviteService.findById(id);}
 
     //Maps users to ids
     @Named("studentsToIds")
@@ -81,5 +91,13 @@ public abstract class AlumniGroupMapper {
             return null;
         return source.stream()
                 .map(s -> s.getId()).collect(Collectors.toSet());
+    }
+
+    //Maps membership to ids
+    @Named("membershipInvitesToIds")
+    Set<Integer> mapMembershipInvitesToIds(Set<MembershipInvite> source) {
+        if (source == null)
+            return null;
+        return source.stream().map(s -> s.getId()).collect(Collectors.toSet());
     }
 }
