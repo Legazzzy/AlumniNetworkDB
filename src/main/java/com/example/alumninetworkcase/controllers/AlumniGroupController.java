@@ -73,8 +73,8 @@ public class AlumniGroupController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("getStudentGroups") // GET: localhost:8080/api/v1/alumnigroup/getStudentGroups
-    public ResponseEntity displayGroups(int accessing_student_id) {
+    @GetMapping("displayJoinedGroups") // GET: localhost:8080/api/v1/alumnigroup/getStudentGroups
+    public ResponseEntity displayJoinedGroups(int accessing_student_id) {
         Collection<AlumniGroupDTO> allEvents = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findAll()
         );
