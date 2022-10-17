@@ -28,5 +28,7 @@ public class MembershipInviteController {
         this.studentMapper = studentMapper;
         this.studentService = studentService;
     }
+
+
 }
 
