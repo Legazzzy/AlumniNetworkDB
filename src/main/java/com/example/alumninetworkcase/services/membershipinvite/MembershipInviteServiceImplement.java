@@ -4,11 +4,13 @@ import com.example.alumninetworkcase.exceptions.AlumniGroupNotFoundException;
 import com.example.alumninetworkcase.exceptions.MembershipInviteNotFoundException;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.MembershipInvite;
+import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.AlumniGroupRepo;
 import com.example.alumninetworkcase.repositories.MembershipInviteRepo;
 import com.example.alumninetworkcase.repositories.StudentRepo;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Member;
 import java.util.Collection;
 
 @Service
@@ -54,5 +56,17 @@ public class MembershipInviteServiceImplement implements MembershipInviteService
     @Override
     public boolean exists(Integer id) {
         return membershipInviteRepo.existsById(id);
+    }
+
+    @Override
+    public MembershipInvite addStudentInvite(MembershipInvite membershipInvite, Student student) {
+        membershipInvite.setInvited_student(student);
+        return membershipInviteRepo.save(membershipInvite);
+    }
+
+    @Override
+    public MembershipInvite addGroupInvite(MembershipInvite membershipInvite, AlumniGroup alumniGroup) {
+        membershipInvite.setGroup_invite(alumniGroup);
+        return membershipInviteRepo.save(membershipInvite);
     }
 }

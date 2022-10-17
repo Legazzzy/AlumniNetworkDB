@@ -18,10 +18,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Collection;
 
 @RestController
@@ -64,5 +63,29 @@ public class MembershipInviteController {
         );
         return ResponseEntity.ok(memberships);
     }
+
+    @Operation(summary = "Lets a user invite another user to a group")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "User successfully added to group",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PostMapping //POST: localhost:8081/api/v1/alumniGroup/1
+    public ResponseEntity inviteMember(int student_id, @PathVariable int id) {
+        if(!alumniGroupService.exists(id)){
+            return ResponseEntity.badRequest().build();
+        }
+
+        MembershipInvite invite = membershipInviteService.add(new MembershipInvite());
+        membershipInviteService.addStudentInvite(invite, studentService.findById(student_id));
+        membershipInviteService.addGroupInvite(invite, alumniGroupService.findById(id));
+        URI location = URI.create("membershipinvite/"+invite.getId());
+        return ResponseEntity.created(location).build();
+    }
+
 }
 
