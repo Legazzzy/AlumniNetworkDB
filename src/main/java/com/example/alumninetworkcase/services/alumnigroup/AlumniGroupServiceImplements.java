@@ -78,12 +78,16 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     }
 
     @Override
-    public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, int student_id) {
+    public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, Student student) {
         Set<Student> students = alumniGroup.getStudents();
-
-        students.add(studentRepo.findById(student_id).get());
-
+        students.add(student);
         alumniGroup.setStudents(students);
+        return alumniGroupRepo.save(alumniGroup);
+    }
+
+    public AlumniGroup addCreatorStudentToGroup (AlumniGroup alumniGroup, int student_id) {
+        Student creator_student = studentRepo.findById(student_id).get();
+        alumniGroup.setAlumnigroup_creator_student(creator_student);
         return alumniGroupRepo.save(alumniGroup);
     }
 

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/alumnigroup")
@@ -87,7 +88,7 @@ public class AlumniGroupController {
         return ResponseEntity.ok(events);
     }
 
-    @Operation(summary = "Find all alumni groups available to specific student")
+    @Operation(summary = "Find all alumni groups available to specific student that they have not yet joined")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
@@ -107,9 +108,7 @@ public class AlumniGroupController {
         );
         Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
         for(AlumniGroupDTO ad : allEvents) {
-            if(!alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId())) && alumniGroupService.findById(ad.getId()).get_private()){
-                //Do nothing
-            } else {
+            if(!alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId())) && !alumniGroupService.findById(ad.getId()).get_private()){
                 events.add(ad);
             }
         }
@@ -157,21 +156,20 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PutMapping("invite/{id}")
-    public ResponseEntity inviteMember(@PathVariable int id, int invited_student_id, int host_student_id) {
+    @PutMapping("invite{id}") //PUT: localhost:8081/api/v1/alumniGroup/1
+    public ResponseEntity inviteMember(@RequestBody Student invited_student, @PathVariable int id) {
         if(!alumniGroupService.exists(id)) {
             return ResponseEntity.badRequest().build();
         }
-        AlumniGroup group = alumniGroupService.findById(id);
-        if(group.get_private() && !alumniGroupService.isStudentInGroup(host_student_id, group)){
+        /*if(group.get_private() && !alumniGroupService.isStudentInGroup(host_student_id, group)){
             return ResponseEntity.badRequest().build();
-        }
-        alumniGroupService.addStudentToGroup(group, invited_student_id);
+        }*/
+        alumniGroupService.addStudentToGroup(alumniGroupService.findById(id), invited_student);
         return ResponseEntity.noContent().build();
     }
 
     //add new Alumni group
-    @Operation(summary = "Add new alumni group")
+    @Operation(summary = "Create a new alumni group")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "Alumni group successfully added",
@@ -182,9 +180,14 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, int creator_student_id) {
+    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, String token) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
-        group.setAlumnigroup_creator_student(studentService.findById(creator_student_id));
+        Student creator_student = studentService.getByToken(token);
+
+        //Updates creator student
+        alumniGroupService.addCreatorStudentToGroup(group, creator_student.getId());
+
+        //Creates group
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();
     }
