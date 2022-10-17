@@ -3,6 +3,7 @@ package com.example.alumninetworkcase.controllers;
 import com.example.alumninetworkcase.mappers.AlumniGroupMapper;
 import com.example.alumninetworkcase.mappers.StudentMapper;
 import com.example.alumninetworkcase.models.AlumniGroup;
+import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.Student;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping(path = "api/v1/alumnigroup")
@@ -58,8 +60,34 @@ public class AlumniGroupController {
         return ResponseEntity.ok(events);
     }
 
+    @Operation(summary = "Find all alumni groups viewable by specific student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayJoinedGroups") // GET: localhost:8080/api/v1/alumnigroup/getStudentGroups
+    public ResponseEntity displayJoinedGroups(int accessing_student_id) {
+        Collection<AlumniGroupDTO> allEvents = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
+                alumniGroupService.findAll()
+        );
+        Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
+        for(AlumniGroupDTO ad : allEvents) {
+            if(!ad.getStudents().contains(studentService.findById(accessing_student_id))){
+                events.add(ad);
+            }
+        }
+        return ResponseEntity.ok(events);
+    }
+
     //find alumnigroup by ID
-    //TODO: Needs to change from _private to is_private in online DB
     @Operation(summary = "Get alumni group with specific ID, taking in the ID of the accessing user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -100,7 +128,7 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PutMapping("invite{id}")
+    @PutMapping("invite/{id}")
     public ResponseEntity inviteMember(@PathVariable int id, int invited_student_id, int host_student_id) {
         if(!alumniGroupService.exists(id)) {
             return ResponseEntity.badRequest().build();

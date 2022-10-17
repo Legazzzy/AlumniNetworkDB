@@ -62,8 +62,7 @@ public class AlumniGroup {
     public Boolean get_private() {
         return _private;
     }
-
-    public void set_private(boolean is_private) {
+    public void set_private(boolean _private) {
         this._private = _private;
     }
 
