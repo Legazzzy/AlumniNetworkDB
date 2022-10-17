@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +63,7 @@ public class StudentController {
                     content = @Content)
     })
     @GetMapping
+    @PreAuthorize("hasRole(ADMIN)")
     public ResponseEntity getAll() {
         Collection<StudentDTO> students = studentMapper.studentToStudentDTO(
                 studentService.findAll()
