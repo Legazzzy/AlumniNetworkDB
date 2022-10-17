@@ -60,7 +60,7 @@ public class AlumniGroupController {
         return ResponseEntity.ok(events);
     }
 
-    @Operation(summary = "Find all alumni groups viewable by specific student")
+    @Operation(summary = "Find all alumni groups joined by specific student")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
@@ -73,14 +73,43 @@ public class AlumniGroupController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("displayJoinedGroups") // GET: localhost:8080/api/v1/alumnigroup/getStudentGroups
+    @GetMapping("displayJoinedGroups") // GET: localhost:8080/api/v1/alumnigroup/displayJoinedGroups
     public ResponseEntity displayJoinedGroups(int accessing_student_id) {
         Collection<AlumniGroupDTO> allEvents = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findAll()
         );
         Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
         for(AlumniGroupDTO ad : allEvents) {
-            if(!ad.getStudents().contains(studentService.findById(accessing_student_id))){
+            if(alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId()))){
+                events.add(ad);
+            }
+        }
+        return ResponseEntity.ok(events);
+    }
+
+    @Operation(summary = "Find all alumni groups available to specific student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayAvailableGroups") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayAvailableGroups(int accessing_student_id) {
+        Collection<AlumniGroupDTO> allEvents = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
+                alumniGroupService.findAll()
+        );
+        Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
+        for(AlumniGroupDTO ad : allEvents) {
+            if(!alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId())) && alumniGroupService.findById(ad.getId()).get_private()){
+                //Do nothing
+            } else {
                 events.add(ad);
             }
         }
