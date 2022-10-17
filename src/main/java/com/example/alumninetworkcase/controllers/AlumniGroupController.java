@@ -183,6 +183,7 @@ public class AlumniGroupController {
         Student creator_student = studentService.getByToken(token);
 
         //Updates creator student
+        alumniGroupService.addStudentToGroup(group, creator_student);
         alumniGroupService.addCreatorStudentToGroup(group, creator_student.getId());
 
         //Creates group
