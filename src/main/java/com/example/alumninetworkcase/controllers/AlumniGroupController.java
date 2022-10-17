@@ -80,9 +80,7 @@ public class AlumniGroupController {
         );
         Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
         for(AlumniGroupDTO ad : allEvents) {
-            if(!ad.getStudents().contains(studentService.findById(accessing_student_id)) && ad.is_private()){
-                //Do nothing
-            } else {
+            if(!ad.getStudents().contains(studentService.findById(accessing_student_id))){
                 events.add(ad);
             }
         }
