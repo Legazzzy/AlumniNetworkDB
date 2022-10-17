@@ -83,6 +83,25 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
+    @Operation(summary = "Get student with token")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Student has been found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AlumniGroup.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Student does not exist with supplied ID",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class))})
+    })
+    @GetMapping("/token/{token}")
+    public ResponseEntity<StudentDTO> getByToken(@PathVariable String token) {
+        StudentDTO student = studentMapper.studentToStudentDTO(
+                studentService.getByToken(token)
+        );
+        return ResponseEntity.ok(student);
+    }
+
     //post new student
     @PostMapping
     public ResponseEntity add(@RequestBody Student student) {

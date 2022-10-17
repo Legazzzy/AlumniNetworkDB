@@ -5,4 +5,5 @@ import com.example.alumninetworkcase.services.CrudService;
 
 public interface StudentService extends CrudService<Student, Integer> {
     Student getByName(String name);
+    Student getByToken(String token);
 }

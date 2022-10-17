@@ -60,4 +60,10 @@ public class StudentServiceImplements implements StudentService {
         Student student = studentRepo.findByName(name);
         return student;
     }
+
+    @Override
+    public Student getByToken(String token) {
+        Student student = studentRepo.getByToken(token);
+        return student;
+    }
 }
