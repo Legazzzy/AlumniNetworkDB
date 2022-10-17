@@ -66,4 +66,18 @@ public class StudentServiceImplements implements StudentService {
         Student student = studentRepo.getByToken(token);
         return student;
     }
+
+    @Override
+    public Student add(String token) {
+        // Prevents internal server error for duplicates
+        int id = studentRepo.getByToken(token).getId();
+        /*if(studentRepo.existsById(id))
+            throw new StudentAlreadyExistsException();*/
+        // Create new user
+        Student student = new Student();
+        student.setToken(token);
+        student.setComplete(false);
+        return studentRepo.save(student);
+    }
+
 }

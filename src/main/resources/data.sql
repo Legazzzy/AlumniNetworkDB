@@ -1,20 +1,20 @@
 -- Students
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Jack', 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Jack_Nicholson_2001.jpg',
-                                                                   'Hotel manager', 'I lived at a hotel once', 'Totally not crazy');
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Tony', 'https://upload.wikimedia.org/wikipedia/en/1/19/Tony_Montana_in_Scarface_%281983%29%2C_portrayed_by_Al_Pacino.jpg',
-                                                                   'Kingpin', 'Dominated the theaters in the 80s', 'I get really angry when people do not greet my little friend');
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Trond. E. Seim', 'https://m.media-amazon.com/images/M/MV5BMTQxNDQ3OTM2Ml5BMl5BanBnXkFtZTcwNTU0MzkxOA@@._V1_.jpg',
-                                                                        'Actor', 'I come from Bergen, the rain is my friend', 'Likes solving murder mysteries');
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Joelene', 'https://resourceconsulting.com/wp-content/uploads/2022/09/headshot-j-aylor-C.png',
-                                                                        'Farmer', 'I dont know how I got here, but Im here now', 'People keep singing my name');
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Rihanna', 'https://pbs.twimg.com/profile_images/1133109643734130688/BwioAwkz_400x400.jpg',
-                                                                        'Singer', 'I like singing', 'The years at Noroff Accelerate were the best years of my life');
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Shakira', 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgwMTgyMTgzOTk3MDg4ODkw/gettyimages-483195065.jpg',
-                                                                        'Singer', 'I like singing more', 'Here thanks to my friend Rihanna');
-INSERT INTO student (name, picture, status, bio, fun_fact) VALUES ('Bill Gates', 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Bill_Gates_2017_%28cropped%29.jpg',
-                                                                   'Working with charities', 'My name is Gates, I have earned a lot of money', 'I didnt found this course, but I sure do own it');
-INSERT INTO student (token, name, picture, status, bio, fun_fact) VALUES ('abcdefghijklmnopqrstuvwxyz','Nic Cage', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6GtcitsAnDUTkujF21rBWXnVCw-7P-SczYYIBzmJyKj0IWRlZn1nEfYvvtqfDYSJdv94&usqp=CAU',
-                                                                   'Playing in my 12107543 movie', 'I act like my life depend on it', 'I looked for the holy grail once');
+INSERT INTO student (name, picture, status, bio, fun_fact, complete) VALUES ('Jack', 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Jack_Nicholson_2001.jpg',
+                                                                   'Hotel manager', 'I lived at a hotel once', 'Totally not crazy', false);
+INSERT INTO student (name, picture, status, bio, fun_fact, complete) VALUES ('Tony', 'https://upload.wikimedia.org/wikipedia/en/1/19/Tony_Montana_in_Scarface_%281983%29%2C_portrayed_by_Al_Pacino.jpg',
+                                                                   'Kingpin', 'Dominated the theaters in the 80s', 'I get really angry when people do not greet my little friend', false);
+INSERT INTO student (name, picture, status, bio, fun_fact, complete) VALUES ('Trond. E. Seim', 'https://m.media-amazon.com/images/M/MV5BMTQxNDQ3OTM2Ml5BMl5BanBnXkFtZTcwNTU0MzkxOA@@._V1_.jpg',
+                                                                        'Actor', 'I come from Bergen, the rain is my friend', 'Likes solving murder mysteries', false);
+INSERT INTO student (name, picture, status, bio, fun_fact, complete) VALUES ('Joelene', 'https://resourceconsulting.com/wp-content/uploads/2022/09/headshot-j-aylor-C.png',
+                                                                        'Farmer', 'I dont know how I got here, but Im here now', 'People keep singing my name', false);
+INSERT INTO student (name, picture, status, bio, fun_fact, complete) VALUES ('Rihanna', 'https://pbs.twimg.com/profile_images/1133109643734130688/BwioAwkz_400x400.jpg',
+                                                                        'Singer', 'I like singing', 'The years at Noroff Accelerate were the best years of my life', false);
+INSERT INTO student (name, picture, status, bio, fun_fact, complete) VALUES ('Shakira', 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTgwMTgyMTgzOTk3MDg4ODkw/gettyimages-483195065.jpg',
+                                                                        'Singer', 'I like singing more', 'Here thanks to my friend Rihanna', false);
+INSERT INTO student (name, picture, status, bio, fun_fact, complete) VALUES ('Bill Gates', 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Bill_Gates_2017_%28cropped%29.jpg',
+                                                                   'Working with charities', 'My name is Gates, I have earned a lot of money', 'I didnt found this course, but I sure do own it', false);
+INSERT INTO student (token, name, picture, status, bio, fun_fact, complete) VALUES ('abcdefghijklmnopqrstuvwxyz','Nic Cage', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6GtcitsAnDUTkujF21rBWXnVCw-7P-SczYYIBzmJyKj0IWRlZn1nEfYvvtqfDYSJdv94&usqp=CAU',
+                                                                   'Playing in my 12107543 movie', 'I act like my life depend on it', 'I looked for the holy grail once', false);
 
 
 -- AlumniGroups

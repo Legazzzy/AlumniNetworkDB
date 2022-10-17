@@ -28,6 +28,11 @@ public class Student {
     private String fun_fact;
 
 
+    @Column(length = 200)
+    private boolean complete;
+
+
+
     //User to Group (Many to Many)
     @ManyToMany
     @JoinTable(
@@ -137,6 +142,17 @@ public class Student {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 
     public Set<AlumniEvent> getCreatedAlumniEvents() {
