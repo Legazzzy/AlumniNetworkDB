@@ -60,7 +60,7 @@ public class AlumniGroupController {
         return ResponseEntity.ok(events);
     }
 
-    @Operation(summary = "Find all alumni groups viewable by specific student")
+    @Operation(summary = "Find all alumni groups joined by specific student")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
@@ -87,7 +87,7 @@ public class AlumniGroupController {
         return ResponseEntity.ok(events);
     }
 
-    @Operation(summary = "Find all alumni groups joined by specific student")
+    @Operation(summary = "Find all alumni groups available to specific student")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
@@ -108,7 +108,7 @@ public class AlumniGroupController {
         Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
         for(AlumniGroupDTO ad : allEvents) {
             if(!alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId())) && alumniGroupService.findById(ad.getId()).get_private()){
-
+                //Do nothing
             } else {
                 events.add(ad);
             }
