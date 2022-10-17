@@ -38,7 +38,7 @@ public class AlumniGroupController {
         this.studentService = studentService;
     }
 
-/*
+
     @Operation(summary = "Find all alumni groups")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
@@ -58,7 +58,7 @@ public class AlumniGroupController {
                 alumniGroupService.findAll()
         );
         return ResponseEntity.ok(events);
-    }*/
+    }
 
     @Operation(summary = "Find all alumni groups viewable by specific student")
     @ApiResponses( value = {
@@ -73,7 +73,7 @@ public class AlumniGroupController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping // GET: localhost:8080/api/v1/alumnigroup
+    @GetMapping("getStudentGroups") // GET: localhost:8080/api/v1/alumnigroup/getStudentGroups
     public ResponseEntity displayGroups(int accessing_student_id) {
         Collection<AlumniGroupDTO> allEvents = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findAll()
@@ -130,7 +130,7 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PutMapping("invite{id}")
+    @PutMapping("invite/{id}")
     public ResponseEntity inviteMember(@PathVariable int id, int invited_student_id, int host_student_id) {
         if(!alumniGroupService.exists(id)) {
             return ResponseEntity.badRequest().build();
