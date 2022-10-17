@@ -156,16 +156,15 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PutMapping("invite/{id}")
-    public ResponseEntity inviteMember(@PathVariable int id, int invited_student_id, int host_student_id) {
+    @PutMapping("invite{id}") //PUT: localhost:8081/api/v1/alumniGroup/1
+    public ResponseEntity inviteMember(@RequestBody Student invited_student, @PathVariable int id) {
         if(!alumniGroupService.exists(id)) {
             return ResponseEntity.badRequest().build();
         }
-        AlumniGroup group = alumniGroupService.findById(id);
-        if(group.get_private() && !alumniGroupService.isStudentInGroup(host_student_id, group)){
+        /*if(group.get_private() && !alumniGroupService.isStudentInGroup(host_student_id, group)){
             return ResponseEntity.badRequest().build();
-        }
-        alumniGroupService.addStudentToGroup(group, invited_student_id);
+        }*/
+        alumniGroupService.addStudentToGroup(alumniGroupService.findById(id), invited_student);
         return ResponseEntity.noContent().build();
     }
 
@@ -186,10 +185,7 @@ public class AlumniGroupController {
         Student creator_student = studentService.getByToken(token);
 
         //Updates creator student
-        Set<AlumniGroup> currGroups = creator_student.getOwnedAlumniGroups();
-        currGroups.add(group);
-        creator_student.setOwnedAlumniGroups(currGroups);
-        group.setAlumnigroup_creator_student(creator_student);
+        alumniGroupService.addCreatorStudentToGroup(group, creator_student.getId());
 
         //Creates group
         URI location = URI.create("alumnigroups/" + group.getId());
