@@ -87,7 +87,7 @@ public class AlumniGroupController {
         return ResponseEntity.ok(events);
     }
 
-    @Operation(summary = "Find all alumni groups available to specific student")
+    @Operation(summary = "Find all alumni groups available to specific student that they have not yet joined")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
@@ -107,9 +107,7 @@ public class AlumniGroupController {
         );
         Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
         for(AlumniGroupDTO ad : allEvents) {
-            if(!alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId())) && alumniGroupService.findById(ad.getId()).get_private()){
-                //Do nothing
-            } else {
+            if(!alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId())) && !alumniGroupService.findById(ad.getId()).get_private()){
                 events.add(ad);
             }
         }
@@ -171,7 +169,7 @@ public class AlumniGroupController {
     }
 
     //add new Alumni group
-    @Operation(summary = "Add new alumni group")
+    @Operation(summary = "Create a new alumni group")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "Alumni group successfully added",
@@ -182,9 +180,9 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, int creator_student_id) {
+    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, String token) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
-        group.setAlumnigroup_creator_student(studentService.findById(creator_student_id));
+        group.setAlumnigroup_creator_student(studentService.getByToken(token));
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();
     }
