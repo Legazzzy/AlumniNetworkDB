@@ -152,32 +152,6 @@ public class AlumniGroupController {
         return ResponseEntity.ok(group);
     }
 
-
-    //invite member to alumni group
-    //TODO: does not actually add student
-    @Operation(summary = "Lets a user invite another user to a group")
-    @ApiResponses( value = {
-            @ApiResponse(responseCode = "204",
-                    description = "User successfully added to group",
-                    content = @Content),
-            @ApiResponse(responseCode = "400",
-                    description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
-    })
-    @PostMapping("membershipinvite/") //PUT: localhost:8081/api/v1/alumniGroup/1
-    public ResponseEntity inviteMember(int student_id, @PathVariable int id) {
-        if(!alumniGroupService.exists(id)){
-            return ResponseEntity.badRequest().build();
-        }
-
-        MembershipInvite invite = membershipInviteService.add(new MembershipInvite());
-        membershipInviteService.addStudentInvite(invite, studentService.findById(student_id));
-        membershipInviteService.addGroupInvite(invite, alumniGroupService.findById(id));
-        URI location = URI.create("membershipinvite/"+invite.getId());
-        return ResponseEntity.created(location).build();
-    }
-
     //add new Alumni group
     @Operation(summary = "Create a new alumni group")
     @ApiResponses( value = {

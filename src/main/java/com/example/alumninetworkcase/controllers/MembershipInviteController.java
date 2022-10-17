@@ -64,7 +64,7 @@ public class MembershipInviteController {
         return ResponseEntity.ok(memberships);
     }
 
-    @Operation(summary = "Lets a user invite another user to a group")
+    @Operation(summary = "Lets a user create a membership invite for another user")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "User successfully added to group",
