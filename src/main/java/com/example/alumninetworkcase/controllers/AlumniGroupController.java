@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/alumnigroup")
@@ -182,7 +183,15 @@ public class AlumniGroupController {
     @PostMapping
     public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, String token) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
-        group.setAlumnigroup_creator_student(studentService.getByToken(token));
+        Student creator_student = studentService.getByToken(token);
+
+        //Updates creator student
+        Set<AlumniGroup> currGroups = creator_student.getOwnedAlumniGroups();
+        currGroups.add(group);
+        creator_student.setOwnedAlumniGroups(currGroups);
+        group.setAlumnigroup_creator_student(creator_student);
+
+        //Creates group
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();
     }
