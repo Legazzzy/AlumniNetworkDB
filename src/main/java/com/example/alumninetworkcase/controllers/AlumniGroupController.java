@@ -147,7 +147,7 @@ public class AlumniGroupController {
 
     //invite member to alumni group
     //TODO: does not actually add student
-    /*@Operation(summary = "Lets a user invite another user to a group")
+    /*\@Operation(summary = "Lets a user invite another user to a group")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "User successfully added to group",
