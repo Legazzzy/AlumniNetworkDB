@@ -4,19 +4,25 @@ import com.example.alumninetworkcase.exceptions.TopicNotFoundException;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.models.Topic;
+import com.example.alumninetworkcase.repositories.StudentRepo;
 import com.example.alumninetworkcase.repositories.TopicRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Service
 public class TopicServiceImplements implements TopicService{
 
     private final TopicRepo topicRepo;
+    private final StudentRepo studentRepo;
 
-    public TopicServiceImplements(TopicRepo topicRepo) {
+
+    public TopicServiceImplements(TopicRepo topicRepo, StudentRepo studentRepo) {
         this.topicRepo = topicRepo;
+        this.studentRepo = studentRepo;
     }
 
     @Override
@@ -53,6 +59,21 @@ public class TopicServiceImplements implements TopicService{
     @Override
     public boolean exists(Integer id) {
         return topicRepo.existsById(id);
+    }
+
+    @Override
+    public Topic addStudentToTopic (int student_id, Topic topic){
+        //Adds first student if set is empty
+        if(topic.getStudents() == null){
+            Set<Student> students = new HashSet<Student>(){
+                {
+                    add(studentRepo.findById(student_id).get());
+                }
+            };
+            topic.setStudents(students);
+            System.out.println(topic.getStudents());
+        }
+        return topic;
     }
 
     @Override

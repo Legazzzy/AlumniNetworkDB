@@ -163,15 +163,16 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PostMapping
-    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, String token) {
+    @PostMapping("{id}/addAlumniGroup")
+    public ResponseEntity addAlumniGroup(@PathVariable int id, @RequestBody AlumniGroup alumniGroup) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
-        Student creator_student = studentService.getByToken(token);
+        Student creator_student = studentService.findById(id);
 
         //Updates creator student
         //alumniGroupService.addStudentToGroup(group, creator_student);
         alumniGroupService.addCreatorStudentToGroup(group, creator_student.getId());
-
+        alumniGroupService.update(group);
+        
         //Creates group
         URI location = URI.create("alumnigroups/" + group.getId());
         return ResponseEntity.created(location).build();

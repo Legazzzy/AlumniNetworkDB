@@ -4,6 +4,7 @@ import com.example.alumninetworkcase.mappers.TopicMapper;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.models.EventDTO.TopicDTO;
+import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.models.Topic;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
@@ -137,8 +138,8 @@ public class TopicController {
         return ResponseEntity.ok(topics);
     }
 
-    //add - add new event
-    @Operation(summary = "Add new topic")
+    //add student to topic
+    @Operation(summary = "Add student to existing topic")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "Topic successfully added",
@@ -148,13 +149,14 @@ public class TopicController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PostMapping
-    public ResponseEntity add(@RequestBody Topic topic, int creator_student) {
-        Topic t = topicService.add(topic);
-        Set<Topic> topics = studentService.findById(creator_student).getTopics();
-        topics.add(topic);
-        studentService.findById(creator_student).setTopics(topics);
-        URI location = URI.create("topics/" + t.getId());
-        return ResponseEntity.created(location).build();
+    @PutMapping("/{id}/addStudentToTopic")
+    public ResponseEntity addStudentToTopic(@PathVariable int id, @RequestBody int student_id) {
+        Student student = studentService.findById(student_id);
+        Topic topic = topicService.findById(id);
+        Set<Student> students = topic.getStudents();
+        students.add(student);
+        topic.setStudents(students);
+        topicService.update(topic);
+        return ResponseEntity.noContent().build();
     }
 }
