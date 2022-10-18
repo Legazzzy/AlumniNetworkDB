@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface StudentRepo extends JpaRepository<Student, Integer> {
     @Query("select a from Student a where a.name = ?1")
     Student findByName(String name);
-    Student getByToken(String token);
     Student existsByToken(String token);
+    @Query("select stud from Student stud where stud.token = ?1")
+    Student getByToken(String token);
+
 }

@@ -63,7 +63,6 @@ public class StudentController {
                     content = @Content)
     })
     @GetMapping
-    @PreAuthorize("hasRole(ADMIN)")
     public ResponseEntity getAll() {
         Collection<StudentDTO> students = studentMapper.studentToStudentDTO(
                 studentService.findAll()
@@ -101,12 +100,13 @@ public class StudentController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class))})
     })
-    @GetMapping("/token/{token}")
-    public ResponseEntity<StudentDTO> getByToken(@PathVariable String token) {
-        StudentDTO student = studentMapper.studentToStudentDTO(
+    @GetMapping("getByToken") // GET: localhost:8080/api/v1/accounts/search?=
+    public ResponseEntity<StudentDTO> getByToken(@RequestParam String token){
+        StudentDTO dto = studentMapper.studentToStudentDTO(
                 studentService.getByToken(token)
         );
-        return ResponseEntity.ok(student);
+        System.out.println(dto);
+        return ResponseEntity.ok(dto);
     }
 
     //post new student
