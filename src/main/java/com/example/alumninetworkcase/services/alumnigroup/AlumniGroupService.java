@@ -12,7 +12,7 @@ public interface AlumniGroupService extends CrudService<AlumniGroup, Integer> {
 
     AlumniGroup updateStudentsInAlumniGroup(AlumniGroup alumniGroup, Collection<Integer> studentIds);
 
-    AlumniGroup addStudentToGroup(MembershipInvite membershipInvite);
+    AlumniGroup addStudentToGroup(AlumniGroup alumniGroup, int student_id);
 
     AlumniGroup addCreatorStudentToGroup(AlumniGroup alumniGroup, int student_id);
 
