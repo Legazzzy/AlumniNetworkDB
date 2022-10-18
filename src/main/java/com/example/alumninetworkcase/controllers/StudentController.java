@@ -102,6 +102,9 @@ public class StudentController {
     })
     @GetMapping("getByToken") // GET: localhost:8080/api/v1/accounts/search?=
     public ResponseEntity<StudentDTO> getByToken(@RequestParam String token){
+        if(!studentService.exists(studentService.getByToken(token).getId())){
+            return ResponseEntity.ok(new StudentDTO());
+        }
         StudentDTO dto = studentMapper.studentToStudentDTO(
                 studentService.getByToken(token)
         );
