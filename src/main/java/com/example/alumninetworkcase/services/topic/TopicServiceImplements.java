@@ -1,6 +1,8 @@
 package com.example.alumninetworkcase.services.topic;
 
 import com.example.alumninetworkcase.exceptions.TopicNotFoundException;
+import com.example.alumninetworkcase.models.AlumniGroup;
+import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.models.Topic;
 import com.example.alumninetworkcase.repositories.TopicRepo;
 import org.springframework.stereotype.Service;
@@ -51,5 +53,15 @@ public class TopicServiceImplements implements TopicService{
     @Override
     public boolean exists(Integer id) {
         return topicRepo.existsById(id);
+    }
+
+    @Override
+    public boolean isStudentInTopic (int student_id, Topic topic) {
+        for (Student stud : topic.getStudents()) {
+            if(stud.getId() == student_id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

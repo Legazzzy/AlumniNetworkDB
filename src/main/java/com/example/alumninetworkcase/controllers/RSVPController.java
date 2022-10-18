@@ -56,11 +56,13 @@ public class RSVPController {
                     description = "No membershipinvites found",
                     content = @Content)
     })
-    @GetMapping // GET: localhost:8080/api/v1/membershipinvite
+    @GetMapping // GET: localhost:8080/api/v1/rsvp
     public ResponseEntity getAll() {
         Collection<RSVPDTO> rsvps = rsvpMapper.RSVPToRVSPDTO(
                 rsvpService.findAll()
         );
         return ResponseEntity.ok(rsvps);
     }
+
+
 }
