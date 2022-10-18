@@ -67,6 +67,9 @@ public class Student {
     @OneToMany(mappedBy = "target_student")
     private Set<Post> posts;
 
+    @OneToMany(mappedBy = "invited_student")
+    private Set<MembershipInvite> studentMembershipInvites;
+
     //User to created groups
     @OneToMany(mappedBy = "alumnigroup_creator_student")
     private Set<AlumniGroup> ownedAlumniGroups;
@@ -161,5 +164,13 @@ public class Student {
 
     public void setCreatedAlumniEvents(Set<AlumniEvent> createdAlumniEvents) {
         this.createdAlumniEvents = createdAlumniEvents;
+    }
+
+    public Set<MembershipInvite> getStudentMembershipInvites() {
+        return studentMembershipInvites;
+    }
+
+    public void setStudentMembershipInvites(Set<MembershipInvite> studentMembershipInvites) {
+        this.studentMembershipInvites = studentMembershipInvites;
     }
 }

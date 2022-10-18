@@ -35,6 +35,17 @@ INSERT INTO student_alumnigroup(student_id, alumnigroup_id) VALUES (6,3);
 INSERT INTO student_alumnigroup(student_id, alumnigroup_id) VALUES (3,4);
 INSERT INTO student_alumnigroup(student_id, alumnigroup_id) VALUES (8,4);
 
+-- Reference students to groups
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (1,1);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (2,1);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (3,1);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (8,1);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (3,2);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (5,3);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (6,3);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (3,4);
+INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (8,4);
+
 -- Events
 INSERT INTO alumni_event(student_id, alumni_group_id, name, description, allow_guests, banner_img, start_time, end_time, last_updated) VALUES (5, 3, 'Singing Contest', 'Singing contest for all accelerate veterans', true, 'img-link',  '2022-10-23', '2022-10-24', '2022-10-10');
 INSERT INTO alumni_event(student_id, alumni_group_id, name, description, allow_guests, banner_img, start_time, end_time, last_updated) VALUES (8, 4, 'Watching my new film', 'Nic Cage invites everyone to view his newest film', true, 'img-link',  '2022-10-23', '2022-10-24', '2022-10-10');

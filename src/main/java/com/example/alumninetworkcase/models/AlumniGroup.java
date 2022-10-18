@@ -25,6 +25,9 @@ public class AlumniGroup {
     @ManyToMany(mappedBy = "alumniGroups")
     private Set<Student> students;
 
+    @OneToMany(mappedBy = "group_invite")
+    private Set<MembershipInvite> groupMembershipInvites;
+
     @OneToMany(mappedBy = "alumniGroup")
     private Set<AlumniEvent> alumniEvents;
 
@@ -74,16 +77,6 @@ public class AlumniGroup {
         this.students = students;
     }
 
-    /*
-    public boolean isStudentInGroup (int student_id) {
-        for (Student stud : students) {
-            if(stud.getId() == student_id) {
-                return true;
-            }
-        }
-        return false;
-    }*/
-
     public Set<AlumniEvent> getAlumniEvents() {
         return alumniEvents;
     }
@@ -98,5 +91,13 @@ public class AlumniGroup {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<MembershipInvite> getGroupMembershipInvites() {
+        return groupMembershipInvites;
+    }
+
+    public void setGroupMembershipInvites(Set<MembershipInvite> groupMembershipInvites){
+        this.groupMembershipInvites = groupMembershipInvites;
     }
 }

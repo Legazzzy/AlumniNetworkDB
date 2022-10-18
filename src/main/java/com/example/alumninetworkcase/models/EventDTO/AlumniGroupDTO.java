@@ -15,4 +15,5 @@ public class AlumniGroupDTO {
     private Set<Integer> students;
     private Set<Integer> alumniEvents;
     private Set<Integer> posts;
+    private Set<Integer> groupMembershipInvites;
 }

@@ -1,13 +1,16 @@
 package com.example.alumninetworkcase.controllers;
 
 import com.example.alumninetworkcase.mappers.AlumniGroupMapper;
+import com.example.alumninetworkcase.mappers.MembershipInviteMapper;
 import com.example.alumninetworkcase.mappers.StudentMapper;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
+import com.example.alumninetworkcase.models.MembershipInvite;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
+import com.example.alumninetworkcase.services.membershipinvite.MembershipInviteService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -31,12 +35,17 @@ public class AlumniGroupController {
     private final AlumniGroupMapper alumniGroupMapper;
     private final StudentMapper studentMapper;
     private final StudentService studentService;
+    private final MembershipInviteService membershipInviteService;
+    private final MembershipInviteMapper membershipInviteMapper;
 
-    public AlumniGroupController(AlumniGroupService alumniGroupService, AlumniGroupMapper alumniGroupMapper, StudentMapper studentMapper, StudentService studentService) {
+    public AlumniGroupController(AlumniGroupService alumniGroupService, AlumniGroupMapper alumniGroupMapper, StudentMapper studentMapper, StudentService studentService,
+                                 MembershipInviteService membershipInviteService, MembershipInviteMapper membershipInviteMapper) {
         this.alumniGroupService = alumniGroupService;
         this.alumniGroupMapper = alumniGroupMapper;
         this.studentMapper = studentMapper;
         this.studentService = studentService;
+        this.membershipInviteService = membershipInviteService;
+        this.membershipInviteMapper = membershipInviteMapper;
     }
 
 
@@ -143,31 +152,6 @@ public class AlumniGroupController {
         return ResponseEntity.ok(group);
     }
 
-
-    //invite member to alumni group
-    //TODO: does not actually add student
-    @Operation(summary = "Lets a user invite another user to a group")
-    @ApiResponses( value = {
-            @ApiResponse(responseCode = "204",
-                    description = "User successfully added to group",
-                    content = @Content),
-            @ApiResponse(responseCode = "400",
-                    description = "Malformed request",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
-    })
-    @PutMapping("invite{id}") //PUT: localhost:8081/api/v1/alumniGroup/1
-    public ResponseEntity inviteMember(@RequestBody Student invited_student, @PathVariable int id) {
-        if(!alumniGroupService.exists(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        /*if(group.get_private() && !alumniGroupService.isStudentInGroup(host_student_id, group)){
-            return ResponseEntity.badRequest().build();
-        }*/
-        alumniGroupService.addStudentToGroup(alumniGroupService.findById(id), invited_student);
-        return ResponseEntity.noContent().build();
-    }
-
     //add new Alumni group
     @Operation(summary = "Create a new alumni group")
     @ApiResponses( value = {
@@ -185,6 +169,7 @@ public class AlumniGroupController {
         Student creator_student = studentService.getByToken(token);
 
         //Updates creator student
+        alumniGroupService.addStudentToGroup(group, creator_student);
         alumniGroupService.addCreatorStudentToGroup(group, creator_student.getId());
 
         //Creates group
@@ -193,7 +178,7 @@ public class AlumniGroupController {
     }
 
     //update Alumni group with new students
-    @Operation(summary = "Update alumni group with new users")
+    /*@Operation(summary = "Update alumni group with new users")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "Alumni group successfully added",
@@ -210,5 +195,5 @@ public class AlumniGroupController {
         }
         alumniGroupService.updateStudentsInAlumniGroup(alumniGroupService.findById(id), studentIds);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }
