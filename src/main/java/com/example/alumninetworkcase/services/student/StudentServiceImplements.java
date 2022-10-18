@@ -20,12 +20,21 @@ public class StudentServiceImplements implements StudentService {
         this.studentRepo = userRepo;
     }
 
-    @Override
+    /*@Override
     public Student findById(Integer id) {
+
         return studentRepo.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
+    }*/
+    @Override
+    public Student findById(Integer id) {
+        if(studentRepo.existsById(id)){
+            return studentRepo.findById(id).get();
+        } else {
+            Student student = new Student();
+            return student;
+        }
     }
-
     @Override
     public Collection<Student> findAll() {
         return studentRepo.findAll();

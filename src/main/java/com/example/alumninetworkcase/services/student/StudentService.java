@@ -8,6 +8,6 @@ public interface StudentService extends CrudService<Student, Integer> {
     Student getByToken(String token);
 
     Student add(String token);
-
+    Student add(Student user);
 
 }
