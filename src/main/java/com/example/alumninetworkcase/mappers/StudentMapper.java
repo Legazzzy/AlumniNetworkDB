@@ -7,6 +7,7 @@ import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.membershipinvite.MembershipInviteService;
 import com.example.alumninetworkcase.services.post.PostService;
+import com.example.alumninetworkcase.services.rsvp.RSVPService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,6 +28,9 @@ public abstract class StudentMapper {
     protected AlumniEventService alumniEventService;
 
     @Autowired
+    protected RSVPService rsvpService;
+
+    @Autowired
     protected TopicService topicService;
 
     @Autowired
@@ -44,6 +48,7 @@ public abstract class StudentMapper {
     @Mapping(target="topics", source= "topics", qualifiedByName = "topicsToIds")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postsToIds")
     @Mapping(target="studentMembershipInvites", source="studentMembershipInvites", qualifiedByName = "membershipInvitesToIds")
+    @Mapping(target="studentRSVPs", source="studentRSVPs", qualifiedByName = "RSVPSToIds")
     public abstract StudentDTO studentToStudentDTO(Student student);
 
     //Uses a User object to attain a UserDTO object
@@ -54,6 +59,7 @@ public abstract class StudentMapper {
     @Mapping(target="topics", source= "topics", qualifiedByName = "topicIdToTopic")
     @Mapping(target="posts", source= "posts", qualifiedByName = "postIdToPost")
     @Mapping(target="studentMembershipInvites", source="studentMembershipInvites", qualifiedByName = "membershipInviteIdToMembershipInvite")
+    @Mapping(target="studentRSVPs", source="studentRSVPs", qualifiedByName = "RSVPIdToRSVP")
     public abstract Student studentDTOToStudent (StudentDTO student);
 
     //Collection of Users into a collection of UserDTOs
@@ -76,9 +82,13 @@ public abstract class StudentMapper {
     @Named("postIdToPost")
     Post mapIdToPost(int id) { return postService.findById(id);}
 
-    //Maps id to post
+    //Maps id to membership
     @Named("membershipInviteIdToMembershipInvite")
     MembershipInvite mapIdToMembershipInvite(int id) { return membershipInviteService.findById(id);}
+
+    //Maps id to RSVP
+    @Named("RSVPIdToRSVP")
+    RSVP mapIdToRSVP(int id) { return rsvpService.findById(id);}
 
     //Maps groups to ids
     @Named("alumniGroupsToIds")
@@ -115,6 +125,14 @@ public abstract class StudentMapper {
     //Maps membership to ids
     @Named("membershipInvitesToIds")
     Set<Integer> mapMembershipInvitesToIds(Set<MembershipInvite> source) {
+        if (source == null)
+            return null;
+        return source.stream().map(s -> s.getId()).collect(Collectors.toSet());
+    }
+
+    //Maps RSVP to ids
+    @Named("RSVPSToIds")
+    Set<Integer> mapRSVPToIds(Set<RSVP> source) {
         if (source == null)
             return null;
         return source.stream().map(s -> s.getId()).collect(Collectors.toSet());

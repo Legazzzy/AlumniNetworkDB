@@ -75,16 +75,32 @@ public class MembershipInviteController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping //POST: localhost:8081/api/v1/alumniGroup/1
-    public ResponseEntity inviteMember(int student_id, @PathVariable int id) {
-        if(!alumniGroupService.exists(id)){
+    public ResponseEntity inviteMember(int student_id, int group_id) {
+        if(!alumniGroupService.exists(group_id)){
             return ResponseEntity.badRequest().build();
         }
 
         MembershipInvite invite = membershipInviteService.add(new MembershipInvite());
         membershipInviteService.addStudentInvite(invite, studentService.findById(student_id));
-        membershipInviteService.addGroupInvite(invite, alumniGroupService.findById(id));
+        membershipInviteService.addGroupInvite(invite, alumniGroupService.findById(group_id));
         URI location = URI.create("membershipinvite/"+invite.getId());
         return ResponseEntity.created(location).build();
+    }
+
+    @Operation(summary = "Update alumni group with a new student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Student successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping
+    public ResponseEntity update(int id) {
+        alumniGroupService.addStudentToGroup(membershipInviteService.findById(id));
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -5,6 +5,7 @@ import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.models.EventDTO.TopicDTO;
 import com.example.alumninetworkcase.models.Topic;
+import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,16 +19,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/topics")
 public class TopicController {
     private final TopicMapper topicMapper;
     private final TopicService topicService;
+    private final StudentService studentService;
 
-    public TopicController(TopicMapper topicMapper, TopicService topicService) {
+    public TopicController(TopicMapper topicMapper, TopicService topicService, StudentService studentService) {
         this.topicMapper = topicMapper;
         this.topicService = topicService;
+        this.studentService = studentService;
     }
 
 
@@ -78,6 +83,60 @@ public class TopicController {
         return ResponseEntity.ok(topic);
     }
 
+    @Operation(summary = "Find all topics joined by specific student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Topics successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayJoinedTopics") // GET: localhost:8080/api/v1/alumnigroup/displayJoinedGroups
+    public ResponseEntity displayJoinedTopics(int accessing_student_id) {
+        Collection<TopicDTO> allTopics = topicMapper.topicToTopicDTO(
+                topicService.findAll()
+        );
+        Collection<TopicDTO> topics = new HashSet<TopicDTO>();
+        for(TopicDTO td : allTopics) {
+            if(topicService.isStudentInTopic(accessing_student_id, topicService.findById(td.getId()))){
+                topics.add(td);
+            }
+        }
+        return ResponseEntity.ok(topics);
+    }
+
+    @Operation(summary = "Find all alumni groups available to specific student that they have not yet joined")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayAvailableTopics") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayAvailableTopics(int accessing_student_id) {
+        Collection<TopicDTO> allTopics = topicMapper.topicToTopicDTO(
+                topicService.findAll()
+        );
+        Collection<TopicDTO> topics = new HashSet<>();
+        for(TopicDTO td : topics) {
+            if(!topicService.isStudentInTopic(accessing_student_id, topicService.findById(td.getId()))){
+                topics.add(td);
+            }
+        }
+        return ResponseEntity.ok(topics);
+    }
+
     //add - add new event
     @Operation(summary = "Add new topic")
     @ApiResponses( value = {
@@ -90,8 +149,11 @@ public class TopicController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Topic topic) {
+    public ResponseEntity add(@RequestBody Topic topic, int creator_student) {
         Topic t = topicService.add(topic);
+        Set<Topic> topics = studentService.findById(creator_student).getTopics();
+        topics.add(topic);
+        studentService.findById(creator_student).setTopics(topics);
         URI location = URI.create("topics/" + t.getId());
         return ResponseEntity.created(location).build();
     }

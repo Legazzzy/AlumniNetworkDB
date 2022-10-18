@@ -36,15 +36,16 @@ INSERT INTO student_alumnigroup(student_id, alumnigroup_id) VALUES (3,4);
 INSERT INTO student_alumnigroup(student_id, alumnigroup_id) VALUES (8,4);
 
 -- Reference students to groups
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (1,1);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (2,1);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (3,1);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (8,1);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (3,2);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (5,3);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (6,3);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (3,4);
-INSERT INTO membership_invite(student_id, alumni_group_id) VALUES (8,4);
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (1,1, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (2,1, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (3,1, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (8,1, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (3,2, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (5,3, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (6,3, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (3,4, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (8,4, 'Accepted');
+INSERT INTO membership_invite(student_id, alumni_group_id, status) VALUES (7,3, 'Accepted');
 
 -- Events
 INSERT INTO alumni_event(student_id, alumni_group_id, name, description, allow_guests, banner_img, start_time, end_time, last_updated) VALUES (5, 3, 'Singing Contest', 'Singing contest for all accelerate veterans', true, 'img-link',  '2022-10-23', '2022-10-24', '2022-10-10');
