@@ -5,6 +5,7 @@ import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.models.EventDTO.TopicDTO;
 import com.example.alumninetworkcase.models.Topic;
+import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,16 +20,19 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/topics")
 public class TopicController {
     private final TopicMapper topicMapper;
     private final TopicService topicService;
+    private final StudentService studentService;
 
-    public TopicController(TopicMapper topicMapper, TopicService topicService) {
+    public TopicController(TopicMapper topicMapper, TopicService topicService, StudentService studentService) {
         this.topicMapper = topicMapper;
         this.topicService = topicService;
+        this.studentService = studentService;
     }
 
 
@@ -145,8 +149,11 @@ public class TopicController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Topic topic) {
+    public ResponseEntity add(@RequestBody Topic topic, int creator_student) {
         Topic t = topicService.add(topic);
+        Set<Topic> topics = studentService.findById(creator_student).getTopics();
+        topics.add(topic);
+        studentService.findById(creator_student).setTopics(topics);
         URI location = URI.create("topics/" + t.getId());
         return ResponseEntity.created(location).build();
     }
