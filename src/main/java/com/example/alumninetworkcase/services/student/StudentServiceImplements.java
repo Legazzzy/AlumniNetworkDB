@@ -4,6 +4,7 @@ import com.example.alumninetworkcase.exceptions.StudentNotFoundException;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.StudentRepo;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -56,6 +57,7 @@ public class StudentServiceImplements implements StudentService {
     }
 
     @Override
+    @Query("select a from Student a where a.name = ?1")
     public Student getByName(String name) {
         Student student = studentRepo.findByName(name);
         return student;
