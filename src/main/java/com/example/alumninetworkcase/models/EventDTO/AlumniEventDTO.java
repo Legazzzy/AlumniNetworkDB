@@ -21,4 +21,5 @@ public class AlumniEventDTO {
     private Set<Integer> topics;
     private Set<Integer> students;
     private Set<Integer> posts;
+    private Set<Integer> eventRSVPs;
 }

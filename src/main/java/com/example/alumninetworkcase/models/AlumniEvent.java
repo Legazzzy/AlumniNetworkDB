@@ -46,6 +46,10 @@ public class AlumniEvent {
     )
     private Set<Topic> topics;
 
+
+    @OneToMany(mappedBy = "event_invite")
+    private Set<RSVP> eventRSVPs;
+
     @ManyToOne
     @JoinColumn(name = "alumniGroup_id")
     private AlumniGroup alumniGroup;
@@ -155,5 +159,13 @@ public class AlumniEvent {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<RSVP> getEventRSVPs() {
+        return eventRSVPs;
+    }
+
+    public void setEventRSVPs(Set<RSVP> eventRSVPs) {
+        this.eventRSVPs = eventRSVPs;
     }
 }

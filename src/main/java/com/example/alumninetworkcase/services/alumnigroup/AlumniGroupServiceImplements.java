@@ -2,6 +2,7 @@ package com.example.alumninetworkcase.services.alumnigroup;
 
 import com.example.alumninetworkcase.exceptions.AlumniGroupNotFoundException;
 import com.example.alumninetworkcase.models.AlumniGroup;
+import com.example.alumninetworkcase.models.MembershipInvite;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.AlumniGroupRepo;
 import com.example.alumninetworkcase.repositories.StudentRepo;
@@ -78,9 +79,10 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     }
 
     @Override
-    public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, Student student) {
+    public AlumniGroup addStudentToGroup (MembershipInvite membershipInvite) {
+        AlumniGroup alumniGroup = membershipInvite.getGroup_invite();
         Set<Student> students = alumniGroup.getStudents();
-        students.add(student);
+        students.add(studentRepo.findById(7).get());
         alumniGroup.setStudents(students);
         return alumniGroupRepo.save(alumniGroup);
     }

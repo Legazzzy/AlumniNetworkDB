@@ -1,6 +1,7 @@
 package com.example.alumninetworkcase.services.alumnigroup;
 
 import com.example.alumninetworkcase.models.AlumniGroup;
+import com.example.alumninetworkcase.models.MembershipInvite;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.services.CrudService;
 
@@ -11,7 +12,7 @@ public interface AlumniGroupService extends CrudService<AlumniGroup, Integer> {
 
     AlumniGroup updateStudentsInAlumniGroup(AlumniGroup alumniGroup, Collection<Integer> studentIds);
 
-    AlumniGroup addStudentToGroup(AlumniGroup alumniGroup, Student student);
+    AlumniGroup addStudentToGroup(MembershipInvite membershipInvite);
 
     AlumniGroup addCreatorStudentToGroup(AlumniGroup alumniGroup, int student_id);
 

@@ -4,6 +4,7 @@ import com.example.alumninetworkcase.models.*;
 import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.post.PostService;
+import com.example.alumninetworkcase.services.rsvp.RSVPService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import org.mapstruct.Mapper;
@@ -24,25 +25,30 @@ public abstract class AlumniEventMapper {
     protected AlumniGroupService alumniGroupService;
 
     @Autowired
+    protected RSVPService rsvpService;
+
+    @Autowired
     protected TopicService topicService;
 
     @Autowired
     protected PostService postService;
 
     //Uses a AlumniEventDTO object to attain a AlumniEvent object
-    @Mapping(target = "creator_student", source="creator_student.id")
-    @Mapping(target = "alumniGroup", source="alumniGroup.id")
-    @Mapping(target = "students", source="students", qualifiedByName = "studentsToIds")
-    @Mapping(target = "topics", source="topics", qualifiedByName = "topicsToIds")
-    @Mapping(target = "posts", source="posts", qualifiedByName = "postsToIds")
+    @Mapping(target="creator_student", source="creator_student.id")
+    @Mapping(target="alumniGroup", source="alumniGroup.id")
+    @Mapping(target="students", source="students", qualifiedByName = "studentsToIds")
+    @Mapping(target="topics", source="topics", qualifiedByName = "topicsToIds")
+    @Mapping(target="posts", source="posts", qualifiedByName = "postsToIds")
+    @Mapping(target="eventRSVPs", source="eventRSVPs", qualifiedByName = "RSVPSToIds")
     public abstract AlumniEventDTO alumniEventToAlumniEventDTO(AlumniEvent alumniEvent);
 
     //Uses a AlumniEvent object to attain a AlumniEventDTO object
-    @Mapping(target = "creator_student", source="creator_student", qualifiedByName = "studentIdToStudent")
-    @Mapping(target = "students", source = "students", qualifiedByName = "studentIdToStudent")
-    @Mapping(target = "alumniGroup", source = "alumniGroup", qualifiedByName = "alumniGroupIdToAlumniGroup")
-    @Mapping(target = "topics", source = "topics", qualifiedByName = "topicIdToTopic")
-    @Mapping(target = "posts", source = "posts", qualifiedByName = "postIdToPost")
+    @Mapping(target="creator_student", source="creator_student", qualifiedByName = "studentIdToStudent")
+    @Mapping(target="students", source = "students", qualifiedByName = "studentIdToStudent")
+    @Mapping(target="alumniGroup", source = "alumniGroup", qualifiedByName = "alumniGroupIdToAlumniGroup")
+    @Mapping(target="topics", source = "topics", qualifiedByName = "topicIdToTopic")
+    @Mapping(target="posts", source = "posts", qualifiedByName = "postIdToPost")
+    @Mapping(target="eventRSVPs", source="eventRSVPs", qualifiedByName = "RSVPIdToRSVP")
     public abstract AlumniEvent alumniEventDTOToAlumniEvent(AlumniEventDTO alumniEventDTO);
 
     //Collection of Events into a collection of EventDTOs
@@ -64,6 +70,10 @@ public abstract class AlumniEventMapper {
     //Maps id to event
     @Named("postIdToPost")
     Post mapIdToPost(int id) { return postService.findById(id);}
+
+    //Maps id to RSVP
+    @Named("RSVPIdToRSVP")
+    RSVP mapIdToRSVP(int id) { return rsvpService.findById(id);}
 
     //Map users to ids
     @Named("studentsToIds")
@@ -99,4 +109,11 @@ public abstract class AlumniEventMapper {
                 .map(s -> s.getId()).collect(Collectors.toSet());
     }
 
+    //Maps RSVP to ids
+    @Named("RSVPSToIds")
+    Set<Integer> mapRSVPToIds(Set<RSVP> source) {
+        if (source == null)
+            return null;
+        return source.stream().map(s -> s.getId()).collect(Collectors.toSet());
+    }
 }

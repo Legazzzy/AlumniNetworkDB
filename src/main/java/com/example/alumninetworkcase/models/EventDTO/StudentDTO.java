@@ -21,4 +21,5 @@ public class StudentDTO {
     private Set<Integer> posts;
     private Set<Integer> ownedAlumniGroups;
     private Set<Integer> studentMembershipInvites;
+    private Set<Integer> studentRSVPs;
 }

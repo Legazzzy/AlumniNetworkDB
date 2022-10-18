@@ -169,7 +169,7 @@ public class AlumniGroupController {
         Student creator_student = studentService.getByToken(token);
 
         //Updates creator student
-        alumniGroupService.addStudentToGroup(group, creator_student);
+        //alumniGroupService.addStudentToGroup(group, creator_student);
         alumniGroupService.addCreatorStudentToGroup(group, creator_student.getId());
 
         //Creates group
@@ -189,11 +189,13 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PutMapping
-    public ResponseEntity update(@RequestBody Collection<Integer> studentIds, @PathVariable int id) {
+    public ResponseEntity update(@RequestBody MembershipInvite membershipInvite, @PathVariable int id) {
         if(!alumniGroupService.exists(id)) {
             return ResponseEntity.badRequest().build();
         }
-        alumniGroupService.updateStudentsInAlumniGroup(alumniGroupService.findById(id), studentIds);
+        if(membershipInvite.getStatus() == "Accepted" || membershipInvite.getStatus() == null) {
+            alumniGroupService.addStudentToGroup(membershipInvite.getGroup_invite(), membershipInvite.getInvited_student());
+        }
         return ResponseEntity.noContent().build();
     }*/
 }
