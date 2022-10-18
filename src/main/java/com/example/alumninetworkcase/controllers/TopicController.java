@@ -142,7 +142,7 @@ public class TopicController {
     @Operation(summary = "Add student to existing topic")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
-                    description = "Topic successfully added",
+                    description = "Student successfully added",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",

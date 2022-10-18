@@ -9,6 +9,7 @@ import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.models.Topic;
 import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
+import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.student.StudentService;
 import com.example.alumninetworkcase.services.topic.TopicService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
@@ -40,16 +41,18 @@ public class StudentController {
     private final TopicService topicService;
     private final PostMapper postMapper;
     private final AlumniGroupMapper alumniGroupMapper;
+    private final AlumniGroupService alumniGroupService;
     private final StudentMapper studentMapper;
     private final StudentService studentService;
 
-    public StudentController(AlumniEventService eventService, AlumniEventMapper eventMapper, TopicMapper topicMapper, TopicService topicService, PostMapper postMapper, AlumniGroupMapper alumniGroupMapper, StudentMapper studentMapper, StudentService studentService) {
+    public StudentController(AlumniEventService eventService, AlumniEventMapper eventMapper, TopicMapper topicMapper, TopicService topicService, PostMapper postMapper, AlumniGroupMapper alumniGroupMapper, AlumniGroupService alumniGroupService, StudentMapper studentMapper, StudentService studentService) {
         this.eventService = eventService;
         this.eventMapper = eventMapper;
         this.topicMapper = topicMapper;
         this.topicService = topicService;
         this.postMapper = postMapper;
         this.alumniGroupMapper = alumniGroupMapper;
+        this.alumniGroupService = alumniGroupService;
         this.studentMapper = studentMapper;
         this.studentService = studentService;
     }
@@ -188,6 +191,28 @@ public class StudentController {
         Set<Topic> topics = student.getTopics();
         topics.add(topic);
         student.setTopics(topics);
+        studentService.update(student);
+        return ResponseEntity.noContent().build();
+    }
+
+    //add student to group
+    @Operation(summary = "Add group to existing student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Group successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/addGroupToStudent")
+    public ResponseEntity addGroupToStudent(@PathVariable int id, @RequestBody int group_id) {
+        AlumniGroup alumniGroup = alumniGroupService.findById(group_id);
+        Student student = studentService.findById(id);
+        Set<AlumniGroup> groups = student.getAlumniGroups();
+        groups.add(alumniGroup);
+        student.setAlumniGroups(groups);
         studentService.update(student);
         return ResponseEntity.noContent().build();
     }
