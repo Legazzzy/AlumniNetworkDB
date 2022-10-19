@@ -6,6 +6,6 @@ import com.example.alumninetworkcase.services.CrudService;
 
 public interface TopicService extends CrudService<Topic, Integer> {
 
-    public Topic addStudentToTopic(int student_id, Topic topic);
-    public boolean isStudentInTopic(int student_id, Topic topic);
+    public Topic addStudentToTopic(String student_id, Topic topic);
+    public boolean isStudentInTopic(String student_id, Topic topic);
 }

@@ -6,11 +6,7 @@ import java.util.Set;
 @Entity
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(length = 200)
-    private String token;
+    private String id;
 
     @Column (length = 50)
     private String name;
@@ -78,11 +74,11 @@ public class Student {
     private Set<AlumniGroup> ownedAlumniGroups;
 
     //getters and setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -93,8 +89,6 @@ public class Student {
     public void setOwnedAlumniGroups(Set<AlumniGroup> ownedAlumniGroups) {
         this.ownedAlumniGroups = ownedAlumniGroups;
     }
-
-    public String getToken() { return token; }
 
     public String getName() { return name; }
 
@@ -150,9 +144,6 @@ public class Student {
         this.posts = posts;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
     public boolean isComplete() {
         return complete;
     }

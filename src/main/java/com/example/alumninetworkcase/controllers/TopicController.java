@@ -98,7 +98,7 @@ public class TopicController {
                     content = @Content)
     })
     @GetMapping("displayJoinedTopics") // GET: localhost:8080/api/v1/alumnigroup/displayJoinedGroups
-    public ResponseEntity displayJoinedTopics(int accessing_student_id) {
+    public ResponseEntity displayJoinedTopics(String accessing_student_id) {
         Collection<TopicDTO> allTopics = topicMapper.topicToTopicDTO(
                 topicService.findAll()
         );
@@ -125,7 +125,7 @@ public class TopicController {
                     content = @Content)
     })
     @GetMapping("displayAvailableTopics") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayAvailableTopics(int accessing_student_id) {
+    public ResponseEntity displayAvailableTopics(String accessing_student_id) {
         Collection<TopicDTO> allTopics = topicMapper.topicToTopicDTO(
                 topicService.findAll()
         );
@@ -150,7 +150,7 @@ public class TopicController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PutMapping("/{id}/addStudentToTopic")
-    public ResponseEntity addStudentToTopic(@PathVariable int id, @RequestBody int student_id) {
+    public ResponseEntity addStudentToTopic(@PathVariable int id, @RequestBody String student_id) {
         Student student = studentService.findById(student_id);
         Topic topic = topicService.findById(id);
         Set<Student> students = topic.getStudents();
@@ -172,7 +172,7 @@ public class TopicController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping("{id}/addTopic")
-    public ResponseEntity addAlumniGroup(@PathVariable int id, @RequestBody Topic alumniTopic) {
+    public ResponseEntity addAlumniGroup(@PathVariable String id, @RequestBody Topic alumniTopic) {
         Topic topic = topicService.add(alumniTopic);
         Student creator_student = studentService.findById(id);
 

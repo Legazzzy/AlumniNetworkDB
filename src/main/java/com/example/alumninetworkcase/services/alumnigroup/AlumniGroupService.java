@@ -10,11 +10,11 @@ import java.util.Collection;
 public interface AlumniGroupService extends CrudService<AlumniGroup, Integer> {
     Collection<Student> getAllStudentsInAlumniGroup(AlumniGroup alumniGroup);
 
-    AlumniGroup updateStudentsInAlumniGroup(AlumniGroup alumniGroup, Collection<Integer> studentIds);
+    AlumniGroup updateStudentsInAlumniGroup(AlumniGroup alumniGroup, Collection<String> studentIds);
 
-    AlumniGroup addStudentToGroup(AlumniGroup alumniGroup, int student_id);
+    AlumniGroup addStudentToGroup(AlumniGroup alumniGroup, String student_id);
 
-    AlumniGroup addCreatorStudentToGroup(AlumniGroup alumniGroup, int student_id);
+    AlumniGroup addCreatorStudentToGroup(AlumniGroup alumniGroup, String student_id);
 
-    public boolean isStudentInGroup(int student_id, AlumniGroup group);
+    public boolean isStudentInGroup(String student_id, AlumniGroup group);
 }

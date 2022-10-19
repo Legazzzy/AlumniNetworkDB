@@ -40,11 +40,11 @@ public abstract class RSVPMapper {
     //Custom mappings
     //Maps id to user
     @Named("studentIdToStudent")
-    Student mapIdToStudent(int id) { return studentService.findById(id);}
+    Student mapIdToStudent(String id) { return studentService.findById(id);}
 
     //Map users to ids
     @Named("studentsToIds")
-    Set<Integer> mapStudentsToIds(Set<Student> source) {
+    Set<String> mapStudentsToIds(Set<Student> source) {
         if(source == null)
             return null;
         return source.stream()

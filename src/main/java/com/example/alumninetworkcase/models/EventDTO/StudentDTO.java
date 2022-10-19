@@ -6,8 +6,7 @@ import java.util.Set;
 
 @Data
 public class StudentDTO {
-    private int id; //PK
-    private String token;
+    private String id; //PK
     private String name;
     private String picture;
     private String status;

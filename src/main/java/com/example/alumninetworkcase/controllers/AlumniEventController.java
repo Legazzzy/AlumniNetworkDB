@@ -124,7 +124,7 @@ public class AlumniEventController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class))}),
     })
     @PostMapping("{id}/addAlumniEvent")
-    public ResponseEntity add(@PathVariable int id, @RequestBody AlumniEvent alumniEvent) {
+    public ResponseEntity add(@PathVariable String id, @RequestBody AlumniEvent alumniEvent) {
         AlumniEvent event = eventService.add(alumniEvent);
         event.setCreator_student(studentService.findById(id));
 
@@ -188,7 +188,7 @@ public class AlumniEventController {
                     description = "Event not found with supplied ID",
                     content = @Content)
     })@PutMapping("invite{id}")
-    public ResponseEntity inviteStudent(int invited_student_id, @PathVariable int id) {
+    public ResponseEntity inviteStudent(String invited_student_id, @PathVariable int id) {
         if(!eventService.exists(id)) {
             return ResponseEntity.badRequest().build();
         }

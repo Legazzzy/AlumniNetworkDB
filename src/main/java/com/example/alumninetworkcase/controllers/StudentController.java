@@ -91,7 +91,7 @@ public class StudentController {
                             schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping("{id}")
-    public ResponseEntity<StudentDTO> getById(@PathVariable int id) {
+    public ResponseEntity<StudentDTO> getById(@PathVariable String id) {
         StudentDTO student = studentMapper.studentToStudentDTO(
                 studentService.findById(id)
         );
@@ -109,17 +109,6 @@ public class StudentController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class))})
     })
-    @GetMapping("getByToken") // GET: localhost:8080/api/v1/accounts/search?=
-    public ResponseEntity<StudentDTO> getByToken(@RequestParam String token){
-        if(!studentService.exists(studentService.getByToken(token).getId())){
-            return ResponseEntity.ok(new StudentDTO());
-        }
-        StudentDTO dto = studentMapper.studentToStudentDTO(
-                studentService.getByToken(token)
-        );
-        System.out.println(dto);
-        return ResponseEntity.ok(dto);
-    }
 
     //post new student
     @PostMapping
@@ -130,7 +119,7 @@ public class StudentController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@RequestBody StudentDTO studentDTO, @PathVariable int id) {
+    public ResponseEntity update(@RequestBody StudentDTO studentDTO, @PathVariable String id) {
         if (id != studentDTO.getId())
             return ResponseEntity.badRequest().build();
         studentService.update(studentMapper.studentDTOToStudent(studentDTO));
@@ -149,13 +138,6 @@ public class StudentController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class))})
     })
-    @GetMapping("name")
-    public ResponseEntity<StudentDTO> getByName(@RequestParam String name) {
-        StudentDTO student = studentMapper.studentToStudentDTO(
-                studentService.getByName(name)
-        );
-        return ResponseEntity.ok(student);
-    }
     @GetMapping("info")
     public ResponseEntity getLoggedInUserInfo(@AuthenticationPrincipal Jwt principal) {
         Map<String, String> map = new HashMap<>();
@@ -176,7 +158,7 @@ public class StudentController {
     @GetMapping("current")
     public ResponseEntity getCurrentlyLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
         return ResponseEntity.ok(
-                studentService.getByToken(
+                studentService.findById(
                         jwt.getClaimAsString("sub")
                 )
         );
@@ -194,7 +176,7 @@ public class StudentController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PutMapping("/{id}/addTopicToStudent")
-    public ResponseEntity addTopicToStudent(@PathVariable int id, @RequestBody int topic_id) {
+    public ResponseEntity addTopicToStudent(@PathVariable String id, @RequestBody int topic_id) {
         Topic topic = topicService.findById(topic_id);
         Student student = studentService.findById(id);
         Set<Topic> topics = student.getTopics();
@@ -216,7 +198,7 @@ public class StudentController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PutMapping("/{id}/addEventToStudent")
-    public ResponseEntity addEventToStudent(@PathVariable int id, @RequestBody int event_id) {
+    public ResponseEntity addEventToStudent(@PathVariable String id, @RequestBody int event_id) {
         AlumniEvent event = eventService.findById(event_id);
         Student student = studentService.findById(id);
         Set<AlumniEvent> events = student.getAlumniEvents();
@@ -238,7 +220,7 @@ public class StudentController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PutMapping("/{id}/addGroupToStudent")
-    public ResponseEntity addGroupToStudent(@PathVariable int id, @RequestBody int group_id) {
+    public ResponseEntity addGroupToStudent(@PathVariable String id, @RequestBody int group_id) {
         AlumniGroup alumniGroup = alumniGroupService.findById(group_id);
         Student student = studentService.findById(id);
         Set<AlumniGroup> groups = student.getAlumniGroups();
@@ -251,7 +233,7 @@ public class StudentController {
     @PostMapping("register")
     public ResponseEntity addNewUserFromJwt(@AuthenticationPrincipal Jwt jwt) {
         Student student = studentService.add(jwt.getClaimAsString("sub"));
-        URI uri = URI.create("api/v1/student/" + student.getToken());
+        URI uri = URI.create("api/v1/student/" + student.getId());
         return ResponseEntity.created(uri).build();
     }
 

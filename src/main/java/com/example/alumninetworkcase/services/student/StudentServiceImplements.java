@@ -1,15 +1,13 @@
 package com.example.alumninetworkcase.services.student;
 
+import com.example.alumninetworkcase.exceptions.StudentAlreadyExistsException;
 import com.example.alumninetworkcase.exceptions.StudentNotFoundException;
-import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.StudentRepo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImplements implements StudentService {
@@ -20,22 +18,12 @@ public class StudentServiceImplements implements StudentService {
         this.studentRepo = userRepo;
     }
 
-    /*@Override
-    public Student findById(Integer id) {
+    @Override
+    public Student findById(String id) {
 
         return studentRepo.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
-    }*/
-    @Override
-    public Student findById(Integer id) {
-        if(studentRepo.existsById(id)){
-            return studentRepo.findById(id).get();
-        } else {
-            Student student = new Student();
-            return student;
-        }
     }
-
 
     @Override
     public Collection<Student> findAll() {
@@ -53,8 +41,8 @@ public class StudentServiceImplements implements StudentService {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        studentRepo.deleteById(id);
+    public void deleteById(String token) {
+        studentRepo.deleteById(token);
     }
 
     @Override
@@ -63,34 +51,21 @@ public class StudentServiceImplements implements StudentService {
     }
 
     @Override
-    public boolean exists(Integer id) {
-        return studentRepo.existsById(id);
+    public boolean exists(String token) {
+        return studentRepo.existsById(token);
     }
 
     @Override
-    @Query("select a from Student a where a.name = ?1")
-    public Student getByName(String name) {
-        Student student = studentRepo.findByName(name);
-        return student;
-    }
-
-    @Override
-    public Student getByToken(String token) {
-        Student student = studentRepo.getByToken(token);
-        return student;
-    }
-
-    @Override
-    public Student add(String token) {
+    public Student add(String uid) {
         // Prevents internal server error for duplicates
-        int id = studentRepo.getByToken(token).getId();
-        /*if(studentRepo.existsById(id))
-            throw new StudentAlreadyExistsException();*/
+        if(studentRepo.existsById(uid))
+            throw new StudentAlreadyExistsException();
         // Create new user
         Student student = new Student();
-        student.setToken(token);
+        student.setId(uid);
         student.setComplete(false);
         return studentRepo.save(student);
     }
+
 
 }

@@ -19,7 +19,7 @@ public class AlumniEventDTO {
 
     private int alumniGroup;
     private Set<Integer> topics;
-    private Set<Integer> students;
+    private Set<String> students;
     private Set<Integer> posts;
     private Set<Integer> eventRSVPs;
 }

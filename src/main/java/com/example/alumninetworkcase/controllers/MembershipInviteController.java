@@ -75,7 +75,7 @@ public class MembershipInviteController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping //POST: localhost:8081/api/v1/alumniGroup/1
-    public ResponseEntity inviteMember(int student_id, int group_id) {
+    public ResponseEntity inviteMember(String student_id, int group_id) {
         if(!alumniGroupService.exists(group_id)){
             return ResponseEntity.badRequest().build();
         }

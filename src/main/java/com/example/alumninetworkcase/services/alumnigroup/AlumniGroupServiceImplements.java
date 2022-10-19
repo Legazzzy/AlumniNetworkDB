@@ -67,7 +67,7 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     }
 
     @Override
-    public AlumniGroup updateStudentsInAlumniGroup (AlumniGroup alumniGroup, Collection<Integer> ids){
+    public AlumniGroup updateStudentsInAlumniGroup (AlumniGroup alumniGroup, Collection<String> ids){
         alumniGroup.getStudents().forEach(c -> c.setAlumniGroups(null));
         Set<Student> students = new HashSet<Student>();
 
@@ -79,7 +79,7 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     }
 
     @Override
-    public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, int student_id) {
+    public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, String student_id) {
         Set<Student> students = alumniGroup.getStudents();
         if(students==null){
             Set<Student> firstStudent = new HashSet<>();
@@ -92,14 +92,14 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
         return alumniGroupRepo.save(alumniGroup);
     }
 
-    public AlumniGroup addCreatorStudentToGroup (AlumniGroup alumniGroup, int student_id) {
+    public AlumniGroup addCreatorStudentToGroup (AlumniGroup alumniGroup, String student_id) {
         Student creator_student = studentRepo.findById(student_id).get();
         alumniGroup.setAlumnigroup_creator_student(creator_student);
         return alumniGroupRepo.save(alumniGroup);
     }
 
     @Override
-    public boolean isStudentInGroup (int student_id, AlumniGroup group) {
+    public boolean isStudentInGroup (String student_id, AlumniGroup group) {
         for (Student stud : group.getStudents()) {
             if(stud.getId() == student_id) {
                 return true;

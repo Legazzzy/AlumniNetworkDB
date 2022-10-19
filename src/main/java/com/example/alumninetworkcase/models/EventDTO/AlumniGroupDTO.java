@@ -12,7 +12,7 @@ public class AlumniGroupDTO {
     private String description;
     private boolean _private;
 
-    private Set<Integer> students;
+    private Set<String> students;
     private Set<Integer> alumniEvents;
     private Set<Integer> posts;
     private Set<Integer> groupMembershipInvites;

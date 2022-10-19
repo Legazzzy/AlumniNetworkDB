@@ -62,7 +62,7 @@ public class TopicServiceImplements implements TopicService{
     }
 
     @Override
-    public Topic addStudentToTopic (int student_id, Topic topic){
+    public Topic addStudentToTopic (String student_id, Topic topic){
         //Adds first student if set is empty
         if(topic.getStudents() == null){
             Set<Student> students = new HashSet<Student>(){
@@ -77,7 +77,7 @@ public class TopicServiceImplements implements TopicService{
     }
 
     @Override
-    public boolean isStudentInTopic (int student_id, Topic topic) {
+    public boolean isStudentInTopic (String student_id, Topic topic) {
         for (Student stud : topic.getStudents()) {
             if(stud.getId() == student_id) {
                 return true;

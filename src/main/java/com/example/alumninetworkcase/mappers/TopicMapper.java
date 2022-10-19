@@ -44,7 +44,7 @@ public abstract class TopicMapper {
     //Custom mappings
     //Maps id to user
     @Named("studentIdToStudent")
-    Student mapIdToStudent(int id) { return studentService.findById(id);}
+    Student mapIdToStudent(String id) { return studentService.findById(id);}
 
     //Maps id to event
     @Named("alumniEventIdToAlumniEvent")
@@ -56,7 +56,7 @@ public abstract class TopicMapper {
 
     //Map users to ids
     @Named("studentsToIds")
-    Set<Integer> mapStudentsToIds(Set<Student> source) {
+    Set<String> mapStudentsToIds(Set<Student> source) {
         if(source == null)
             return null;
         return source.stream()

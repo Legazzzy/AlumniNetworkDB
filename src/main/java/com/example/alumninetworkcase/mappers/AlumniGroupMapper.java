@@ -53,7 +53,7 @@ public abstract class AlumniGroupMapper {
     //Custom mappings
     //Maps id to user
     @Named("studentIdToStudent")
-    Student mapIdToStudent(int id) { return studentService.findById(id);}
+    Student mapIdToStudent(String id) { return studentService.findById(id);}
 
     //Maps id to event
     @Named("alumniEventIdToAlumniEvent")
@@ -69,7 +69,7 @@ public abstract class AlumniGroupMapper {
 
     //Maps users to ids
     @Named("studentsToIds")
-    Set<Integer> mapUsersToIds(Set<Student> source) {
+    Set<String> mapUsersToIds(Set<Student> source) {
         if (source == null)
             return null;
         return source.stream().map(s -> s.getId()).collect(Collectors.toSet());

@@ -86,6 +86,7 @@ public class AlumniGroupController {
     })
     @GetMapping("displayJoinedGroups") // GET: localhost:8080/api/v1/alumnigroup/displayJoinedGroups
     public ResponseEntity displayJoinedGroups(int accessing_student_id) {
+    public ResponseEntity displayJoinedGroups(String accessing_student_id) {
         Collection<AlumniGroupDTO> allEvents = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findAll()
         );
@@ -112,7 +113,7 @@ public class AlumniGroupController {
                     content = @Content)
     })
     @GetMapping("displayAvailableGroups") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayAvailableGroups(int accessing_student_id) {
+    public ResponseEntity displayAvailableGroups(String accessing_student_id) {
         Collection<AlumniGroupDTO> allGroups = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findAll()
         );
@@ -142,7 +143,7 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ApiErrorResponse.class))})
     })
     @GetMapping("{id}")
-    public ResponseEntity<AlumniGroupDTO> getById(@PathVariable int id, int accessing_student_id) {
+    public ResponseEntity<AlumniGroupDTO> getById(@PathVariable int id, String accessing_student_id) {
         AlumniGroupDTO group = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findById(id)
         );
@@ -165,7 +166,7 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PutMapping("/{id}/addStudentToAlumniGroup")
-    public ResponseEntity addStudentToAlumniGroup(@PathVariable int id, @RequestBody int student_id) {
+    public ResponseEntity addStudentToAlumniGroup(@PathVariable int id, @RequestBody String student_id) {
         Student student = studentService.findById(student_id);
         AlumniGroup alumniGroup = alumniGroupService.findById(id);
         Set<Student> students = alumniGroup.getStudents();
@@ -187,7 +188,7 @@ public class AlumniGroupController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping("{id}/addAlumniGroup")
-    public ResponseEntity addAlumniGroup(@PathVariable int id, @RequestBody AlumniGroup alumniGroup) {
+    public ResponseEntity addAlumniGroup(@PathVariable String id, @RequestBody AlumniGroup alumniGroup) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
         Student creator_student = studentService.findById(id);
 

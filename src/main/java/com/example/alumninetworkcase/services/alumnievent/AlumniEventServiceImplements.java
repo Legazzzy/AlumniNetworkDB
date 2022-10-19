@@ -66,7 +66,7 @@ public class AlumniEventServiceImplements implements AlumniEventService {
     }
 
     @Override
-    public AlumniEvent addStudentToEvent(AlumniEvent alumniEvent, int student_id) {
+    public AlumniEvent addStudentToEvent(AlumniEvent alumniEvent, String student_id) {
         Set<Student> students = alumniEvent.getStudents();
         students.add(studentRepo.findById(student_id).get());
         alumniEvent.setStudents(students);
@@ -75,7 +75,7 @@ public class AlumniEventServiceImplements implements AlumniEventService {
 
 
     @Override
-    public boolean isStudentInEvent (int student_id, AlumniEvent event) {
+    public boolean isStudentInEvent (String student_id, AlumniEvent event) {
         for (Student stud : event.getStudents()) {
             if(stud.getId() == student_id) {
                 return true;

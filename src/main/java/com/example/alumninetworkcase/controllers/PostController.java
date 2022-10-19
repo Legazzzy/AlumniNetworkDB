@@ -119,7 +119,7 @@ public class PostController {
                     content = @Content)
     })
     @GetMapping("displayAllPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayAllPosts(int accessing_student_id) {
+    public ResponseEntity displayAllPosts(String accessing_student_id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
@@ -149,7 +149,7 @@ public class PostController {
                     content = @Content)
     })
     @GetMapping("displayDMPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayDMPosts(int accessing_student_id) {
+    public ResponseEntity displayDMPosts(String accessing_student_id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
@@ -176,7 +176,7 @@ public class PostController {
                     content = @Content)
     })
     @GetMapping("displayGroupPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayGroupsPosts(int accessing_student_id) {
+    public ResponseEntity displayGroupsPosts(String accessing_student_id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
@@ -203,7 +203,7 @@ public class PostController {
                     content = @Content)
     })
     @GetMapping("displayTopicsPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayTopicsPosts(int accessing_student_id) {
+    public ResponseEntity displayTopicsPosts(String accessing_student_id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
@@ -230,7 +230,7 @@ public class PostController {
                     content = @Content)
     })
     @GetMapping("displayEventsPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayEventsPosts(int accessing_student_id) {
+    public ResponseEntity displayEventsPosts(String accessing_student_id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
@@ -256,7 +256,7 @@ public class PostController {
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
     @PostMapping("{id}/addDMPost")
-    public ResponseEntity addDMPost(@PathVariable int id, @RequestBody Post post) {
+    public ResponseEntity addDMPost(@PathVariable String id, @RequestBody Post post) {
         Post p = postService.add(post);
         p.setTarget_student(studentService.findById(id));
         postService.update(p);

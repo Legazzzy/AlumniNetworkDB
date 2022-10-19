@@ -10,7 +10,7 @@ public class TopicDTO {
     private String name;
     private String description;
 
-    private Set<Integer> students;
+    private Set<String> students;
     private Set<Integer> alumniEvents;
     private Set<Integer> posts;
 }
