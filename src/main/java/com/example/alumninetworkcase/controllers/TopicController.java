@@ -159,4 +159,32 @@ public class TopicController {
         topicService.update(topic);
         return ResponseEntity.noContent().build();
     }
+
+    //add new topic
+    @Operation(summary = "Create a new topic")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Alumni group successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PostMapping("{id}/addTopic")
+    public ResponseEntity addAlumniGroup(@PathVariable int id, @RequestBody Topic alumniTopic) {
+        Topic topic = topicService.add(alumniTopic);
+        Student creator_student = studentService.findById(id);
+
+        //Updates creator student
+        Set<Student> students = new HashSet<>();
+        students.add(creator_student);
+        topic.setStudents(students);
+        topicService.update(topic);
+
+        //Creates group
+        URI location = URI.create("topics/" + topic.getId());
+        return ResponseEntity.created(location).build();
+    }
+
 }
