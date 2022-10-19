@@ -105,6 +105,36 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
+    @Operation(summary = "Find all posts available to a student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayAllPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayAllPosts(int accessing_student_id) {
+        Collection<PostDTO> allPosts = postMapper.postToPostDTO(
+                postService.findAll()
+        );
+        Collection<PostDTO> posts = new HashSet<PostDTO>();
+        for(PostDTO pd : allPosts) {
+            if(accessing_student_id == postService.findById(pd.getId()).getTarget_student().getId() ||
+                    alumniGroupService.isStudentInGroup(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniGroup()) ||
+                    topicService.isStudentInTopic(accessing_student_id, postService.findById(pd.getId()).getTarget_topic()) ||
+                    eventService.isStudentInEvent(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniEvent())){
+                posts.add(pd);
+            }
+        }
+        return ResponseEntity.ok(posts);
+    }
+
     @Operation(summary = "Find all posts DMed to a student")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
