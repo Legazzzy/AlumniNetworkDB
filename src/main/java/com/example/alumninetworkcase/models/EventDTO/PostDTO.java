@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Data
 public class PostDTO {
+    private int id;
     private Timestamp timestamp;
     private String title;
     private String content;

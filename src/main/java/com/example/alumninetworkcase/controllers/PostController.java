@@ -4,6 +4,7 @@ import com.example.alumninetworkcase.mappers.*;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
+import com.example.alumninetworkcase.models.EventDTO.TopicDTO;
 import com.example.alumninetworkcase.models.Post;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping(path = "api/v1/post")
@@ -57,7 +59,7 @@ public class PostController {
     }
 
 
-    @Operation(summary = "Find all Events")
+    @Operation(summary = "Find all posts")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "AlumniGroups successfully found",
@@ -78,7 +80,7 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
-    //find event with ID
+    //find post with ID
     @Operation(summary = "Get a post with id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -102,6 +104,115 @@ public class PostController {
 
         return ResponseEntity.ok(post);
     }
+
+    @Operation(summary = "Find all posts DMed to a student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayDMPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayDMPosts(int accessing_student_id) {
+        Collection<PostDTO> allPosts = postMapper.postToPostDTO(
+                postService.findAll()
+        );
+        Collection<PostDTO> posts = new HashSet<PostDTO>();
+        for(PostDTO pd : allPosts) {
+            if(accessing_student_id == postService.findById(pd.getId()).getTarget_student().getId()){
+                posts.add(pd);
+            }
+        }
+        return ResponseEntity.ok(posts);
+    }
+
+    @Operation(summary = "Find all posts in groups joined by a student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayGroupPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayGroupsPosts(int accessing_student_id) {
+        Collection<PostDTO> allPosts = postMapper.postToPostDTO(
+                postService.findAll()
+        );
+        Collection<PostDTO> posts = new HashSet<PostDTO>();
+        for(PostDTO pd : allPosts) {
+            if(alumniGroupService.isStudentInGroup(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniGroup())){
+                posts.add(pd);
+            }
+        }
+        return ResponseEntity.ok(posts);
+    }
+
+    @Operation(summary = "Find all posts in topics joined by a student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayTopicsPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayTopicsPosts(int accessing_student_id) {
+        Collection<PostDTO> allPosts = postMapper.postToPostDTO(
+                postService.findAll()
+        );
+        Collection<PostDTO> posts = new HashSet<PostDTO>();
+        for(PostDTO pd : allPosts) {
+            if(topicService.isStudentInTopic(accessing_student_id, postService.findById(pd.getId()).getTarget_topic())){
+                posts.add(pd);
+            }
+        }
+        return ResponseEntity.ok(posts);
+    }
+
+    @Operation(summary = "Find all posts in events joined by a student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayEventsPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayEventsPosts(int accessing_student_id) {
+        Collection<PostDTO> allPosts = postMapper.postToPostDTO(
+                postService.findAll()
+        );
+        Collection<PostDTO> posts = new HashSet<PostDTO>();
+        for(PostDTO pd : allPosts) {
+            if(eventService.isStudentInEvent(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniEvent())){
+                posts.add(pd);
+            }
+        }
+        return ResponseEntity.ok(posts);
+    }
+
 
     //add new DM post
     @Operation(summary = "Add new DM post")

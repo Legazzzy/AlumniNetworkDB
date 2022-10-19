@@ -1,5 +1,6 @@
 package com.example.alumninetworkcase.services.alumnievent;
 import com.example.alumninetworkcase.models.AlumniEvent;
+import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.services.CrudService;
 
@@ -9,4 +10,6 @@ public interface AlumniEventService extends CrudService<AlumniEvent, Integer> {
     Collection<Student> getAllStudentsInAlumniEvent(AlumniEvent alumniEvent);
 
     AlumniEvent addStudentToEvent(AlumniEvent alumniEvent, int student_id);
+
+    public boolean isStudentInEvent(int student_id, AlumniEvent event);
 }

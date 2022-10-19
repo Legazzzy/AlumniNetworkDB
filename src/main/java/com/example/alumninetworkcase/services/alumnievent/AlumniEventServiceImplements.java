@@ -2,6 +2,7 @@ package com.example.alumninetworkcase.services.alumnievent;
 
 import com.example.alumninetworkcase.exceptions.AlumniEventNotFoundException;
 import com.example.alumninetworkcase.models.AlumniEvent;
+import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.Student;
 import com.example.alumninetworkcase.repositories.AlumniEventRepo;
 import com.example.alumninetworkcase.repositories.StudentRepo;
@@ -70,5 +71,16 @@ public class AlumniEventServiceImplements implements AlumniEventService {
         students.add(studentRepo.findById(student_id).get());
         alumniEvent.setStudents(students);
         return alumniEventRepo.save(alumniEvent);
+    }
+
+
+    @Override
+    public boolean isStudentInEvent (int student_id, AlumniEvent event) {
+        for (Student stud : event.getStudents()) {
+            if(stud.getId() == student_id) {
+                return true;
+            }
+        }
+        return false;
     }
 }
