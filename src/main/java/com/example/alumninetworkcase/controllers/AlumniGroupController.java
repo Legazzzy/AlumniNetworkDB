@@ -192,7 +192,6 @@ public class AlumniGroupController {
         Student creator_student = studentService.findById(id);
 
         //Updates creator student
-        //alumniGroupService.addStudentToGroup(group, creator_student.getId());
         Set<Student> students = new HashSet<>();
         students.add(creator_student);
         group.setStudents(students);

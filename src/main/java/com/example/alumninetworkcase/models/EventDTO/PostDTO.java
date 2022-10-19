@@ -8,6 +8,7 @@ import java.util.Set;
 @Data
 public class PostDTO {
     private Timestamp timestamp;
+    private String title;
     private String content;
     private int sender_student;  //FK
     private int target_student;  //FK

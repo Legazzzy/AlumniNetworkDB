@@ -14,6 +14,8 @@ public class Post {
     private Timestamp timestamp;
 
     @Column(length = 200)
+    private String title;
+    @Column(length = 200)
     private String content;
 
     @ManyToOne
@@ -57,6 +59,14 @@ public class Post {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
