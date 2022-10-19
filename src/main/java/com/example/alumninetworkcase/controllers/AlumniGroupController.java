@@ -9,6 +9,7 @@ import com.example.alumninetworkcase.models.EventDTO.AlumniGroupDTO;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.MembershipInvite;
 import com.example.alumninetworkcase.models.Student;
+import com.example.alumninetworkcase.models.Topic;
 import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.membershipinvite.MembershipInviteService;
 import com.example.alumninetworkcase.services.student.StudentService;
@@ -152,6 +153,28 @@ public class AlumniGroupController {
         return ResponseEntity.ok(group);
     }
 
+    //add student to topic
+    @Operation(summary = "Add student to existing group")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Student successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/addStudentToAlumniGroup")
+    public ResponseEntity addStudentToAlumniGroup(@PathVariable int id, @RequestBody int student_id) {
+        Student student = studentService.findById(student_id);
+        AlumniGroup alumniGroup = alumniGroupService.findById(id);
+        Set<Student> students = alumniGroup.getStudents();
+        students.add(student);
+        alumniGroup.setStudents(students);
+        alumniGroupService.update(alumniGroup);
+        return ResponseEntity.noContent().build();
+    }
+
     //add new Alumni group
     @Operation(summary = "Create a new alumni group")
     @ApiResponses( value = {
@@ -163,14 +186,18 @@ public class AlumniGroupController {
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
     })
-    @PostMapping
-    public ResponseEntity add(@RequestBody AlumniGroup alumniGroup, String token) {
+    @PostMapping("{id}/addAlumniGroup")
+    public ResponseEntity addAlumniGroup(@PathVariable int id, @RequestBody AlumniGroup alumniGroup) {
         AlumniGroup group = alumniGroupService.add(alumniGroup);
-        Student creator_student = studentService.getByToken(token);
+        Student creator_student = studentService.findById(id);
 
         //Updates creator student
-        //alumniGroupService.addStudentToGroup(group, creator_student);
+        Set<Student> students = new HashSet<>();
+        students.add(creator_student);
+        group.setStudents(students);
+        alumniGroupService.update(group);
         alumniGroupService.addCreatorStudentToGroup(group, creator_student.getId());
+        alumniGroupService.update(group);
 
         //Creates group
         URI location = URI.create("alumnigroups/" + group.getId());

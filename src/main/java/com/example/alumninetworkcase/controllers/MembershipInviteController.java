@@ -86,7 +86,7 @@ public class MembershipInviteController {
         URI location = URI.create("membershipinvite/"+invite.getId());
         return ResponseEntity.created(location).build();
     }
-
+/*
     @Operation(summary = "Update alumni group with a new student")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
@@ -101,7 +101,7 @@ public class MembershipInviteController {
     public ResponseEntity update(int id) {
         alumniGroupService.addStudentToGroup(membershipInviteService.findById(id));
         return ResponseEntity.noContent().build();
-    }
+    }*/
 
 }
 

@@ -7,8 +7,11 @@ import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
 import com.example.alumninetworkcase.models.EventDTO.StudentDTO;
 import com.example.alumninetworkcase.models.Student;
+import com.example.alumninetworkcase.models.Topic;
 import com.example.alumninetworkcase.services.alumnievent.AlumniEventService;
+import com.example.alumninetworkcase.services.alumnigroup.AlumniGroupService;
 import com.example.alumninetworkcase.services.student.StudentService;
+import com.example.alumninetworkcase.services.topic.TopicService;
 import com.example.alumninetworkcase.utils.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,6 +30,7 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/student")
@@ -34,17 +38,21 @@ public class StudentController {
     private final AlumniEventService eventService;
     private final AlumniEventMapper eventMapper;
     private final TopicMapper topicMapper;
+    private final TopicService topicService;
     private final PostMapper postMapper;
     private final AlumniGroupMapper alumniGroupMapper;
+    private final AlumniGroupService alumniGroupService;
     private final StudentMapper studentMapper;
     private final StudentService studentService;
 
-    public StudentController(AlumniEventService eventService, AlumniEventMapper eventMapper, TopicMapper topicMapper, PostMapper postMapper, AlumniGroupMapper alumniGroupMapper, StudentMapper studentMapper, StudentService studentService) {
+    public StudentController(AlumniEventService eventService, AlumniEventMapper eventMapper, TopicMapper topicMapper, TopicService topicService, PostMapper postMapper, AlumniGroupMapper alumniGroupMapper, AlumniGroupService alumniGroupService, StudentMapper studentMapper, StudentService studentService) {
         this.eventService = eventService;
         this.eventMapper = eventMapper;
         this.topicMapper = topicMapper;
+        this.topicService = topicService;
         this.postMapper = postMapper;
         this.alumniGroupMapper = alumniGroupMapper;
+        this.alumniGroupService = alumniGroupService;
         this.studentMapper = studentMapper;
         this.studentService = studentService;
     }
@@ -163,6 +171,50 @@ public class StudentController {
                         jwt.getClaimAsString("sub")
                 )
         );
+    }
+
+    //add student to topic
+    @Operation(summary = "Add student to existing topic")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Topic successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/addTopicToStudent")
+    public ResponseEntity addTopicToStudent(@PathVariable int id, @RequestBody int topic_id) {
+        Topic topic = topicService.findById(topic_id);
+        Student student = studentService.findById(id);
+        Set<Topic> topics = student.getTopics();
+        topics.add(topic);
+        student.setTopics(topics);
+        studentService.update(student);
+        return ResponseEntity.noContent().build();
+    }
+
+    //add student to group
+    @Operation(summary = "Add group to existing student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Group successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/addGroupToStudent")
+    public ResponseEntity addGroupToStudent(@PathVariable int id, @RequestBody int group_id) {
+        AlumniGroup alumniGroup = alumniGroupService.findById(group_id);
+        Student student = studentService.findById(id);
+        Set<AlumniGroup> groups = student.getAlumniGroups();
+        groups.add(alumniGroup);
+        student.setAlumniGroups(groups);
+        studentService.update(student);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("register")

@@ -79,11 +79,16 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     }
 
     @Override
-    public AlumniGroup addStudentToGroup (MembershipInvite membershipInvite) {
-        AlumniGroup alumniGroup = membershipInvite.getGroup_invite();
+    public AlumniGroup addStudentToGroup (AlumniGroup alumniGroup, int student_id) {
         Set<Student> students = alumniGroup.getStudents();
-        students.add(studentRepo.findById(7).get());
-        alumniGroup.setStudents(students);
+        if(students==null){
+            Set<Student> firstStudent = new HashSet<>();
+            firstStudent.add(studentRepo.findById(student_id).get());
+            alumniGroup.setStudents(firstStudent);
+        } else {
+            students.add(studentRepo.findById(student_id).get());
+            alumniGroup.setStudents(students);
+        }
         return alumniGroupRepo.save(alumniGroup);
     }
 
