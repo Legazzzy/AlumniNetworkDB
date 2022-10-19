@@ -129,6 +129,14 @@ public class StudentController {
         return ResponseEntity.created(location).build();
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity update(@RequestBody StudentDTO studentDTO, @PathVariable int id) {
+        if (id != studentDTO.getId())
+            return ResponseEntity.badRequest().build();
+        studentService.update(studentMapper.studentDTOToStudent(studentDTO));
+        return ResponseEntity.noContent().build();
+    }
+
 
     @Operation(summary = "Get student with name")
     @ApiResponses(value = {
