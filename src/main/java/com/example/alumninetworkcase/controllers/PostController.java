@@ -102,8 +102,9 @@ public class PostController {
 
         return ResponseEntity.ok(post);
     }
-    //add - add new event
-    @Operation(summary = "Add new post")
+
+    //add new DM post
+    @Operation(summary = "Add new DM post")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
                     description = "post successfully added",
@@ -117,6 +118,69 @@ public class PostController {
     public ResponseEntity addDMPost(@PathVariable int id, @RequestBody Post post) {
         Post p = postService.add(post);
         p.setTarget_student(studentService.findById(id));
+        postService.update(p);
+
+        URI location = URI.create("posts/" + p.getId());
+        return ResponseEntity.created(location).build();
+    }
+
+    //add new group post
+    @Operation(summary = "Add new group post")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "post successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PostMapping("{id}/addGroupPost")
+    public ResponseEntity addGroupPost(@PathVariable int id, @RequestBody Post post) {
+        Post p = postService.add(post);
+        p.setTarget_alumniGroup(alumniGroupService.findById(id));
+        postService.update(p);
+
+        URI location = URI.create("posts/" + p.getId());
+        return ResponseEntity.created(location).build();
+    }
+
+    //add new topic post
+    @Operation(summary = "Add new event post")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "post successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PostMapping("{id}/addEventPost")
+    public ResponseEntity addEventPost(@PathVariable int id, @RequestBody Post post) {
+        Post p = postService.add(post);
+        p.setTarget_alumniEvent(eventService.findById(id));
+        postService.update(p);
+
+        URI location = URI.create("posts/" + p.getId());
+        return ResponseEntity.created(location).build();
+    }
+
+    //add new topic post
+    @Operation(summary = "Add new topic post")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "post successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PostMapping("{id}/addTopicPost")
+    public ResponseEntity addTopicPost(@PathVariable int id, @RequestBody Post post) {
+        Post p = postService.add(post);
+        p.setTarget_topic(topicService.findById(id));
         postService.update(p);
 
         URI location = URI.create("posts/" + p.getId());
