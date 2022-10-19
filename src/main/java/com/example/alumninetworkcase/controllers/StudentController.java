@@ -2,6 +2,7 @@ package com.example.alumninetworkcase.controllers;
 
 
 import com.example.alumninetworkcase.mappers.*;
+import com.example.alumninetworkcase.models.AlumniEvent;
 import com.example.alumninetworkcase.models.AlumniGroup;
 import com.example.alumninetworkcase.models.EventDTO.AlumniEventDTO;
 import com.example.alumninetworkcase.models.EventDTO.PostDTO;
@@ -191,6 +192,28 @@ public class StudentController {
         Set<Topic> topics = student.getTopics();
         topics.add(topic);
         student.setTopics(topics);
+        studentService.update(student);
+        return ResponseEntity.noContent().build();
+    }
+
+    //add student to group
+    @Operation(summary = "Add group to existing student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Group successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/addEventToStudent")
+    public ResponseEntity addEventToStudent(@PathVariable int id, @RequestBody int event_id) {
+        AlumniEvent event = eventService.findById(event_id);
+        Student student = studentService.findById(id);
+        Set<AlumniEvent> events = student.getAlumniEvents();
+        events.add(event);
+        student.setAlumniEvents(events);
         studentService.update(student);
         return ResponseEntity.noContent().build();
     }

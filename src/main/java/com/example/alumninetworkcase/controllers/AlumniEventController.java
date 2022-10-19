@@ -123,10 +123,11 @@ public class AlumniEventController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorAttributeOptions.class))}),
     })
-    @PostMapping
-    public ResponseEntity add(@RequestBody AlumniEvent alumniEvent, int creator_student_id) {
+    @PostMapping("{id}/addAlumniEvent")
+    public ResponseEntity add(@PathVariable int id, @RequestBody AlumniEvent alumniEvent) {
         AlumniEvent event = eventService.add(alumniEvent);
-        event.setCreator_student(studentService.findById(creator_student_id));
+        event.setCreator_student(studentService.findById(id));
+
         URI location = URI.create("alumniEvent/" + event.getId());
         return ResponseEntity.created(location).build();
     }
