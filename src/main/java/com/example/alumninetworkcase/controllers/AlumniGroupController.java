@@ -113,16 +113,16 @@ public class AlumniGroupController {
     })
     @GetMapping("displayAvailableGroups") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
     public ResponseEntity displayAvailableGroups(int accessing_student_id) {
-        Collection<AlumniGroupDTO> allEvents = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
+        Collection<AlumniGroupDTO> allGroups = alumniGroupMapper.AlumniGroupToAlumniGroupDTO(
                 alumniGroupService.findAll()
         );
-        Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
-        for(AlumniGroupDTO ad : allEvents) {
+        Collection<AlumniGroupDTO> groups = new HashSet<AlumniGroupDTO>();
+        for(AlumniGroupDTO ad : allGroups) {
             if(!alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId())) && !alumniGroupService.findById(ad.getId()).get_private()){
-                events.add(ad);
+                groups.add(ad);
             }
         }
-        return ResponseEntity.ok(events);
+        return ResponseEntity.ok(groups);
     }
 
     //find alumnigroup by ID

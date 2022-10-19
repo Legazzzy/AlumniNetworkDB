@@ -129,8 +129,8 @@ public class TopicController {
         Collection<TopicDTO> allTopics = topicMapper.topicToTopicDTO(
                 topicService.findAll()
         );
-        Collection<TopicDTO> topics = new HashSet<>();
-        for(TopicDTO td : topics) {
+        Collection<TopicDTO> topics = new HashSet<TopicDTO>();
+        for(TopicDTO td : allTopics) {
             if(!topicService.isStudentInTopic(accessing_student_id, topicService.findById(td.getId()))){
                 topics.add(td);
             }
