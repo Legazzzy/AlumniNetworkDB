@@ -118,8 +118,8 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("displayAllPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayAllPosts(String accessing_student_id) {
+    @GetMapping("viewAllPosts") // GET: localhost:8080/api/v1/alumnigroup/viewAllPosts
+    public ResponseEntity viewAllPosts(String accessing_student_id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
