@@ -73,7 +73,6 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
 
         //Adding the students to the group
         ids.stream().forEach(p -> students.add(studentRepo.findById(p).get()));
-
         alumniGroup.setStudents(students);
         return alumniGroupRepo.save(alumniGroup);
     }
@@ -101,7 +100,7 @@ public class AlumniGroupServiceImplements implements AlumniGroupService {
     @Override
     public boolean isStudentInGroup (String student_id, AlumniGroup group) {
         for (Student stud : group.getStudents()) {
-            if(stud.getId() == student_id) {
+            if(stud.getId().equals(student_id)) {
                 return true;
             }
         }

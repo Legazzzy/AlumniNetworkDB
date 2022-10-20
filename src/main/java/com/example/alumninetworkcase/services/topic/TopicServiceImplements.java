@@ -79,7 +79,7 @@ public class TopicServiceImplements implements TopicService{
     @Override
     public boolean isStudentInTopic (String student_id, Topic topic) {
         for (Student stud : topic.getStudents()) {
-            if(stud.getId() == student_id) {
+            if(stud.getId().equals(student_id)) {
                 return true;
             }
         }

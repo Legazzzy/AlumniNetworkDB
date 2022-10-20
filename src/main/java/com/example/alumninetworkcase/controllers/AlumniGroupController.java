@@ -91,6 +91,7 @@ public class AlumniGroupController {
         );
         Collection<AlumniGroupDTO> events = new HashSet<AlumniGroupDTO>();
         for(AlumniGroupDTO ad : allEvents) {
+            System.out.println(accessing_student_id+"  heeeeeelo   "+alumniGroupService.findById(ad.getId()));
             if(alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(ad.getId()))){
                 events.add(ad);
             }
