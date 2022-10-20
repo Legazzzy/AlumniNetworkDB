@@ -118,23 +118,23 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("viewAllPosts") // GET: localhost:8080/api/v1/alumnigroup/viewAllPosts
-    public ResponseEntity viewAllPosts(String accessing_student_id) {
+    @GetMapping("{id}/viewAllPosts") // GET: localhost:8080/api/v1/alumnigroup/viewAllPosts
+    public ResponseEntity viewAllPosts(@PathVariable String id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
             if(eventService.exists(pd.getTarget_alumniEvent())){
-                if(eventService.isStudentInEvent(accessing_student_id, eventService.findById(pd.getTarget_alumniEvent()))){
+                if(eventService.isStudentInEvent(id, eventService.findById(pd.getTarget_alumniEvent()))){
                     posts.add(pd);
                 }
             } else if(alumniGroupService.exists(pd.getTarget_alumniGroup())) {
-                if(alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(pd.getTarget_alumniGroup()))){
+                if(alumniGroupService.isStudentInGroup(id, alumniGroupService.findById(pd.getTarget_alumniGroup()))){
                     posts.add(pd);
                 }
             } else if(topicService.exists(pd.getTarget_topic())) {
-                if(topicService.isStudentInTopic(accessing_student_id, topicService.findById(pd.getTarget_topic()))){
+                if(topicService.isStudentInTopic(id, topicService.findById(pd.getTarget_topic()))){
                    posts.add(pd);
                 }
             }
