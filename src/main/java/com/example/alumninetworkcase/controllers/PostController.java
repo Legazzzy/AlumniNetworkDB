@@ -148,8 +148,8 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("displayDMPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayDMPosts(String accessing_student_id) {
+    @GetMapping("viewDMPosts") // GET: localhost:8080/api/v1/alumnigroup/viewDMPosts
+    public ResponseEntity viewDMPosts(String accessing_student_id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
@@ -202,14 +202,14 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("displayTopicsPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayTopicsPosts(String accessing_student_id) {
+    @GetMapping("viewTopicPosts") // GET: localhost:8080/api/v1/alumnigroup/viewTopicPosts
+    public ResponseEntity viewTopicPosts(@PathVariable int id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(topicService.isStudentInTopic(accessing_student_id, postService.findById(pd.getId()).getTarget_topic())){
+            if(pd.getTarget_topic() == id){
                 posts.add(pd);
             }
         }
@@ -229,14 +229,14 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("displayEventsPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayEventsPosts(String accessing_student_id) {
+    @GetMapping("viewEventPosts") // GET: localhost:8080/api/v1/alumnigroup/viewEventPosts
+    public ResponseEntity viewEventPosts(@PathVariable int id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(eventService.isStudentInEvent(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniEvent())){
+            if(pd.getTarget_alumniEvent() == id){
                 posts.add(pd);
             }
         }
