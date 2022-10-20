@@ -77,7 +77,7 @@ public class AlumniEventServiceImplements implements AlumniEventService {
     @Override
     public boolean isStudentInEvent (String student_id, AlumniEvent event) {
         for (Student stud : event.getStudents()) {
-            if(stud.getId() == student_id) {
+            if(stud.getId().equals(student_id)) {
                 return true;
             }
         }
