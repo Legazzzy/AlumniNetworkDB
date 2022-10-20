@@ -230,11 +230,64 @@ public class StudentController {
         return ResponseEntity.noContent().build();
     }
 
-    //add student to group
-    @Operation(summary = "Add group to existing student")
+    //remove topic from student
+    @Operation(summary = "Remove topic to existing student")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "204",
-                    description = "Group successfully added",
+                    description = "Event successfully removed",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/removeTopicFromStudent")
+    public ResponseEntity removeTopicFromStudent(@PathVariable String id, @RequestBody int topic_id) {
+        Topic topic = topicService.findById(topic_id);
+        Student student = studentService.findById(id);
+        Set<Topic> topics = student.getTopics();
+        Set<Student> students = topic.getStudents();
+        topics.remove(topic);
+        students.remove(student);
+        topic.setStudents(students);
+        student.setTopics(topics);
+        topicService.update(topic);
+        studentService.update(student);
+
+        return ResponseEntity.noContent().build();
+    }
+    //remove event from student
+    @Operation(summary = "Remove event to existing student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Event successfully removed",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/removeEventFromStudent")
+    public ResponseEntity removeEventFromStudent(@PathVariable String id, @RequestBody int event_id) {
+        AlumniEvent event = eventService.findById(event_id);
+        Student student = studentService.findById(id);
+        Set<AlumniEvent> events = student.getAlumniEvents();
+        Set<Student> students = event.getStudents();
+        events.remove(event);
+        students.remove(student);
+        event.setStudents(students);
+        student.setAlumniEvents(events);
+        eventService.update(event);
+        studentService.update(student);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    //remove student to group
+    @Operation(summary = "Remove group to existing student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Group successfully removed",
                     content = @Content),
             @ApiResponse(responseCode = "400",
                     description = "Malformed request",
@@ -246,9 +299,14 @@ public class StudentController {
         AlumniGroup alumniGroup = alumniGroupService.findById(group_id);
         Student student = studentService.findById(id);
         Set<AlumniGroup> groups = student.getAlumniGroups();
+        Set<Student> students = alumniGroup.getStudents();
         groups.remove(alumniGroup);
+        students.remove(student);
+        alumniGroup.setStudents(students);
         student.setAlumniGroups(groups);
+        alumniGroupService.update(alumniGroup);
         studentService.update(student);
+
         return ResponseEntity.noContent().build();
     }
 
