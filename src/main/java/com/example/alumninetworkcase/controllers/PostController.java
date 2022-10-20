@@ -125,15 +125,19 @@ public class PostController {
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-
-            /*
-            if(eventService.isStudentInEvent(accessing_student_id, eventService.findById(pd.getTarget_alumniEvent())) ||
-            alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(pd.getTarget_alumniGroup())) ||
-            topicService.isStudentInTopic(accessing_student_id, topicService.findById(pd.getTarget_topic())) ||
-            pd.getTarget_student() == accessing_student_id ||
-            pd.getSender_student() == accessing_student_id) {
-                posts.add(pd);
-            }*/
+            if(eventService.exists(pd.getTarget_alumniEvent())){
+                if(eventService.isStudentInEvent(accessing_student_id, eventService.findById(pd.getTarget_alumniEvent()))){
+                    posts.add(pd);
+                }
+            } else if(alumniGroupService.exists(pd.getTarget_alumniGroup())) {
+                if(alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(pd.getTarget_alumniGroup()))){
+                    posts.add(pd);
+                }
+            } else if(topicService.exists(pd.getTarget_topic())) {
+                if(topicService.isStudentInTopic(accessing_student_id, topicService.findById(pd.getTarget_topic()))){
+                   posts.add(pd);
+                }
+            }
         }
         return ResponseEntity.ok(posts);
     }

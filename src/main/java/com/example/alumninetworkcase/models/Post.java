@@ -15,6 +15,9 @@ public class Post {
     @Column(length = 200)
     private String content;
 
+    @Column(length = 200)
+    private String creator_student;
+
     @ManyToOne
     @JoinColumn(name = "sender_student_id")
     private Student sender_student;  //FK
@@ -57,6 +60,16 @@ public class Post {
     public void setTitle(String title) {
         this.title = title;
     }
+
+
+    public String getCreator_student() {
+        return creator_student;
+    }
+
+    public void setCreator_student(String creator_student) {
+        this.creator_student = creator_student;
+    }
+
 
     public String getContent() {
         return content;
