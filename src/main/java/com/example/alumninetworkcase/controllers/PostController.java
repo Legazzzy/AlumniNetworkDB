@@ -175,14 +175,14 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("displayGroupPosts") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
-    public ResponseEntity displayGroupsPosts(String accessing_student_id) {
+    @GetMapping("{id}/viewGroupPosts") // GET: localhost:8080/ap    i/v1/alumnigroup/viewGroupPosts
+    public ResponseEntity viewGroupPosts(@PathVariable int id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(alumniGroupService.isStudentInGroup(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniGroup())){
+            if(pd.getTarget_alumniGroup() == id){
                 posts.add(pd);
             }
         }
