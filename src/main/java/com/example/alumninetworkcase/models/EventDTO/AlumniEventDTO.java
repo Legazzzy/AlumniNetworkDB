@@ -8,7 +8,7 @@ import java.util.Set;
 @Data
 public class AlumniEventDTO {
     private int id; //PK
-    private int creator_student; //FK
+    private String creator_student; //FK
     private String name;
     private String description;
     private boolean allow_guests;

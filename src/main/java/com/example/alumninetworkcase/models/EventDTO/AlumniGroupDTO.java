@@ -7,7 +7,7 @@ import java.util.Set;
 @Data
 public class AlumniGroupDTO {
     private int id; //PK
-    private int alumnigroup_creator_student; //FK
+    private String alumnigroup_creator_student; //FK
     private String name;
     private String description;
     private boolean _private;

@@ -11,8 +11,8 @@ public class PostDTO {
     private Timestamp timestamp;
     private String title;
     private String content;
-    private int sender_student;  //FK
-    private int target_student;  //FK
+    private String sender_student;  //FK
+    private String target_student;  //FK
     private int target_alumniEvent; //FK
     private int target_alumniGroup; //FK
     private int target_topic; //FK
