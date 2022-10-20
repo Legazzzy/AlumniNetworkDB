@@ -84,6 +84,6 @@ INSERT INTO alumni_event_topic(alumni_event_id, topic_id) VALUES (1,5);
 INSERT INTO alumni_event_topic(alumni_event_id, topic_id) VALUES (2,1);
 
 -- Posts
-INSERT INTO post(sender_student_id, alumni_group_id, timestamp, content) VALUES ('b',1, '2022-10-24', 'First!');
-INSERT INTO post(sender_student_id, reply_post_id, alumni_group_id, timestamp, content) VALUES ('b',1,1, '2022-10-24', 'Lol, you always beat us Tony!');
-INSERT INTO post(sender_student_id, reply_post_id, alumni_group_id, timestamp, content) VALUES ('a',2,1, '2022-10-24', 'I know, being so cool makes you speedy');
+INSERT INTO post(sender_student_id, alumni_group_id, content) VALUES ('b',1, 'First!');
+INSERT INTO post(sender_student_id, reply_post_id, alumni_group_id, content) VALUES ('b',1,1, 'Lol, you always beat us Tony!');
+INSERT INTO post(sender_student_id, reply_post_id, alumni_group_id, content) VALUES ('a',2,1, 'I know, being so cool makes you speedy');
