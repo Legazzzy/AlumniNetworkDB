@@ -125,8 +125,15 @@ public class PostController {
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(pd.getTarget_alumniEvent());
-            }
+
+            /*
+            if(eventService.isStudentInEvent(accessing_student_id, eventService.findById(pd.getTarget_alumniEvent())) ||
+            alumniGroupService.isStudentInGroup(accessing_student_id, alumniGroupService.findById(pd.getTarget_alumniGroup())) ||
+            topicService.isStudentInTopic(accessing_student_id, topicService.findById(pd.getTarget_topic())) ||
+            pd.getTarget_student() == accessing_student_id ||
+            pd.getSender_student() == accessing_student_id) {
+                posts.add(pd);
+            }*/
         }
         return ResponseEntity.ok(posts);
     }
@@ -151,7 +158,7 @@ public class PostController {
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(){
+            if(pd.getTarget_student() == accessing_student_id){
                 posts.add(pd);
             }
         }

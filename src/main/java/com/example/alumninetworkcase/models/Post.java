@@ -10,9 +10,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 50, nullable = false)
-    private Timestamp timestamp;
-
     @Column(length = 200)
     private String title;
     @Column(length = 200)
@@ -51,14 +48,6 @@ public class Post {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
     }
 
     public String getTitle() {
