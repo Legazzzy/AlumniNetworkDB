@@ -230,6 +230,29 @@ public class StudentController {
         return ResponseEntity.noContent().build();
     }
 
+    //add student to group
+    @Operation(summary = "Add group to existing student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Group successfully added",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+    })
+    @PutMapping("/{id}/removeGroupFromStudent")
+    public ResponseEntity removeGroupFromStudent(@PathVariable String id, @RequestBody int group_id) {
+        AlumniGroup alumniGroup = alumniGroupService.findById(group_id);
+        Student student = studentService.findById(id);
+        Set<AlumniGroup> groups = student.getAlumniGroups();
+        groups.remove(alumniGroup);
+        student.setAlumniGroups(groups);
+        studentService.update(student);
+        return ResponseEntity.noContent().build();
+    }
+
+
     @PostMapping("register")
     public ResponseEntity addNewUserFromJwt(@AuthenticationPrincipal Jwt jwt) {
         Student student = studentService.add(jwt.getClaimAsString("sub"));
