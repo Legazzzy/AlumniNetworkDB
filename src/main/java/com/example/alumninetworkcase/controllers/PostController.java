@@ -23,8 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "api/v1/post")
@@ -139,6 +138,21 @@ public class PostController {
                 }
             }
         }
+
+
+        ArrayList<Integer> postIDs = new ArrayList<>();
+        for(PostDTO pd : posts) {
+            postIDs.add(pd.getId());
+        }
+
+        Collections.sort(postIDs, Collections.reverseOrder());
+        Collection<Post> sortedPosts = new HashSet<>();
+        for (int p : postIDs) {
+            sortedPosts.add(postService.findById(p));
+        }
+
+        posts = postMapper.postToPostDTO(sortedPosts);
+
         return ResponseEntity.ok(posts);
     }
 
@@ -193,6 +207,21 @@ public class PostController {
                 posts.add(pd);
             }
         }
+
+
+        ArrayList<Integer> postIDs = new ArrayList<>();
+        for(PostDTO pd : posts) {
+            postIDs.add(pd.getId());
+        }
+
+        Collections.sort(postIDs, Collections.reverseOrder());
+        Collection<Post> sortedPosts = new HashSet<>();
+        for (int p : postIDs) {
+            sortedPosts.add(postService.findById(p));
+        }
+
+        posts = postMapper.postToPostDTO(sortedPosts);
+
         return ResponseEntity.ok(posts);
     }
 
@@ -220,6 +249,21 @@ public class PostController {
                 posts.add(pd);
             }
         }
+
+
+        ArrayList<Integer> postIDs = new ArrayList<>();
+        for(PostDTO pd : posts) {
+            postIDs.add(pd.getId());
+        }
+
+        Collections.sort(postIDs, Collections.reverseOrder());
+        Collection<Post> sortedPosts = new HashSet<>();
+        for (int p : postIDs) {
+            sortedPosts.add(postService.findById(p));
+        }
+
+        posts = postMapper.postToPostDTO(sortedPosts);
+
         return ResponseEntity.ok(posts);
     }
 
@@ -241,12 +285,29 @@ public class PostController {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
         );
+
+        //Sorting
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
             if(pd.getTarget_alumniEvent() == id){
                 posts.add(pd);
             }
         }
+
+
+        ArrayList<Integer> postIDs = new ArrayList<>();
+        for(PostDTO pd : posts) {
+            postIDs.add(pd.getId());
+        }
+
+        Collections.sort(postIDs, Collections.reverseOrder());
+        Collection<Post> sortedPosts = new HashSet<>();
+        for (int p : postIDs) {
+            sortedPosts.add(postService.findById(p));
+        }
+
+        posts = postMapper.postToPostDTO(sortedPosts);
+
         return ResponseEntity.ok(posts);
     }
 
