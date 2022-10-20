@@ -209,7 +209,7 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("viewTopicPosts") // GET: localhost:8080/api/v1/alumnigroup/viewTopicPosts
+    @GetMapping("{id}/viewTopicPosts") // GET: localhost:8080/api/v1/alumnigroup/viewTopicPosts
     public ResponseEntity viewTopicPosts(@PathVariable int id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
@@ -236,7 +236,7 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("viewEventPosts") // GET: localhost:8080/api/v1/alumnigroup/viewEventPosts
+    @GetMapping("{id}/viewEventPosts") // GET: localhost:8080/api/v1/alumnigroup/viewEventPosts
     public ResponseEntity viewEventPosts(@PathVariable int id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
