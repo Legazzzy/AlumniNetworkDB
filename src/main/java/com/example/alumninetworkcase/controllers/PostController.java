@@ -125,11 +125,7 @@ public class PostController {
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(accessing_student_id == postService.findById(pd.getId()).getTarget_student().getId() ||
-                    alumniGroupService.isStudentInGroup(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniGroup()) ||
-                    topicService.isStudentInTopic(accessing_student_id, postService.findById(pd.getId()).getTarget_topic()) ||
-                    eventService.isStudentInEvent(accessing_student_id, postService.findById(pd.getId()).getTarget_alumniEvent())){
-                posts.add(pd);
+            if(pd.getTarget_alumniEvent());
             }
         }
         return ResponseEntity.ok(posts);
@@ -155,7 +151,7 @@ public class PostController {
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(accessing_student_id == postService.findById(pd.getId()).getTarget_student().getId()){
+            if(){
                 posts.add(pd);
             }
         }
