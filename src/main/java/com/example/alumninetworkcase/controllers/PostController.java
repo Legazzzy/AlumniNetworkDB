@@ -139,19 +139,7 @@ public class PostController {
             }
         }
 
-
-        ArrayList<Integer> postIDs = new ArrayList<>();
-        for(PostDTO pd : posts) {
-            postIDs.add(pd.getId());
-        }
-
-        Collections.sort(postIDs, Collections.reverseOrder());
-        Collection<Post> sortedPosts = new HashSet<>();
-        for (int p : postIDs) {
-            sortedPosts.add(postService.findById(p));
-        }
-
-        posts = postMapper.postToPostDTO(sortedPosts);
+        posts = sortPosts(posts);
 
         return ResponseEntity.ok(posts);
     }
@@ -208,19 +196,7 @@ public class PostController {
             }
         }
 
-
-        ArrayList<Integer> postIDs = new ArrayList<>();
-        for(PostDTO pd : posts) {
-            postIDs.add(pd.getId());
-        }
-
-        Collections.sort(postIDs, Collections.reverseOrder());
-        Collection<Post> sortedPosts = new HashSet<>();
-        for (int p : postIDs) {
-            sortedPosts.add(postService.findById(p));
-        }
-
-        posts = postMapper.postToPostDTO(sortedPosts);
+        posts = sortPosts(posts);
 
         return ResponseEntity.ok(posts);
     }
@@ -250,19 +226,7 @@ public class PostController {
             }
         }
 
-
-        ArrayList<Integer> postIDs = new ArrayList<>();
-        for(PostDTO pd : posts) {
-            postIDs.add(pd.getId());
-        }
-
-        Collections.sort(postIDs, Collections.reverseOrder());
-        Collection<Post> sortedPosts = new HashSet<>();
-        for (int p : postIDs) {
-            sortedPosts.add(postService.findById(p));
-        }
-
-        posts = postMapper.postToPostDTO(sortedPosts);
+        posts = sortPosts(posts);
 
         return ResponseEntity.ok(posts);
     }
@@ -294,20 +258,7 @@ public class PostController {
             }
         }
 
-
-        ArrayList<Integer> postIDs = new ArrayList<>();
-        for(PostDTO pd : posts) {
-            postIDs.add(pd.getId());
-        }
-
-        Collections.sort(postIDs, Collections.reverseOrder());
-        Collection<Post> sortedPosts = new HashSet<>();
-        for (int p : postIDs) {
-            sortedPosts.add(postService.findById(p));
-        }
-
-        posts = postMapper.postToPostDTO(sortedPosts);
-
+        posts = sortPosts(posts);
         return ResponseEntity.ok(posts);
     }
 
@@ -394,5 +345,23 @@ public class PostController {
 
         URI location = URI.create("posts/" + p.getId());
         return ResponseEntity.created(location).build();
+    }
+
+    //Method for sorting posts
+    public Collection<PostDTO> sortPosts(Collection<PostDTO> posts) {
+
+        ArrayList<Integer> postIDs = new ArrayList<>();
+        for(PostDTO pd : posts) {
+            postIDs.add(pd.getId());
+        }
+
+        Collections.sort(postIDs, Collections.reverseOrder());
+        Collection<Post> sortedPosts = new HashSet<>();
+        for (int p : postIDs) {
+            sortedPosts.add(postService.findById(p));
+        }
+
+        posts = postMapper.postToPostDTO(sortedPosts);
+        return posts;
     }
 }
