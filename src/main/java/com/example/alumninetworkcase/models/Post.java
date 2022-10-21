@@ -21,6 +21,9 @@ public class Post {
     @Column(length = 200)
     private String creator_student;
 
+    @Column(length = 200)
+    private String post_location;
+
     @ManyToOne
     @JoinColumn(name = "sender_student_id")
     private Student sender_student;  //FK
@@ -80,6 +83,10 @@ public class Post {
     public void setCreator_student(String creator_student) {
         this.creator_student = creator_student;
     }
+
+    public String getPost_location() { return post_location; }
+
+    public void setPost_location(String post_location) { this.post_location = post_location; }
 
     public String getContent() {
         return content;

@@ -12,6 +12,7 @@ public class PostDTO {
     private String title;
     private String content;
     private String creator_student;
+    private String post_location;
     private String sender_student;  //FK
     private String target_student;  //FK
     private int target_alumniEvent; //FK

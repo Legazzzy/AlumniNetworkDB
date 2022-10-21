@@ -18,7 +18,7 @@ INSERT INTO student (id, name, picture, status, bio, fun_fact, complete) VALUES 
 
 
 -- AlumniGroups
-INSERT INTO alumni_group(student_id, description, _private, name) VALUES ('a', 'A club for cool people only', true, 'The Cool Club');
+INSERT INTO alumni_group(student_id, description, _private, name) VALUES ('a', 'A club for cool people only', false,, 'The Cool Club');
 INSERT INTO alumni_group(student_id, description, _private, name) VALUES ('b', 'A group for those who love mysteries', true, 'Gloomy True Crime Fans');
 INSERT INTO alumni_group(student_id, description, _private, name) VALUES ('c', 'For those who love to sing', false, 'Singers of Accelerate');
 INSERT INTO alumni_group(student_id, description, _private, name) VALUES ('d', 'We like movies', false, 'Accelerate Movie Club');
