@@ -120,9 +120,18 @@ public class StudentController {
 
     @PutMapping("{id}")
     public ResponseEntity update(@RequestBody StudentDTO studentDTO, @PathVariable String id) {
+        /*        AlumniGroup alumniGroup = alumniGroupService.findById(group_id);
+        Student student = studentService.findById(id);
+        Set<AlumniGroup> groups = student.getAlumniGroups();
+        groups.add(alumniGroup);
+        student.setAlumniGroups(groups);
+        studentService.update(student);*/
         if (id != studentDTO.getId())
             return ResponseEntity.badRequest().build();
-        studentService.update(studentMapper.studentDTOToStudent(studentDTO));
+        Student student = studentService.findById(id);
+        student = studentMapper.studentDTOToStudent(studentDTO);
+        
+        studentService.update(student);
         return ResponseEntity.noContent().build();
     }
 
