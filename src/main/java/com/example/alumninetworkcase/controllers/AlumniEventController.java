@@ -110,11 +110,11 @@ public class AlumniEventController {
     })
     @GetMapping("displayAvailableEvents")
     public ResponseEntity displayAvailableEvents(String accessing_student_id) {
-        Collection<AlumniEventDTO> events = eventMapper.alumniEventToAlumniEventDTO(
+        Collection<AlumniEventDTO> allEvents = eventMapper.alumniEventToAlumniEventDTO(
                 eventService.findAll()
         );
-        Collection<AlumniEventDTO> groups = new HashSet<AlumniEventDTO>();
-        for(AlumniEventDTO ed : events) {
+        Collection<AlumniEventDTO> events = new HashSet<AlumniEventDTO>();
+        for(AlumniEventDTO ed : allEvents) {
             if(!eventService.isStudentInEvent(accessing_student_id, eventService.findById(ed.getId()))){
                 events.add(ed);
             }
