@@ -164,7 +164,7 @@ public class PostController {
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(pd.getTarget_student() == accessing_student_id){
+            if(pd.getTarget_student() == accessing_student_id || pd.getSender_student() == accessing_student_id){
                 posts.add(pd);
             }
         }
