@@ -108,7 +108,7 @@ public class AlumniEventController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("displayAvailableEvents") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    @GetMapping("displayAvailableEvents")
     public ResponseEntity displayAvailableEvents(String accessing_student_id) {
         Collection<AlumniEventDTO> events = eventMapper.alumniEventToAlumniEventDTO(
                 eventService.findAll()
@@ -119,7 +119,7 @@ public class AlumniEventController {
                 events.add(ed);
             }
         }
-        return ResponseEntity.ok(groups);
+        return ResponseEntity.ok(events);
     }
 
     //find event with ID
