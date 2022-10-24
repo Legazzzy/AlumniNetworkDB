@@ -184,7 +184,7 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("{id}/viewGroupPosts") // GET: localhost:8080/ap    i/v1/alumnigroup/viewGroupPosts
+    @GetMapping("{id}/viewGroupPosts") // GET: localhost:8080/api/v1/alumnigroup/viewGroupPosts
     public ResponseEntity viewGroupPosts(@PathVariable int id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()

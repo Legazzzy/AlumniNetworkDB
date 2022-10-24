@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping(path = "api/v1/alumniEvent")
@@ -65,6 +66,60 @@ public class AlumniEventController {
                 eventService.findAll()
         );
         return ResponseEntity.ok(events);
+    }
+
+    @Operation(summary = "Find all alumni groups joined by specific student")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayJoinedEvents") // GET: localhost:8080/api/v1/alumnigroup/displayJoinedGroups
+    public ResponseEntity displayJoinedEvents(String accessing_student_id) {
+        Collection<AlumniEventDTO> allEvents = eventMapper.alumniEventToAlumniEventDTO(
+                eventService.findAll()
+        );
+        Collection<AlumniEventDTO> events = new HashSet<AlumniEventDTO>();
+        for(AlumniEventDTO ed : allEvents) {
+            if(eventService.isStudentInEvent(accessing_student_id, eventService.findById(ed.getId()))){
+                events.add(ed);
+            }
+        }
+        return ResponseEntity.ok(events);
+    }
+
+    @Operation(summary = "Find all alumni groups available to specific student that they have not yet joined")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "204",
+                    description = "AlumniGroups successfully found",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "Malformed request",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorAttributeOptions.class)) }),
+            @ApiResponse(responseCode = "404",
+                    description = "No alumni groups found",
+                    content = @Content)
+    })
+    @GetMapping("displayAvailableEvents") // GET: localhost:8080/api/v1/alumnigroup/displayAvailableGroups
+    public ResponseEntity displayAvailableEvents(String accessing_student_id) {
+        Collection<AlumniEventDTO> events = eventMapper.alumniEventToAlumniEventDTO(
+                eventService.findAll()
+        );
+        Collection<AlumniEventDTO> groups = new HashSet<AlumniEventDTO>();
+        for(AlumniEventDTO ed : events) {
+            if(!eventService.isStudentInEvent(accessing_student_id, eventService.findById(ed.getId()))){
+                events.add(ed);
+            }
+        }
+        return ResponseEntity.ok(groups);
     }
 
     //find event with ID
