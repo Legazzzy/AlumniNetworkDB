@@ -119,11 +119,14 @@ public class StudentController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@RequestBody Student student, @PathVariable String id) {
+    public ResponseEntity update(@RequestBody StudentDTO studentDTO, @PathVariable String id) {
+        Student student = studentService.findById(id);
+        student = studentMapper.studentDTOToStudent(studentDTO);
 
         studentService.update(student);
         return ResponseEntity.noContent().build();
     }
+
 
 
     @Operation(summary = "Get student with name")
