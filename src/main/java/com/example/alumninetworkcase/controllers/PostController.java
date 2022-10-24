@@ -164,7 +164,7 @@ public class PostController {
         );
         Collection<PostDTO> posts = new HashSet<PostDTO>();
         for(PostDTO pd : allPosts) {
-            if(pd.getTarget_student() == accessing_student_id){
+            if(pd.getTarget_student() == accessing_student_id || pd.getSender_student() == accessing_student_id){
                 posts.add(pd);
             }
         }
@@ -184,7 +184,7 @@ public class PostController {
                     description = "No alumni groups found",
                     content = @Content)
     })
-    @GetMapping("{id}/viewGroupPosts") // GET: localhost:8080/ap    i/v1/alumnigroup/viewGroupPosts
+    @GetMapping("{id}/viewGroupPosts") // GET: localhost:8080/api/v1/alumnigroup/viewGroupPosts
     public ResponseEntity viewGroupPosts(@PathVariable int id) {
         Collection<PostDTO> allPosts = postMapper.postToPostDTO(
                 postService.findAll()
